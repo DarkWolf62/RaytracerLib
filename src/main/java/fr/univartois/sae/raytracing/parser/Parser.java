@@ -4,6 +4,8 @@ import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.object.Triangle;
+import fr.univartois.sae.raytracing.scene.IBuilder;
+import fr.univartois.sae.raytracing.scene.SceneBuilder;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
@@ -37,9 +39,9 @@ public class Parser {
                 String data = myReader.nextLine();
                 String[] line = data.split(" ");
                 switch (line[0]) {
-                    case "ambient" : res.put("ambient", new Color(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])); break;
-                    case "diffuse" : res.put("diffuse", new Color(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])); break;
-                    case "specular" : res.put("specular", new Color(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])); break;
+                    case "ambient" : res.put("ambient", new Color(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3]))); break;
+                    case "diffuse" : res.put("diffuse", new Color(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3]))); break;
+                    case "specular" : res.put("specular", new Color(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3]))); break;
                 }
             }
             myReader.close();
