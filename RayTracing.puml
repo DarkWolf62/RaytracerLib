@@ -1,0 +1,72 @@
+@startuml
+
+interface Operation
+class Triplet
+class Vector
+class Point
+class Color
+class Main
+
+Operation <|-- Triplet
+Vector *-- Triplet : use
+Color *-- Triplet : use
+Point *-- Triplet : use
+
+
+class Triplet {
+-double x
+-double y
+-double z
+
++Triplet(x,y,z)
++toString()
++getX()
++getY()
++getZ()
+}
+
+interface Operation {
++addition(Triplet triplet)
++subtraction(Triplet triplet)
++scalarMultiplication(double d)
++scalarProduct(Triplet triplet)
++vectorProduct(Triplet triplet)
++schurProduct(Triplet triplet)
++norm()
++normalize()
+}
+
+class Vector{
+-Triplet triplet
++Vector(Triplet triplet)
++Vector(double x, double y, double z)
++addition(Triplet triplet)
++subtraction(Triplet triplet)
++scalarMultiplication(double d)
++scalarProduct(Triplet triplet)
++vectorProduct(Triplet triplet)
++norm()
++normalize()
+}
+
+class Point{
+- Triplet triplet
++Point(Triplet triplet)
++Point(double x, double y, double z)
++subtraction(Triplet triplet)
++scalarMultiplication(double d)
+}
+
+class Color{
+- Triplet triplet
++Color(Triplet triplet)
++Color(double x, double y, double z)
++addition(Triplet triplet)
++scalarMultiplication(double d)
++schurProduct(Triplet triplet)
+}
+
+class Main{
++ {static} main(String args[])
+}
+@enduml
