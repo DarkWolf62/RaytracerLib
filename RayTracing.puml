@@ -1,17 +1,25 @@
 @startuml
 
-interface Operation
 class Triplet
 class Vector
 class Point
 class Color
 class Main
+interface ILight
+class DirectionalLight
+class PonctualLight
 
-Operation <|-- Triplet
 Vector *-- Triplet : use
 Color *-- Triplet : use
 Point *-- Triplet : use
 
+ILight <|-- DirectionalLight : implements
+ILight <|-- PonctualLight : implements
+DirectionalLight *-- Color : use
+DirectionalLight *-- Vector : use
+
+PonctualLight *-- Color : use
+PonctualLight *-- Point : use
 
 class Triplet {
 -double x
@@ -19,52 +27,74 @@ class Triplet {
 -double z
 
 +Triplet(x,y,z)
-+toString()
-+getX()
-+getY()
-+getZ()
-}
-
-interface Operation {
-+addition(Triplet triplet)
-+subtraction(Triplet triplet)
-+scalarMultiplication(double d)
-+scalarProduct(Triplet triplet)
-+vectorProduct(Triplet triplet)
-+schurProduct(Triplet triplet)
-+norm()
-+normalize()
++toString() : String
++getX() : double
++getY() : double
++getZ() : double
++addition(Triplet triplet) : Triplet
++subtraction(Triplet triplet) : Triplet
++scalarMultiplication(double d) : Triplet
++scalarProduct(Triplet triplet) : Triplet
++vectorProduct(Triplet triplet) : Triplet
++schurProduct(Triplet triplet) : Triplet
++norm() : Triplet
++normalize() : Triplet
 }
 
 class Vector{
 -Triplet triplet
 +Vector(Triplet triplet)
 +Vector(double x, double y, double z)
-+addition(Triplet triplet)
-+subtraction(Triplet triplet)
-+scalarMultiplication(double d)
-+scalarProduct(Triplet triplet)
-+vectorProduct(Triplet triplet)
-+norm()
-+normalize()
++addition(Triplet triplet) : Vector
++subtraction(Triplet triplet) : Vector
++scalarMultiplication(double d) : Vector
++scalarProduct(Triplet triplet) : Vector
++vectorProduct(Triplet triplet) : Vector
++norm() : Vector
++normalize() : Vector
++ getTriplet() : Triplet
 }
 
 class Point{
 - Triplet triplet
 +Point(Triplet triplet)
 +Point(double x, double y, double z)
-+subtraction(Triplet triplet)
-+scalarMultiplication(double d)
++subtraction(Triplet triplet) : Vector
++scalarMultiplication(double d) : Point
++ getTriplet() : Triplet
 }
 
 class Color{
 - Triplet triplet
 +Color(Triplet triplet)
 +Color(double x, double y, double z)
-+addition(Triplet triplet)
-+scalarMultiplication(double d)
-+schurProduct(Triplet triplet)
++ addition(Triplet triplet) : Color
++ scalarMultiplication(double d) : Color
++ schurProduct(Triplet triplet) : Color
++ getTriplet() : Triplet
 }
+
+interface ILight {
++ Triplet getAmbiant()
++ Triplet getDiffuse()
++ Triplet getSpecular()
++ double getShininess()
++ Triplet[] getDirectional()
++ Triplet[] getPoint()
+}
+
+class PonctualLight{
+- Point point
+- Color color
++ PonctualLight()
+}
+
+class DirectionalLight{
+- Vector vector
+- Color color
++ DirectionalLight()
+}
+
 
 class Main{
 + {static} main(String args[])
