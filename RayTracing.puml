@@ -5,21 +5,42 @@ class Vector
 class Point
 class Color
 class Main
-interface ILight
+class Light
 class DirectionalLight
 class PonctualLight
+abstract class Object
+
+class Plane
+class Triangle
+class Sphere
+
+class Scene
+interface IBuilder
+class SceneBuilder
 
 Vector *-- Triplet : use
 Color *-- Triplet : use
 Point *-- Triplet : use
 
-ILight <|-- DirectionalLight : implements
-ILight <|-- PonctualLight : implements
 DirectionalLight *-- Color : use
 DirectionalLight *-- Vector : use
 
 PonctualLight *-- Color : use
 PonctualLight *-- Point : use
+
+
+Triangle "3" *-- "0..n" Point : use
+Plane "2" *-- "0..n" Triplet : use
+Sphere *-- Triplet : use
+
+Parser *-- IBuilder : builder
+IBuilder <|-- SceneBuilder : implements
+Scene <-- SceneBuilder
+Scene "0..n" *-- "0.1" Light
+Scene "0..n" *-- "0.1" Object
+Scene "3"*-- "0.1" Triplet : use
+
+
 
 class Triplet {
 -double x
@@ -34,10 +55,10 @@ class Triplet {
 +addition(Triplet triplet) : Triplet
 +subtraction(Triplet triplet) : Triplet
 +scalarMultiplication(double d) : Triplet
-+scalarProduct(Triplet triplet) : Triplet
++scalarProduct(Triplet triplet) : double
 +vectorProduct(Triplet triplet) : Triplet
 +schurProduct(Triplet triplet) : Triplet
-+norm() : Triplet
++norm() : double
 +normalize() : Triplet
 }
 
@@ -48,9 +69,9 @@ class Vector{
 +addition(Triplet triplet) : Vector
 +subtraction(Triplet triplet) : Vector
 +scalarMultiplication(double d) : Vector
-+scalarProduct(Triplet triplet) : Vector
++scalarProduct(Triplet triplet) : double
 +vectorProduct(Triplet triplet) : Vector
-+norm() : Vector
++norm() : double
 +normalize() : Vector
 + getTriplet() : Triplet
 }
@@ -74,29 +95,87 @@ class Color{
 + getTriplet() : Triplet
 }
 
-interface ILight {
-+ Triplet getAmbiant()
-+ Triplet getDiffuse()
-+ Triplet getSpecular()
-+ double getShininess()
-+ Triplet[] getDirectional()
-+ Triplet[] getPoint()
+
+class Light{
+Color color
++ Light(Color color)
 }
 
-class PonctualLight{
+class PonctualLight extends Light{
 - Point point
-- Color color
-+ PonctualLight()
++ PonctualLight(Point point, Color color)
 }
 
-class DirectionalLight{
+class DirectionalLight extends Light{
 - Vector vector
-- Color color
-+ DirectionalLight()
++ DirectionalLight(Vector vector, Color color)
 }
 
+class Triangle extends Object {
+- Point a
+- Point b
+- Point c
++ Triangle()
++ setA() : void
++ setB() : void
++ setC() : void
+}
+
+class Plane extends Object{
+- Triplet coordinate
+- Triplet normal
++ Plane()
+}
+
+class Sphere extends Object {
+- Triplet coordinate
+- double radius
++ Sphere()
+}
+
+'note "Patron de conception : Builder" as N2
+'Scene .. N2
+'IBuilder .. N2
+'SceneBuilder .. N2
+'Parser .. N2
+
+class Scene{
+- int width
+- int height
+- Triplet[] camera
+- Light[] lights
+- Color[] colors
+- Object[] objects
++ Scene(Ligth[] ligths, Color[] colors)
+}
+
+interface IBuilder {
++ buildColors() : void
++ buildScene() : void
++ buildObject() : void
++ buildLight() : void
+}
+
+class SceneBuilder {
++ buildScene() : void
++ buildObject() : void
++ buildLight() : void
++ getResult() : Scene
+}
+
+class Parser {
++IBuilder builder
++String chemin
++Parser(String chemin)
++construct() : void
++ getColors() : JsonObject
++getScene() : JsonObject
++getLight() : JsonObject
++getObject() : JsonObject
+}
 
 class Main{
 + {static} main(String args[])
 }
+
 @enduml
