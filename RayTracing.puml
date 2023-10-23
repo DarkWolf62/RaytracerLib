@@ -22,10 +22,9 @@ Vector *-- Triplet : use
 Color *-- Triplet : use
 Point *-- Triplet : use
 
-DirectionalLight *-- Color : use
 DirectionalLight *-- Vector : use
 
-PonctualLight *-- Color : use
+Light *-- Color : use
 PonctualLight *-- Point : use
 
 
@@ -104,11 +103,13 @@ Color color
 class PonctualLight extends Light{
 - Point point
 + PonctualLight(Point point, Color color)
++ getPoint() : Point
 }
 
 class DirectionalLight extends Light{
 - Vector vector
 + DirectionalLight(Vector vector, Color color)
++ getVector() : Vector
 }
 
 class Triangle extends Object {
@@ -146,7 +147,7 @@ class Scene{
 - Light[] lights
 - Color[] colors
 - Object[] objects
-+ Scene(Ligth[] ligths, Color[] colors)
++ Scene(Ligth[] ligths, Color[] colors, Object[] objects, int width, int height, Triplet[] camera)
 }
 
 interface IBuilder {
@@ -157,6 +158,12 @@ interface IBuilder {
 }
 
 class SceneBuilder {
+- int width
+- int height
+- Triplet[] camera
+- Light[] lights
+- Color[] colors
+- Object[] objects
 + buildScene() : void
 + buildObject() : void
 + buildLight() : void
