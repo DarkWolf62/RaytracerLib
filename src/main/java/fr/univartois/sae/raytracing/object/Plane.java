@@ -1,5 +1,6 @@
 package fr.univartois.sae.raytracing.object;
 
+import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 
 /**
@@ -11,7 +12,7 @@ public class Plane extends AObject{
     /**
      * represents the coordinate of the plane
      */
-    private Triplet coordinate;
+    private Point coordinate;
     /**
      * represents the normal of the plane
      */
@@ -20,9 +21,9 @@ public class Plane extends AObject{
     /**
      * constructor of this class.
      */
-    public Plane(){
-        coordinate=new Triplet(0,0,0);
-        normal=new Triplet(0,0,0);
+    public Plane(Point coordinate, Triplet normal){
+        this.coordinate = coordinate;
+        this.normal=normal;
 
     }
 }

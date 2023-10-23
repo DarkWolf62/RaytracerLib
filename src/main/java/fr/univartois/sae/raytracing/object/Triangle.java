@@ -24,33 +24,9 @@ public class Triangle extends AObject{
     /**
      * constructor of this class
      */
-    public Triangle(){
-        a=new Point(0,0,0);
-        b=new Point(0,0,0);
-        c=new Point(0,0,0);
-
-
-    }
-
-    /**
-     * setter of point 'a' of the triangle
-     * @param a
-     */
-    public void setA(Point a) {
+    public Triangle(Point a, Point b, Point c){
         this.a = a;
-    }
-    /**
-     * setter of point 'b' of the triangle
-     * @param b
-     */
-    public void setB(Point b) {
         this.b = b;
-    }
-    /**
-     * setter of point 'c' of the triangle
-     * @param c
-     */
-    public void setC(Point c) {
         this.c = c;
     }
 }

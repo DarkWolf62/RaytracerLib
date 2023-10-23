@@ -1,5 +1,6 @@
 package fr.univartois.sae.raytracing.object;
 
+import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 
 
@@ -10,7 +11,7 @@ public class Sphere extends AObject {
     /**
      * represents the coordinate of the sphere
      */
-    private Triplet coordinate;
+    private Point coordinate;
     /**
      * represents the radius of the sphere
      */
@@ -19,10 +20,8 @@ public class Sphere extends AObject {
     /**
      * constructor of this class
      */
-    public Sphere(){
-        coordinate=new Triplet(0,0,0);
-        radius=0;
-
-
+    public Sphere(Point coordinate, double radius){
+        this.coordinate = coordinate;
+        this.radius = radius;
     }
 }
