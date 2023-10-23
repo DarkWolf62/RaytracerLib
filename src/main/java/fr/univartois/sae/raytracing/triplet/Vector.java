@@ -56,7 +56,7 @@ public class Vector {
     }
 
     /**
-     * caculate the scalar product of the current vector by a triplet
+     * calculate the scalar product of the current vector by a triplet
      * @param triplet
      * @return the scalar product of the current vector by a triplet
      */
@@ -65,7 +65,7 @@ public class Vector {
     }
 
     /**
-     caculate the vector product of the current vector by a triplet
+     calculate the vector product of the current vector by a triplet
      * @param triplet
      * @return the vector product of the current vector by a triplet
      */
