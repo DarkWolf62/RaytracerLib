@@ -17,8 +17,12 @@ public class Scene {
     private Color[] colors;
     private AObject[] objects;
 
-    public Scene(Light[] lights, Color[] colors) {
+    public Scene(int width, int height, ArrayList<Triplet> camera, Light[] lights, Color[] colors, AObject[] objects) {
+        this.width = width;
+        this.height = height;
+        this.camera = camera;
         this.lights = lights;
         this.colors = colors;
+        this.objects = objects;
     }
 }
