@@ -3,7 +3,7 @@ package fr.univartois.sae.raytracing.triplet;
 /**
  * @author matheo.dupuis
  *
- *This class represents a vector
+ * This class represents a vector
  */
 public class Vector {
 
@@ -31,32 +31,60 @@ public class Vector {
     /**
      * addition of 2 vectors using a triplet
      * @param triplet
-     * @return
+     * @return Vector using current triplet added with triplet in parameter
      */
     public Vector addition(Triplet triplet){
-        return null;
+        return new Vector(this.triplet.addition(triplet));
     }
 
-    public Vector substraction(Triplet triplet){
-        return null;
+    /**
+     * subtraction of 2 vectors using a triplet
+     * @param triplet
+     * @return Vector using current triplet subtracted with triplet in parameter
+     */
+    public Vector subtraction(Triplet triplet){
+        return new Vector(this.triplet.subtraction(triplet));
     }
 
+    /**
+     * calculate the scalar multiplication of the current vector by the number d
+     * @param d
+     * @return scalar multiplication of the current vector by the number d
+     */
     public Vector scalarMultiplication(double d){
-        return null;
+        return new Vector(this.triplet.scalarMultiplication(d));
     }
 
-    public Vector scalarProduct(Triplet triplet){
-        return null;
+    /**
+     * caculate the scalar product of the current vector by a triplet
+     * @param triplet
+     * @return the scalar product of the current vector by a triplet
+     */
+    public double scalarProduct(Triplet triplet){
+        return this.triplet.scalarProduct(triplet);
     }
 
+    /**
+     caculate the vector product of the current vector by a triplet
+     * @param triplet
+     * @return the vector product of the current vector by a triplet
+     */
     public Vector vectorProduct(Triplet triplet){
-        return null;
+        return new Vector(this.triplet.vectorProduct(triplet));
     }
 
-    public Vector norm(){
-        return null;
+    /**
+     *
+     * @return the norm of the current vector
+     */
+    public double norm(){
+        return this.triplet.norm();
     }
 
+    /**
+     *
+     * @return the triplet of the current vector
+     */
     public Triplet getTriplet(){
         return this.triplet;
     }
