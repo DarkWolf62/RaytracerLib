@@ -9,11 +9,12 @@ public class Point {
     public Point(int x,int y,int z){
         triplet=new Triplet(x,y,z);
     }
-    public Triplet subtraction(Triplet triplet){
-        return null;
+    public Vector subtraction(Triplet triplet){
+
+        return new Vector(this.triplet.subtraction(triplet));
     }
     public Point scalarMultiplication(double d){
-        return null;
+        return new Point(triplet.scalarMultiplication(d));
 
     }
     public Triplet getTriplet(){
