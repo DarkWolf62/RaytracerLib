@@ -145,6 +145,38 @@ public class Scene {
     }
 
     /**
+     * Returns the fov
+     * @return the fov
+     */
+    public int getFov() {
+        return fov;
+    }
+
+    /**
+     * Set a fov
+     * @param fov
+     */
+    public void setFov(int fov) {
+        this.fov = fov;
+    }
+
+    /**
+     * Returns the output
+     * @return the output
+     */
+    public String getOutput() {
+        return output;
+    }
+
+    /**
+     * Sets the output
+     * @param output
+     */
+    public void setOutput(String output) {
+        this.output = output;
+    }
+
+    /**
      * Prints the current object
      * @return String
      */

@@ -82,6 +82,12 @@ public class Vector {
     }
 
     /**
+     * Returns the normalisation of a triplet
+     * @return the normalisation of the triplet
+     */
+    public Vector normalize() { return new Vector(this.triplet.normalize()); }
+
+    /**
      *
      * @return the triplet of the current vector
      */
