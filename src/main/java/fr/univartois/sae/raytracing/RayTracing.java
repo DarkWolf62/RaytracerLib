@@ -4,11 +4,15 @@ import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
+import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class RayTracing {
 
@@ -40,18 +44,20 @@ public RayTracing(Scene scene){
     double fovr = (scene.getFov()*Math.PI)/180;
     double pixelHeight = Math.tan(fovr/2);
     double pixelWidth = pixelHeight * (scene.getWidth()/ scene.getHeight());
+    Color[][] colors = new Color[scene.getWidth()][scene.getHeight()];
     for(int i=0;i<scene.getWidth();i++){
-        for(int j=0;j<scene.getHeight();j++){
-            double a = (-(scene.getWidth()/2)+(i+0.5)* pixelWidth);
-            double b = ((scene.getHeight()/2)-(j+0.5)*pixelHeight);
-            double t;
-            Vector d = new Vector(u.scalarMultiplication(a).addition(v.scalarMultiplication(b).subtraction(w.getTriplet()).scalarMultiplication(1/u.scalarMultiplication(a).addition(v.scalarMultiplication(b).subtraction(w.getTriplet()).getTriplet()).norm()).getTriplet()).getTriplet());
+        for(int j=0;j<scene.getHeight();j++) {
+            double a = (-(scene.getWidth() / 2) + (i + 0.5) * pixelWidth);
+            double b = ((scene.getHeight() / 2) - (j + 0.5) * pixelHeight);
+            double t = -1;
+            Vector d = new Vector(u.scalarMultiplication(a).addition(v.scalarMultiplication(b).subtraction(w.getTriplet()).scalarMultiplication(1 / u.scalarMultiplication(a).addition(v.scalarMultiplication(b).subtraction(w.getTriplet()).getTriplet()).norm()).getTriplet()).getTriplet());
             for (AObject object : scene.getObjects()) {
                 if (object instanceof Sphere) {
                     double t2;
                     double tb = lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).scalarMultiplication(2).scalarProduct(d.getTriplet());
                     double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())) - (((Sphere) object).getRadius() * ((Sphere) object).getRadius());
-                    double delta = Math.pow(tb, 2) - 4 * tc;
+                    double delta = Math.pow(tb, 2) - (4 * tc);
+                    System.out.println(delta);
                     if (delta == 0) {
                         t = -tb / 2;
                     } else if (delta > 0) {
@@ -64,8 +70,25 @@ public RayTracing(Scene scene){
                     }
                 }
             }
-            //Point p = new Point();
+            Color color = new Color(0.0,0.0,0.0);
+            if (t != -1) {
+                //Point p = new Point(lookFrom.addition(d.getTriplet()).scalarMultiplication(t));
+                color = scene.getColors().get(0);
+            }
+            colors[i][j] = color;
         }
+    }
+    try {
+        image = new BufferedImage(scene.getWidth(),scene.getHeight(), 1);
+        for (int i=0; i< scene.getWidth(); i++) {
+            for (int j=0; j< scene.getHeight();j++) {
+                image.setRGB(i,j,new java.awt.Color((int) (colors[i][j].getTriplet().getX()*255), (int) (colors[i][j].getTriplet().getY()*255), (int) (colors[i][j].getTriplet().getZ()*255)).getRGB());
+            }
+        }
+        File outputfile = new File(scene.getOutput());
+        ImageIO.write(image, "png", outputfile);
+    } catch (IOException e) {
+        e.printStackTrace();
     }
 }
 

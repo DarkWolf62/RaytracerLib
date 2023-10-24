@@ -20,5 +20,6 @@ public class Main {
         SceneBuilder sceneBuilder = (SceneBuilder) parser.getBuilder();
         Scene scene = sceneBuilder.getResult();
         System.out.println(scene.toString());
+        RayTracing r = new RayTracing(scene);
     }
 }
