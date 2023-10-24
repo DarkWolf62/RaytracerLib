@@ -30,4 +30,15 @@ public class PonctualLight extends Light{
     public Point getPoint() {
         return point;
     }
+
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "PonctualLight{" +
+                "point=" + point +
+                '}';
+    }
 }

@@ -54,4 +54,15 @@ public class Point {
     public Triplet getTriplet(){
         return triplet;
     }
+
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Point{" +
+                "triplet=" + triplet +
+                '}';
+    }
 }

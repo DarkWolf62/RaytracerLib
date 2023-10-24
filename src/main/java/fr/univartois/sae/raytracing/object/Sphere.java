@@ -24,4 +24,16 @@ public class Sphere extends AObject {
         this.coordinate = coordinate;
         this.radius = radius;
     }
+
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Sphere{" +
+                "coordinate=" + coordinate +
+                ", radius=" + radius +
+                '}';
+    }
 }
