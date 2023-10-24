@@ -21,6 +21,7 @@ public class Scene {
     private ArrayList<Light> lights;
     private ArrayList<Color> colors;
     private ArrayList<AObject> objects;
+    private int fov;
 
 
     /**
@@ -33,13 +34,14 @@ public class Scene {
      * @param colors
      * @param objects
      */
-    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, ArrayList<Color> colors, ArrayList<AObject> objects) {
+    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, ArrayList<Color> colors, ArrayList<AObject> objects, int fov) {
         this.width = width;
         this.height = height;
         this.camera = camera;
         this.lights = lights;
         this.colors = colors;
         this.objects = objects;
+        this.fov = fov;
     }
 
     /**
