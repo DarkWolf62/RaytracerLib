@@ -141,31 +141,35 @@ class Scene{
 - int width
 - int height
 - Triplet[] camera
+- int fov
 - Light[] lights
 - Color[] colors
 - double shininess
 - AObject[] AObjects
-+ Scene(Ligth[] ligths, Color[] colors, AObject[] AObjects, int width, int height, Triplet[] camera)
++ Scene(int width, int height, Triplet[] camera, Light[] lights, Color[] colors, AObject[] objects, int fov)
++ toString() : String
 }
 
 interface IBuilder {
-+ buildColors() : void
-+ buildScene() : void
-+ buildAObject() : void
-+ buildLight() : void
++ buildScene(int width, int height, int shininess): void
++ buildCamera(Triplet[] camera, int fov) : void
++ buildObject(AObject[] objects) : void
++ buildLight(Light[] lights) : void
 }
 
 class SceneBuilder {
 - int width
 - int height
 - Triplet[] camera
+- int fov
 - Light[] lights
 - Color[] colors
 - double shininess
-- AObject[] AObjects
-+ buildScene() : void
-+ buildAObject() : void
-+ buildLight() : void
+- AObject[] objects
++ buildScene(int width, int height, int shininess): void
++ buildCamera(Triplet[] camera, int fov) : void
++ buildObject(AObject[] objects) : void
++ buildLight(Light[] lights) : void
 + getResult() : Scene
 }
 
@@ -178,6 +182,7 @@ class Parser {
 +getScene() : JsonAObject
 +getLight() : JsonAObject
 +getAObject() : JsonAObject
++ getBuilder() : IBuilder
 }
 
 class Main{
