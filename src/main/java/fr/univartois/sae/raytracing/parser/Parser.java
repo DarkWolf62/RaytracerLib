@@ -132,8 +132,9 @@ public class Parser {
         res.put("height", null);
         res.put("width", null);
         res.put("camera", null);
-        res.put("shininess", null);
+        res.put("shininess", 0.0);
         res.put("fov", null);
+        res.put("output", "default.png");
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
@@ -141,17 +142,18 @@ public class Parser {
                 String data = myReader.nextLine();
                 String[] line = data.split(" ");
                 switch (line[0]) {
-                    case "size" : res.put("width", line[1]); res.put("height", line[2]); break;
+                    case "size" : res.put("width", parseInt(line[1])); res.put("height", parseInt(line[2])); break;
                     case "camera" :
                         ArrayList<Triplet> l = new ArrayList<Triplet>();
                         l.add(new Triplet(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])));
                         l.add(new Triplet(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])));
                         l.add(new Triplet(parseDouble(line[7]), parseDouble(line[8]), parseDouble(line[9])));
                         res.put("camera",l);
-                        res.put("fov", line[10]);
+                        res.put("fov", parseInt(line[10]));
 
                         break;
-                    case "shininess" : res.put("shininess", parseInt(line[2])); break;
+                    case "shininess" : res.put("shininess", parseDouble(line[1])); break;
+                    case "output" : res.put("output", line[1]); break;
                 }
             }
             myReader.close();
@@ -162,11 +164,23 @@ public class Parser {
         return res;
     }
 
+    /**
+     * Getter for the builder
+     * @return builder for the scene
+     */
+    public IBuilder getBuilder() {
+        return builder;
+    }
+
+    /**
+     * This function put the right values for the builder
+     */
     public void construct(){
-        builder.buildCamera((ArrayList<Triplet>) getScene().get("camera"),(Integer)getScene().get("fov"));
+        builder.buildCamera((ArrayList<Triplet>) getScene().get("camera"),(Integer) getScene().get("fov"));
         builder.buildLight(getLights());
         builder.buildColors(getColors());
         builder.buildObject(getObject());
-        builder.buildScene((Integer)getScene().get("width"), (Integer)getScene().get("height"), (Double) getScene().get("shininess"));
+        builder.buildScene((Integer) getScene().get("width"), (Integer)getScene().get("height"), (Double) getScene().get("shininess"), (String) getScene().get("output"));
+
     }
 }

@@ -30,4 +30,15 @@ public class DirectionalLight extends Light{
     public Vector getVector() {
         return vector;
     }
+
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "DirectionalLight{" +
+                "vector=" + vector +
+                '}';
+    }
 }

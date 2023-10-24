@@ -23,6 +23,7 @@ public class SceneBuilder implements IBuilder{
     private ArrayList<AObject> objects;
     private int fov;
     private double shininess;
+    private String output;
 
     /*
     ATTENTION CA RISQUE DE PAS MARCHER CAR IL MANQUE UN CONSTRUCTEUR DANS
@@ -35,12 +36,15 @@ public class SceneBuilder implements IBuilder{
      * @param width
      * @param height
      * @param shininess
+     * @param output
      */
     @Override
-    public void buildScene(int width, int height, double shininess) {
+    public void buildScene(int width, int height, double shininess, String output) {
         this.width = width;
         this.height = height;
-        this.shininess = shininess;
+        if(shininess != 0)
+            this.shininess = shininess;
+        this.output = output;
     }
 
     /**
@@ -79,6 +83,7 @@ public class SceneBuilder implements IBuilder{
      */
     @Override
     public void buildColors(JSONObject colors) {
+        this.colors = new ArrayList<>();
         if (colors.get("ambient") != null)
             this.colors.add((Color) colors.get("ambient"));
         if (colors.get("diffuse") != null)
@@ -93,6 +98,6 @@ public class SceneBuilder implements IBuilder{
      * @return the new Scene just created
      */
     public Scene getResult(){
-        return new Scene(width,height,camera,lights,colors,objects,fov);
+        return new Scene(width,height,camera,lights,colors,objects,fov, output);
     }
 }

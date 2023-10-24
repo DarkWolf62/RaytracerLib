@@ -21,8 +21,9 @@ public interface IBuilder {
      * @param width
      * @param height
      * @param shininess
+     * @param output
      */
-    public void buildScene(int width, int height, double shininess);
+    public void buildScene(int width, int height, double shininess, String output);
 
     /**
      * Set the settings for the camera
