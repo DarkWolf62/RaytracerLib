@@ -22,22 +22,34 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+/**
+ * Class parser used to read a configuration file.
+ * @author leo.denis
+ */
 public class Parser {
     private IBuilder builder;
-    private final String chemin;
+    private final String path;
 
-    public Parser(String chemin) {
-        this.chemin = chemin;
+    /**
+     * Parser constructor
+     * @param path the configuration file's path
+     */
+    public Parser(String path) {
+        this.path = path;
         builder = new SceneBuilder();
     }
 
+    /**
+     * Returns all the colors in the configuration file
+     * @return A JSONObject as {"ambient", "diffuse", "specular"}
+     */
     public JSONObject getColors() {
         JSONObject res = new JSONObject();
         res.put("ambient", null);
         res.put("diffuse", null);
         res.put("specular", null);
         try {
-            File myObj = new File(chemin);
+            File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
@@ -56,12 +68,16 @@ public class Parser {
         return res;
     }
 
+    /**
+     * Returns all the objects in the configuration file
+     * @return an ArrayList with all the objects
+     */
     public ArrayList<AObject> getObject() {
         ArrayList<AObject> res = new ArrayList<>();
         Point[] vertex = null;
         int nbV = 0;
         try {
-            File myObj = new File(chemin);
+            File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
@@ -82,17 +98,21 @@ public class Parser {
         return res;
     }
 
+    /**
+     * Returns all the lights in the configuration file
+     * @return an ArrayList with all the lights
+     */
     public ArrayList<Light> getLights() {
         ArrayList<Light> res = new ArrayList<>();
         try {
-            File myObj = new File(chemin);
+            File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 String[] line = data.split(" ");
                 switch (line[0]) {
-                    case "directional" : new DirectionalLight(new Vector(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Color(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6]))); break;
-                    case "point" : new PonctualLight(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Color(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6]))); break;
+                    case "directional" : res.add(new DirectionalLight(new Vector(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Color(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])))); break;
+                    case "point" : res.add(new PonctualLight(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Color(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])))); break;
                    }
             }
             myReader.close();
@@ -101,5 +121,66 @@ public class Parser {
             e.printStackTrace();
         }
         return res;
+    }
+
+    /**
+     * Returns the scene in the configuration file
+     * @return a JSONObject with all the scene parameters
+     */
+    public JSONObject getScene() {
+        JSONObject res = new JSONObject();
+        res.put("height", null);
+        res.put("width", null);
+        res.put("camera", null);
+        res.put("shininess", 0.0);
+        res.put("fov", null);
+        res.put("output", "default.png");
+        try {
+            File myObj = new File(path);
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] line = data.split(" ");
+                switch (line[0]) {
+                    case "size" : res.put("width", parseInt(line[1])); res.put("height", parseInt(line[2])); break;
+                    case "camera" :
+                        ArrayList<Triplet> l = new ArrayList<Triplet>();
+                        l.add(new Triplet(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])));
+                        l.add(new Triplet(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])));
+                        l.add(new Triplet(parseDouble(line[7]), parseDouble(line[8]), parseDouble(line[9])));
+                        res.put("camera",l);
+                        res.put("fov", parseInt(line[10]));
+
+                        break;
+                    case "shininess" : res.put("shininess", parseDouble(line[1])); break;
+                    case "output" : res.put("output", line[1]); break;
+                }
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    /**
+     * Getter for the builder
+     * @return builder for the scene
+     */
+    public IBuilder getBuilder() {
+        return builder;
+    }
+
+    /**
+     * This function put the right values for the builder
+     */
+    public void construct(){
+        builder.buildCamera((ArrayList<Triplet>) getScene().get("camera"),(Integer) getScene().get("fov"));
+        builder.buildLight(getLights());
+        builder.buildColors(getColors());
+        builder.buildObject(getObject());
+        builder.buildScene((Integer) getScene().get("width"), (Integer)getScene().get("height"), (Double) getScene().get("shininess"), (String) getScene().get("output"));
+
     }
 }

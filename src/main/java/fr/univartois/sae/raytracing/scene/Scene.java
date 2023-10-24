@@ -21,6 +21,8 @@ public class Scene {
     private ArrayList<Light> lights;
     private ArrayList<Color> colors;
     private ArrayList<AObject> objects;
+    private int fov;
+    private String output;
 
 
     /**
@@ -32,14 +34,18 @@ public class Scene {
      * @param lights
      * @param colors
      * @param objects
+     * @param fov
+     * @param output
      */
-    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, ArrayList<Color> colors, ArrayList<AObject> objects) {
+    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, ArrayList<Color> colors, ArrayList<AObject> objects, int fov, String output) {
         this.width = width;
         this.height = height;
         this.camera = camera;
         this.lights = lights;
         this.colors = colors;
         this.objects = objects;
+        this.fov = fov;
+        this.output = output;
     }
 
     /**
@@ -137,4 +143,24 @@ public class Scene {
     public void setObjects(ArrayList<AObject> objects) {
         this.objects = objects;
     }
+
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Scene{" +
+                "width=" + width +
+                ", height=" + height +
+                ", camera=" + camera +
+                ", lights=" + lights +
+                ", colors=" + colors +
+                ", objects=" + objects +
+                ", fov=" + fov +
+                ", output=" + output +
+                '}';
+    }
 }
+
+
