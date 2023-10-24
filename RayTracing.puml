@@ -38,6 +38,7 @@ Scene <-- SceneBuilder
 Scene "0..n" *-- "0.1" Light
 Scene "0..n" *-- "0.1" AObject
 Scene "3"*-- "0.1" Triplet : use
+RayTracing *-- Scene : use
 
 
 
@@ -137,26 +138,44 @@ class Sphere extends AObject {
 - double radius
 + Sphere(Point coordinate, double radius)
 + toString() : String
++ getCoordinate() : Point
++ getRadius() : double
 }
 
-/'note "Patron de conception : Builder" as N2
+note "Patron de conception : Builder" as N2
 Scene .. N2
 IBuilder .. N2
 SceneBuilder .. N2
-Parser .. N2'/
+Parser .. N2
 
 class Scene{
 - int width
 - int height
 - Triplet[] camera
-- int fov
 - Light[] lights
 - Color[] colors
 - double shininess
 - AObject[] AObjects
+- int fov
 - String output
 + Scene(int width, int height, Triplet[] camera, Light[] lights, Color[] colors, AObject[] objects, int fov, String output)
 + toString() : String
++ getWidth() : int
++ setWidth() : void
++ getHeight() : int
++ setHeight() : void
++ getCamera() : Triplet[]
++ setCamera() : void
++ getLights() : Light[]
++ setLights() : void
++ getColors() : Color[]
++ setColors() : void
++ getAObjects() : AObject[]
++ setAObjects() : void
++ getFov() : int
++ setFov() : void
++ getOutput() : String
++ setOutput() : void
 }
 
 interface IBuilder {
@@ -198,6 +217,13 @@ class Parser {
 
 class Main{
 + {static} main(String args[])
+}
+
+class RayTracing{
+- Scene scene
+- BufferedImage image
++ RayTracing(Scene scene)
++ createImage(Color[][] colors) : void
 }
 
 @enduml
