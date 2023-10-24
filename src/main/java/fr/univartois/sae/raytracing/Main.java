@@ -4,6 +4,7 @@ import fr.univartois.sae.raytracing.parser.Parser;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
 
+
 import java.net.URL;
 
 
@@ -14,7 +15,7 @@ import java.net.URL;
  *
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Parser parser = new Parser("src/main/resources/fr.univartois.sae.raytracing/test.txt");
         parser.construct();
         SceneBuilder sceneBuilder = (SceneBuilder) parser.getBuilder();

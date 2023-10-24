@@ -4,10 +4,10 @@ import fr.univartois.sae.raytracing.light.Light;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Triplet;
-import netscape.javascript.JSObject;
-import org.json.simple.JSONObject;
+
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author matheo.dupuis
@@ -48,7 +48,7 @@ public interface IBuilder {
      * Set the values of the colors inside color list using a JSONObject
      * @param colors
      */
-    public void buildColors(JSONObject colors);
+    public void buildColors(Map<String, Color> colors);
 
 
 }

@@ -1,0 +1,26 @@
+// SI IL Y A UN PROBLEME, FAUT MODIFIER LA MAINCLASS
+
+
+plugins {
+    id 'application'
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.13'}
+
+
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+
+application {
+    mainClass = 'fr.univartois.sae.raytracing.Main'
+}
+
+javafx {
+    version = '17.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
