@@ -1,6 +1,8 @@
 package fr.univartois.sae.raytracing.parser;
 
+import fr.univartois.sae.raytracing.light.DirectionalLight;
 import fr.univartois.sae.raytracing.light.Light;
+import fr.univartois.sae.raytracing.light.PonctualLight;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
@@ -8,6 +10,7 @@ import fr.univartois.sae.raytracing.object.Triangle;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
+import fr.univartois.sae.raytracing.triplet.Vector;
 import org.json.simple.JSONObject;
 
 import java.io.*;
@@ -78,9 +81,7 @@ public class Parser {
     }
 
     public ArrayList<Light> getLights() {
-        ArrayList<AObject> res = new ArrayList<>();
-        Point[] vertex = null;
-        int nbV = 0;
+        ArrayList<Light> res = new ArrayList<>();
         try {
             File myObj = new File(chemin);
             Scanner myReader = new Scanner(myObj);
@@ -88,12 +89,9 @@ public class Parser {
                 String data = myReader.nextLine();
                 String[] line = data.split(" ");
                 switch (line[0]) {
-                    case "maxverts" : vertex = new Point[parseInt(line[1])]; break;
-                    case "vertex" : vertex[nbV] = new Point(new Triplet(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3]))); nbV++; break;
-                    case "tri" : res.add(new Triangle(vertex[parseInt(line[1])], vertex[parseInt(line[2])], vertex[parseInt(line[3])])); break;
-                    case "sphere" : res.add(new Sphere(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), parseDouble(line[4]))); break;
-                    case "plane" : res.add(new Plane(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])),new Triplet(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])))); break;
-                }
+                    case "directional" : new DirectionalLight(new Vector(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Color(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6]))); break;
+                    case "point" : new PonctualLight(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Color(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6]))); break;
+                   }
             }
             myReader.close();
         } catch (FileNotFoundException e) {
