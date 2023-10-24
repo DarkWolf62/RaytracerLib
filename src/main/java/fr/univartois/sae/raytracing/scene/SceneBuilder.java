@@ -4,9 +4,9 @@ import fr.univartois.sae.raytracing.light.Light;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Triplet;
-import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 /**
@@ -82,7 +82,7 @@ public class SceneBuilder implements IBuilder{
      * @param colors
      */
     @Override
-    public void buildColors(JSONObject colors) {
+    public void buildColors(Map<String, Color> colors) {
         this.colors = new ArrayList<>();
         if (colors.get("ambient") != null)
             this.colors.add((Color) colors.get("ambient"));

@@ -96,7 +96,7 @@ public class Triplet {
      * @return the new triplet
      */
     public Triplet vectorProduct(Triplet triplet) {
-        return new Triplet(y*triplet.getZ()-z*triplet.getY(), z*triplet.getX()+x*triplet.getZ(),x* triplet.getY()-y* triplet.getX());
+        return new Triplet(y*triplet.getZ()-z*triplet.getY(), z*triplet.getX()-x*triplet.getZ(),x* triplet.getY()-y* triplet.getX());
     }
 
     /**
@@ -121,6 +121,6 @@ public class Triplet {
      * @return the normalisation of the triplet
      */
     public Triplet normalize() {
-        return scalarMultiplication(1/norm());
+        return scalarMultiplication(1/this.norm());
     }
 }
