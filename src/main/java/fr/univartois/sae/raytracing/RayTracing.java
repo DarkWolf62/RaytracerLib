@@ -1,5 +1,6 @@
 package fr.univartois.sae.raytracing;
 
+import fr.univartois.sae.raytracing.light.IStrategy;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.scene.Scene;
@@ -37,6 +38,8 @@ public class RayTracing {
 
     private BufferedImage image;
 
+    private IStrategy strategy;
+
     /**
      * Create an image from a scene
      * @param scene the scene
@@ -61,6 +64,7 @@ public class RayTracing {
                 Vector d = new Vector((((u.scalarMultiplication(a)).addition(v.scalarMultiplication(b).getTriplet())).subtraction(w.getTriplet())).scalarMultiplication(1 / (((u.scalarMultiplication(a).addition(v.scalarMultiplication(b).getTriplet()).subtraction(w.getTriplet())).getTriplet()).norm())).getTriplet());
                 for (AObject object : scene.getObjects()) {
                     if (object instanceof Sphere) {
+                        // IL VA FALLOIR UTILISER LES FONCTIONS MODELES ICI !!!
                         double t2;
                         double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
                         double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).getTriplet()) - (Math.pow(((Sphere) object).getRadius(),2));
@@ -80,6 +84,7 @@ public class RayTracing {
                                 t = -1;
                             }
                         }
+                        // ICI !!!!
                     } else {
                         throw new UnsupportedOperationException();
                     }
