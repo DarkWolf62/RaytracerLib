@@ -8,7 +8,7 @@ class Main
 class Light
 class DirectionalLight
 class PonctualLight
-abstract class Object
+abstract class AObject
 
 class Plane
 class Triangle
@@ -22,10 +22,9 @@ Vector *-- Triplet : use
 Color *-- Triplet : use
 Point *-- Triplet : use
 
-DirectionalLight *-- Color : use
 DirectionalLight *-- Vector : use
 
-PonctualLight *-- Color : use
+Light *-- Color : use
 PonctualLight *-- Point : use
 
 
@@ -37,7 +36,7 @@ Parser *-- IBuilder : builder
 IBuilder <|-- SceneBuilder : implements
 Scene <-- SceneBuilder
 Scene "0..n" *-- "0.1" Light
-Scene "0..n" *-- "0.1" Object
+Scene "0..n" *-- "0.1" AObject
 Scene "3"*-- "0.1" Triplet : use
 
 
@@ -104,33 +103,32 @@ Color color
 class PonctualLight extends Light{
 - Point point
 + PonctualLight(Point point, Color color)
++ getPoint() : Point
 }
 
 class DirectionalLight extends Light{
 - Vector vector
 + DirectionalLight(Vector vector, Color color)
++ getVector() : Vector
 }
 
-class Triangle extends Object {
+class Triangle extends AObject {
 - Point a
 - Point b
 - Point c
-+ Triangle()
-+ setA() : void
-+ setB() : void
-+ setC() : void
++ Triangle(Point a, Point b, Point c)
 }
 
-class Plane extends Object{
-- Triplet coordinate
+class Plane extends AObject{
+- Point coordinate
 - Triplet normal
 + Plane()
 }
 
-class Sphere extends Object {
-- Triplet coordinate
+class Sphere extends AObject {
+- Point coordinate
 - double radius
-+ Sphere()
++ Sphere(Point coordinate, double radius)
 }
 
 'note "Patron de conception : Builder" as N2
@@ -145,20 +143,28 @@ class Scene{
 - Triplet[] camera
 - Light[] lights
 - Color[] colors
-- Object[] objects
-+ Scene(Ligth[] ligths, Color[] colors)
+- double shininess
+- AObject[] AObjects
++ Scene(Ligth[] ligths, Color[] colors, AObject[] AObjects, int width, int height, Triplet[] camera)
 }
 
 interface IBuilder {
 + buildColors() : void
 + buildScene() : void
-+ buildObject() : void
++ buildAObject() : void
 + buildLight() : void
 }
 
 class SceneBuilder {
+- int width
+- int height
+- Triplet[] camera
+- Light[] lights
+- Color[] colors
+- double shininess
+- AObject[] AObjects
 + buildScene() : void
-+ buildObject() : void
++ buildAObject() : void
 + buildLight() : void
 + getResult() : Scene
 }
@@ -168,10 +174,10 @@ class Parser {
 +String chemin
 +Parser(String chemin)
 +construct() : void
-+ getColors() : JsonObject
-+getScene() : JsonObject
-+getLight() : JsonObject
-+getObject() : JsonObject
++ getColors() : JsonAObject
++getScene() : JsonAObject
++getLight() : JsonAObject
++getAObject() : JsonAObject
 }
 
 class Main{
