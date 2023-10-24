@@ -20,7 +20,7 @@ public class Color {
      * Constructor for create a color with coordinate
      * @param x,y,z is a triplet
      */
-    public Color(int x,int y,int z){
+    public Color(double x,double y,double z){
         triplet=new Triplet(x,y,z);
     }
 

@@ -5,6 +5,8 @@ import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.object.Triangle;
+import fr.univartois.sae.raytracing.scene.IBuilder;
+import fr.univartois.sae.raytracing.scene.SceneBuilder;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
