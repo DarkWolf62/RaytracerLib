@@ -24,6 +24,5 @@ public class Plane extends AObject{
     public Plane(Point coordinate, Triplet normal){
         this.coordinate = coordinate;
         this.normal=normal;
-
     }
 }
