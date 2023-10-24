@@ -13,11 +13,11 @@ import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
-import org.json.simple.JSONObject;
+
+
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -41,10 +41,10 @@ public class Parser {
 
     /**
      * Returns all the colors in the configuration file
-     * @return A JSONObject as {"ambient", "diffuse", "specular"}
+     * @return A Map as {"ambient", "diffuse", "specular"}
      */
-    public JSONObject getColors() {
-        JSONObject res = new JSONObject();
+    public Map<String, Color> getColors() {
+        Map<String, Color> res = new HashMap<>();
         res.put("ambient", null);
         res.put("diffuse", null);
         res.put("specular", null);
@@ -125,15 +125,15 @@ public class Parser {
 
     /**
      * Returns the scene in the configuration file
-     * @return a JSONObject with all the scene parameters
+     * @return a Map with all the scene parameters
      */
-    public JSONObject getScene() {
-        JSONObject res = new JSONObject();
-        res.put("height", null);
-        res.put("width", null);
-        res.put("camera", null);
+    public Map<String, Object> getScene() {
+        Map<String, Object> res = new HashMap<>();
+        res.put("height", (Integer) null);
+        res.put("width", (Integer) null);
+        res.put("camera", (ArrayList<Triplet>) null);
         res.put("shininess", 0.0);
-        res.put("fov", null);
+        res.put("fov", (Double) null);
         res.put("output", "default.png");
         try {
             File myObj = new File(path);
