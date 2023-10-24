@@ -25,6 +25,14 @@ public class Sphere extends AObject {
         this.radius = radius;
     }
 
+    public Point getCoordinate() {
+        return coordinate;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
     /**
      * Prints the current object
      * @return String
