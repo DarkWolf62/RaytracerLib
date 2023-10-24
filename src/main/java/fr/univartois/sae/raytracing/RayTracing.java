@@ -30,7 +30,7 @@ public RayTracing(Scene scene){
     this.scene=scene;
     Triplet lookFrom=scene.getCamera().get(0);
     Triplet looKAt=scene.getCamera().get(1);
-    Vector w=new Vector(lookFrom.subtraction(looKAt)).vectorProduct((lookFrom.subtraction(looKAt).normalize()));
+    Vector w=new Vector(lookFrom.subtraction(looKAt)).scalarMultiplication((1/(lookFrom.subtraction(looKAt).norm())));
     for(int i=0;i<scene.getWidth();i++){
         for(int j=0;j<scene.getHeight();j++){
 
