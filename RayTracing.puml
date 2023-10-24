@@ -16,7 +16,7 @@ class Sphere
 
 class Scene
 interface IBuilder
-class SceneBuilder
+class Builder
 
 Vector *-- Triplet : use
 Color *-- Triplet : use
@@ -39,8 +39,7 @@ Scene "0..n" *-- "0.1" Light
 Scene "0..n" *-- "0.1" AObject
 Scene "3"*-- "0.1" Triplet : use
 RayTracing *-- Scene : use
-
-
+RayTracing *-- IStrategy : strategy
 
 class Triplet {
 -double x
@@ -222,8 +221,28 @@ class Main{
 class RayTracing{
 - Scene scene
 - BufferedImage image
+- IStrategy strategy
 + RayTracing(Scene scene)
 + createImage(Color[][] colors) : void
++ contextMethod()
++ executeStrategy()
++ setStrategy(IStrategy strategy) : void
 }
+
+class BasicModel implements IStrategy {
+modelMethod()
+}
+class LambertModel implements IStrategy{
+modelMethod()
+}
+interface IStrategy {
+modelMethod()
+}
+
+note "Patron de conception : Strategie" as N3
+BasicModel .. N3
+LambertModel .. N3
+IStrategy .. N3
+RayTracing .. N3
 
 @enduml
