@@ -7,7 +7,7 @@ import fr.univartois.sae.raytracing.triplet.Point;
  * This class represent a ponctual light.
  * @author nicolas.blart
  */
-public class PonctualLight {
+public class PonctualLight extends Light{
     /**
      * The point where the light is emitted
      */
@@ -19,7 +19,7 @@ public class PonctualLight {
      * @param color
      */
     public PonctualLight(Point point, Color color){
-        super();
+        super(color);
         this.point= point;
     }
 
