@@ -89,5 +89,14 @@ public class Vector {
         return this.triplet;
     }
 
-
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "triplet=" + triplet +
+                '}';
+    }
 }

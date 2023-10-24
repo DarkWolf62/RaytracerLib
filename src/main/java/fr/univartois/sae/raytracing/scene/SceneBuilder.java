@@ -21,6 +21,9 @@ public class SceneBuilder implements IBuilder{
     private ArrayList<Light> lights;
     private ArrayList<Color> colors;
     private ArrayList<AObject> objects;
+    private int fov;
+    private double shininess;
+    private String output;
 
     /*
     ATTENTION CA RISQUE DE PAS MARCHER CAR IL MANQUE UN CONSTRUCTEUR DANS
@@ -32,26 +35,27 @@ public class SceneBuilder implements IBuilder{
      * Set the values of width and height
      * @param width
      * @param height
+     * @param shininess
+     * @param output
      */
     @Override
-    public void buildScene(int width, int height) {
+    public void buildScene(int width, int height, double shininess, String output) {
         this.width = width;
         this.height = height;
+        if(shininess != 0)
+            this.shininess = shininess;
+        this.output = output;
     }
 
     /**
      * Set the settings for the camera
-     * @param lookFrom
-     * @param lookAt
-     * @param up
+     * @param camera
+     * @param fov
      */
     @Override
-    public void buildCamera(Triplet lookFrom, Triplet lookAt, Triplet up) {
-        this.camera = new ArrayList<>();
-        camera.add(lookFrom);
-        camera.add(lookAt);
-        camera.add(up);
-
+    public void buildCamera(ArrayList<Triplet> camera, int fov) {
+        this.camera = camera;
+        this.fov = fov;
     }
 
     /**
@@ -79,6 +83,7 @@ public class SceneBuilder implements IBuilder{
      */
     @Override
     public void buildColors(JSONObject colors) {
+        this.colors = new ArrayList<>();
         if (colors.get("ambient") != null)
             this.colors.add((Color) colors.get("ambient"));
         if (colors.get("diffuse") != null)
@@ -93,6 +98,6 @@ public class SceneBuilder implements IBuilder{
      * @return the new Scene just created
      */
     public Scene getResult(){
-        return new Scene(width,height,camera,lights,colors,objects);
+        return new Scene(width,height,camera,lights,colors,objects,fov, output);
     }
 }

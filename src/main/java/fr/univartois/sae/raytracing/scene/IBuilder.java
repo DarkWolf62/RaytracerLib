@@ -20,16 +20,17 @@ public interface IBuilder {
      * Set the values of width and height
      * @param width
      * @param height
+     * @param shininess
+     * @param output
      */
-    public void buildScene(int width, int height);
+    public void buildScene(int width, int height, double shininess, String output);
 
     /**
      * Set the settings for the camera
-     * @param lookFrom
-     * @param lookAt
-     * @param up
+     * @param camera an ArrayList with all the camera settings
+     * @param fov the fov of the scene
      */
-    public void buildCamera(Triplet lookFrom, Triplet lookAt, Triplet up);
+    public void buildCamera(ArrayList<Triplet> camera, int fov);
 
     /**
      * Set the lights list

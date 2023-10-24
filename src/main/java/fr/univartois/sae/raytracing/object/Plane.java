@@ -25,4 +25,16 @@ public class Plane extends AObject{
         this.coordinate = coordinate;
         this.normal=normal;
     }
+
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "coordinate=" + coordinate +
+                ", normal=" + normal +
+                '}';
+    }
 }

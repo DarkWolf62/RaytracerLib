@@ -61,4 +61,15 @@ public class Color {
     public Triplet getTriplet(){
         return triplet;
     }
+
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Color{" +
+                "triplet=" + triplet +
+                '}';
+    }
 }

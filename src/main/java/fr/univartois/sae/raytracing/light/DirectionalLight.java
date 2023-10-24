@@ -7,7 +7,7 @@ import fr.univartois.sae.raytracing.triplet.Vector;
  * This class represent a directional light.
  * @author nicolas.blart
  */
-public class DirectionalLight {
+public class DirectionalLight extends Light{
     /**
      * The direction of the light
      */
@@ -19,7 +19,7 @@ public class DirectionalLight {
      * @param color
      */
     public DirectionalLight(Vector vector, Color color){
-        super();
+        super(color);
         this.vector= vector;
     }
 
@@ -29,5 +29,16 @@ public class DirectionalLight {
      */
     public Vector getVector() {
         return vector;
+    }
+
+    /**
+     * Prints the current object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "DirectionalLight{" +
+                "vector=" + vector +
+                '}';
     }
 }
