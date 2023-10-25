@@ -4,7 +4,6 @@ import fr.univartois.sae.raytracing.light.IStrategy;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.scene.Scene;
-import fr.univartois.sae.raytracing.scene.SceneBuilder;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
@@ -18,21 +17,11 @@ import java.io.IOException;
 /**
  * Class RayTracing to generate an image from a scene
  * @author leo.denis
+ * @author matheo.dupuis
+ * @author nicolas.nourry
+ * @author nicolas.blart
  */
 public class RayTracing {
-
-        /*
-        charger la scène
-    — pour chaque pixel (i, j) de l’image à générer
-        — calculer le vecteur unitaire d qui représente un rayon allant de l’œil lookF rom au centre du
-        pixel (i, j)
-        — rechercher le point p = lookF rom + d × t d’intersection le plus proche (t minimal) avec un
-        objet de la scène
-        — si p existe alors calculer sa couleur
-        — sinon utiliser du noir
-        — peindre le pixel (i, j) avec la couleur adéquate
-        — sauvegarder l’image
-         */
 
     private Scene scene;
 
@@ -43,6 +32,7 @@ public class RayTracing {
     /**
      * Create an image from a scene
      * @param scene the scene
+     * @param strategy The strategy used to create the light
      */
     public RayTracing(Scene scene, IStrategy strategy){
         this.scene=scene;
@@ -69,7 +59,7 @@ public class RayTracing {
                 int index =0;
                 for (AObject object : scene.getObjects()) {
                     if (object instanceof Sphere) {
-                        // IL VA FALLOIR UTILISER LES FONCTIONS MODELES ICI !!!
+
                         double tmp;
                         double t2;
                         double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
@@ -96,13 +86,10 @@ public class RayTracing {
                             color = strategy.modelMethod((Sphere) scene.getObjects().get(o), o, p, scene);
                         }
 
-                        // ICI !!!!
                     } else {
                         throw new UnsupportedOperationException();
                     }
-//                    if (color.getTriplet().getY()<0.5 && color.getTriplet().getY()!=0.0) {
-//                        System.out.println("r");
-//                    }
+
                     colors[i][j] = new Color(color.getTriplet());
                 }
 
