@@ -47,6 +47,12 @@ public class Triangle extends AObject{
                 '}';
     }
 
+    /**
+     *
+     * @param p
+     * @param d
+     * @return
+     */
     @Override
     public double distance(Point p, Vector d) {
         throw new UnsupportedOperationException();
