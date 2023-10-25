@@ -4,8 +4,17 @@ import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
 /**
- *  this class represent an object
+ * @author  nicolas.nourry
+ *
+ *  This class represent an object
  */
 public abstract class AObject {
+
+    /**
+     * An abstract method to implement
+     * @param p
+     * @param d
+     * @return
+     */
     public abstract double distance(Point p, Vector d);
 }
