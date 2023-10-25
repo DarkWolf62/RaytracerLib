@@ -19,14 +19,15 @@ public class Plane extends AObject{
     /**
      * represents the normal of the plane
      */
-    private Triplet normal;
+    private Vector normal;
 
     /**
      * constructor of this class.
      */
-    public Plane(Point coordinate, Triplet normal, Color color){
+    public Plane(Point coordinate, Vector normal,Color color){
         this.coordinate = coordinate;
         this.normal=normal;
+        this.color=color;
         this.color = color;
     }
 
@@ -42,8 +43,22 @@ public class Plane extends AObject{
                 '}';
     }
 
+    public Point calcP(Vector d,Triplet lookFrom){
+        Point q =coordinate;
+        double up=q.subtraction(lookFrom).scalarProduct(normal.getTriplet()) ;
+        double down=d.scalarProduct(normal.getTriplet());
+        if (down==0)
+            return null;
+        double t =up/down;
+        Point p = new Point(lookFrom.addition(d.scalarMultiplication(t).getTriplet()));
+        return p;
+    }
+
     @Override
     public double distance(Point p, Vector d) {
-        throw new UnsupportedOperationException();
+        if (d.scalarProduct(normal.getTriplet())==0)
+            return -1;
+        Point point= calcP(d, p.getTriplet());
+        return point.subtraction(p.getTriplet()).norm();
     }
 }
