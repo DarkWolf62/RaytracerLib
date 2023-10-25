@@ -1,5 +1,6 @@
 package fr.univartois.sae.raytracing.object;
 
+import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
@@ -9,6 +10,7 @@ import fr.univartois.sae.raytracing.triplet.Vector;
  * this class represents a sphere
  */
 public class Sphere extends AObject {
+    private Color color;
     /**
      * represents the coordinate of the sphere
      */
@@ -21,9 +23,11 @@ public class Sphere extends AObject {
     /**
      * constructor of this class
      */
-    public Sphere(Point coordinate, double radius){
+    public Sphere(Point coordinate, double radius,Color color){
         this.coordinate = coordinate;
         this.radius = radius;
+        this.color = color;
+
     }
 
     public Point getCoordinate() {
@@ -49,6 +53,10 @@ public class Sphere extends AObject {
     @Override
     public double distance(Point p, Vector d) {
         return 0;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
 //    @Override

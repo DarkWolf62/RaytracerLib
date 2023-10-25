@@ -7,7 +7,7 @@ import fr.univartois.sae.raytracing.parser.Parser;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
 import fr.univartois.sae.raytracing.triplet.Color;
-
+import fr.univartois.sae.raytracing.object.Sphere;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,9 +26,9 @@ public class Main {
         SceneBuilder sceneBuilder = (SceneBuilder) parser.getBuilder();
         Scene scene = sceneBuilder.getResult();
         System.out.println(scene.toString());
-        ArrayList<Color> c = (ArrayList<Color>) scene.getColors().get("diffuse");
         IStrategy strategy;
-        if(c.isEmpty())
+        Sphere s = (Sphere) (scene.getObjects().get(0));
+        if (s.getColor() == null)
             strategy = new BasicModel();
         else
             strategy = new LambertModel();

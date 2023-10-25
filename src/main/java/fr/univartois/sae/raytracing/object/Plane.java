@@ -1,5 +1,6 @@
 package fr.univartois.sae.raytracing.object;
 
+import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
@@ -10,6 +11,7 @@ import fr.univartois.sae.raytracing.triplet.Vector;
  *
  */
 public class Plane extends AObject{
+    private Color color;
     /**
      * represents the coordinate of the plane
      */
@@ -22,9 +24,10 @@ public class Plane extends AObject{
     /**
      * constructor of this class.
      */
-    public Plane(Point coordinate, Triplet normal){
+    public Plane(Point coordinate, Triplet normal, Color color){
         this.coordinate = coordinate;
         this.normal=normal;
+        this.color = color;
     }
 
     /**
