@@ -7,6 +7,9 @@ import fr.univartois.sae.raytracing.triplet.Vector;
 
 
 /**
+ * @author nicolas.nourry
+ * @author leo.denis
+ *
  * this class represents a sphere
  */
 public class Sphere extends AObject {
