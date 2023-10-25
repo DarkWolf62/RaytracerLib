@@ -63,7 +63,7 @@ public class Color {
     }
 
     /**
-     * Prints the current object
+     * Print the current object
      * @return String
      */
     @Override

@@ -56,7 +56,7 @@ public class Point {
     }
 
     /**
-     * Prints the current object
+     * Print the current object
      * @return String
      */
     @Override

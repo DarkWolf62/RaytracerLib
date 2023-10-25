@@ -22,7 +22,7 @@ public class Triplet {
     }
 
     /**
-     * Prints the current object
+     * Print the current object
      * @return String
      */
     @Override
@@ -84,7 +84,7 @@ public class Triplet {
     }
 
     /**
-     * Creates a new triplet from the addition between the actual instance of triplet and another triplet
+     * Create a new triplet from the addition between the actual instance of triplet and another triplet
      * @param triplet the second triplet
      * @return the new triplet
      */
@@ -138,7 +138,7 @@ public class Triplet {
     }
 
     /**
-     * Returns the norm (length) of a triplet
+     * Return the norm (length) of a triplet
      * @return the norm
      */
     public double norm(){
@@ -146,7 +146,7 @@ public class Triplet {
     }
 
     /**
-     * Returns the normalisation of a triplet
+     * Return the normalisation of a triplet
      * @return the normalisation of the triplet
      */
     public Triplet normalize() {
