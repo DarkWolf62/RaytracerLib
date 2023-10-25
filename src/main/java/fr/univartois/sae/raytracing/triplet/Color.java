@@ -1,7 +1,7 @@
 package fr.univartois.sae.raytracing.triplet;
 
 /**
- * @author nicolas
+ * @author nicolas.nourry
  *
  * This class represents a color.
  */
