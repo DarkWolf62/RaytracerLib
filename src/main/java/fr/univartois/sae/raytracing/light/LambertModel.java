@@ -14,10 +14,19 @@ import static java.lang.Math.max;
 /**
  * @author matheo.dupuis
  *
- * This class is used to implement the Lambert model
+ * This class is used for the Lambert model and implements the interface IStrategy
  */
 public class LambertModel implements IStrategy{
 
+    /**
+     * This method returns the color of a pixel using the Lambert method
+     *
+     * @param object
+     * @param idObj
+     * @param p
+     * @param scene
+     * @return The color of a pixel using the basic method
+     */
     @Override
     public Color modelMethod(Sphere object,int idObj ,Point p, Scene scene) {
 
