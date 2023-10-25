@@ -30,6 +30,19 @@ public class Triplet {
                 '}';
     }
 
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
     /**
      * Gets the x.
      * @return x
