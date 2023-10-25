@@ -25,6 +25,8 @@ public class Scene {
     private int fov;
     private String output;
 
+    private boolean shadow;
+
 
     /**
      * Constructor using image's dimension, camera's information, lights, colors, objects
@@ -38,7 +40,7 @@ public class Scene {
      * @param fov
      * @param output
      */
-    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, Map<String,Object> colors, ArrayList<AObject> objects, int fov, String output) {
+    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, Map<String,Object> colors, ArrayList<AObject> objects, int fov, String output, boolean shadow) {
         this.width = width;
         this.height = height;
         this.camera = camera;
@@ -47,6 +49,11 @@ public class Scene {
         this.objects = objects;
         this.fov = fov;
         this.output = output;
+        this.shadow= shadow;
+    }
+
+    public boolean isShadow() {
+        return shadow;
     }
 
     /**

@@ -2,7 +2,6 @@ package fr.univartois.sae.raytracing.scene;
 
 import fr.univartois.sae.raytracing.light.Light;
 import fr.univartois.sae.raytracing.object.AObject;
-import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 
 
@@ -18,12 +17,14 @@ public interface IBuilder {
 
     /**
      * Set the values of width and height
+     *
      * @param width
      * @param height
      * @param shininess
      * @param output
+     * @param shadow
      */
-    public void buildScene(int width, int height, double shininess, String output);
+    public void buildScene(int width, int height, double shininess, String output, boolean shadow);
 
     /**
      * Set the settings for the camera

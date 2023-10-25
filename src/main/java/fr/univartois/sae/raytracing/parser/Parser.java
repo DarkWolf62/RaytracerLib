@@ -134,6 +134,7 @@ public class Parser {
         res.put("shininess", 0.0);
         res.put("fov", (Double) null);
         res.put("output", "default.png");
+        res.put("shadow", false);
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
@@ -153,6 +154,7 @@ public class Parser {
                         break;
                     case "shininess" : res.put("shininess", parseDouble(line[1])); break;
                     case "output" : res.put("output", line[1]); break;
+                    case "shadow" : res.put("shadow", line[1] == "true"); break;
                 }
             }
             myReader.close();
@@ -179,7 +181,6 @@ public class Parser {
         builder.buildLight(getLights());
         builder.buildColors(getColors());
         builder.buildObject(getObject());
-        builder.buildScene((Integer) getScene().get("width"), (Integer)getScene().get("height"), (Double) getScene().get("shininess"), (String) getScene().get("output"));
-
+        builder.buildScene((Integer) getScene().get("width"), (Integer)getScene().get("height"), (Double) getScene().get("shininess"), (String) getScene().get("output"), (boolean) getScene().get("shadow"));
     }
 }
