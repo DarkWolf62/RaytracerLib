@@ -50,13 +50,19 @@ public class RayTracing {
         Vector u = (up.vectorProduct(w.getTriplet())).scalarMultiplication(1/up.vectorProduct(w.getTriplet()).norm());
         Vector v = (w.vectorProduct(u.getTriplet())).scalarMultiplication(1/w.vectorProduct(u.getTriplet()).norm());
         double fovr = (scene.getFov()*Math.PI)/180;
-        double pixelHeight = Math.tan(fovr/2);
-        double pixelWidth = pixelHeight * (scene.getWidth()/ scene.getHeight());
+        double realHeight = 2*Math.tan(fovr/2);
+        double pixelHeight = realHeight / scene.getHeight();
+        double realWidth = scene.getWidth() * pixelHeight;
+        double pixelWidth = realWidth / scene.getWidth();
+        System.out.println(realHeight);
+        System.out.println(pixelHeight);
+        System.out.println(realWidth);
+        System.out.println(pixelWidth);
         Color[][] colors = new Color[scene.getWidth()][scene.getHeight()];
         for(int i=0;i<scene.getWidth();i++){
             for(int j=0;j<scene.getHeight();j++) {
-                double a = (-(scene.getWidth() / 2) + ((i + 0.5) * pixelWidth));
-                double b = ((scene.getHeight() / 2) - ((j + 0.5) * pixelHeight));
+                double a = (-(realWidth / 2) + ((i + 0.5) * pixelWidth));
+                double b = ((realHeight / 2) - ((j + 0.5) * pixelHeight));
                 double t = -1;
                 Vector d = new Vector((((u.scalarMultiplication(a)).addition(v.scalarMultiplication(b).getTriplet())).subtraction(w.getTriplet())).scalarMultiplication(1 / (((u.scalarMultiplication(a).addition(v.scalarMultiplication(b).getTriplet()).subtraction(w.getTriplet())).getTriplet()).norm())).getTriplet());
                 for (AObject object : scene.getObjects()) {
@@ -65,9 +71,6 @@ public class RayTracing {
                         double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
                         double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).getTriplet()) - (Math.pow(((Sphere) object).getRadius(),2));
                         double delta = Math.pow(tb, 2) - (4 * tc);
-                        if (delta>=0) {
-                            System.out.println(delta);
-                        }
                         if (delta == 0) {
                             t = -tb / 2;
                         } else if (delta > 0) {
