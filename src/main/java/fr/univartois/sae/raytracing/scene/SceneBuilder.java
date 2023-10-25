@@ -26,6 +26,8 @@ public class SceneBuilder implements IBuilder{
     private double shininess;
     private String output;
 
+    private boolean shadow;
+
     /*
     ATTENTION CA RISQUE DE PAS MARCHER CAR IL MANQUE UN CONSTRUCTEUR DANS
     CETTE CLASSE OU PEUT ETRE DANS IBuilder !!!
@@ -40,12 +42,13 @@ public class SceneBuilder implements IBuilder{
      * @param output
      */
     @Override
-    public void buildScene(int width, int height, double shininess, String output) {
+    public void buildScene(int width, int height, double shininess, String output, boolean shadow) {
         this.width = width;
         this.height = height;
         if(shininess != 0)
             this.shininess = shininess;
         this.output = output;
+        this.shadow = shadow;
     }
 
     /**
@@ -93,6 +96,6 @@ public class SceneBuilder implements IBuilder{
      * @return the new Scene just created
      */
     public Scene getResult(){
-        return new Scene(width,height,camera,lights,colors,objects,fov, output);
+        return new Scene(width,height,camera,lights,colors,objects,fov, output, shadow);
     }
 }
