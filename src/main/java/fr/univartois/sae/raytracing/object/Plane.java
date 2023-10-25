@@ -23,6 +23,10 @@ public class Plane extends AObject{
 
     /**
      * constructor of this class.
+     *
+     * @param coordinate
+     * @param normal
+     * @param color
      */
     public Plane(Point coordinate, Triplet normal, Color color){
         this.coordinate = coordinate;
@@ -42,6 +46,12 @@ public class Plane extends AObject{
                 '}';
     }
 
+    /**
+     *
+     * @param p
+     * @param d
+     * @return
+     */
     @Override
     public double distance(Point p, Vector d) {
         throw new UnsupportedOperationException();
