@@ -2,6 +2,7 @@ package fr.univartois.sae.raytracing.object;
 
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
+import fr.univartois.sae.raytracing.triplet.Vector;
 
 
 /**
@@ -44,4 +45,29 @@ public class Sphere extends AObject {
                 ", radius=" + radius +
                 '}';
     }
+
+    @Override
+    public double distance(Point p, Vector d) {
+        return 0;
+    }
+
+//    @Override
+//    public double distance(Point p, Vector d) {
+//        double res = -1;
+//        double t2;
+//        double tb = (p.subtraction(coordinate.getTriplet())).scalarMultiplication(2).scalarProduct(d.getTriplet());
+//        double tc = (p.subtraction(coordinate.getTriplet()).scalarProduct(p.subtraction(coordinate.getTriplet()).getTriplet()))
+//        double delta = Math.pow(tb, 2) - (4 * tc);
+//        if (delta == 0) {
+//            res = -tb / 2;
+//        } else if (delta > 0) {
+//            res = (-tb + Math.sqrt(delta)) / 2;
+//            t2 = (-tb - Math.sqrt(delta)) / 2;
+//            if (t2 > 0) {
+//                res = t2;
+//            } else if (t < 0) {
+//                res = -1;
+//            }
+//        }
+//    }
 }

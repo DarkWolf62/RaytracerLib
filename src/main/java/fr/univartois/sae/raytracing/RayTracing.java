@@ -1,5 +1,6 @@
 package fr.univartois.sae.raytracing;
 
+import fr.univartois.sae.raytracing.light.IStrategy;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.scene.Scene;
@@ -37,11 +38,13 @@ public class RayTracing {
 
     private BufferedImage image;
 
+    private IStrategy strategy;
+
     /**
      * Create an image from a scene
      * @param scene the scene
      */
-    public RayTracing(Scene scene){
+    public RayTracing(Scene scene, IStrategy strategy){
         this.scene=scene;
         Vector lookFrom=new Vector(scene.getCamera().get(0));
         Vector looKAt=new Vector(scene.getCamera().get(1));
@@ -61,34 +64,59 @@ public class RayTracing {
                 double b = ((realHeight / 2) - ((j + 0.5) * pixelHeight));
                 double t = -1;
                 Vector d = new Vector((((u.scalarMultiplication(a)).addition(v.scalarMultiplication(b).getTriplet())).subtraction(w.getTriplet())).scalarMultiplication(1 / (((u.scalarMultiplication(a).addition(v.scalarMultiplication(b).getTriplet()).subtraction(w.getTriplet())).getTriplet()).norm())).getTriplet());
+                Color color = new Color(0.0, 0.0, 0.0);
+                int o =-1;
+                int index =0;
                 for (AObject object : scene.getObjects()) {
                     if (object instanceof Sphere) {
+                        // IL VA FALLOIR UTILISER LES FONCTIONS MODELES ICI !!!
+                        double tmp;
                         double t2;
                         double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
-                        double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).getTriplet()) - (Math.pow(((Sphere) object).getRadius(),2));
+                        double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).getTriplet()) - (Math.pow(((Sphere) object).getRadius(), 2));
                         double delta = Math.pow(tb, 2) - (4 * tc);
                         if (delta == 0) {
                             t = -tb / 2;
                         } else if (delta > 0) {
-                            t = (-tb + Math.sqrt(delta)) / 2;
+                            tmp = (-tb + Math.sqrt(delta)) / 2;
                             t2 = (-tb - Math.sqrt(delta)) / 2;
                             if (t2 > 0) {
-                                t = t2;
+                                tmp = t2;
+                            } else if (t < 0) {
+                                tmp = -1;
                             }
-                            else if (t < 0) {
-                                t = -1;
+                            if ((tmp<=t) || (t==-1)) {
+                                t = tmp;
+                                o=index;
                             }
                         }
+                        index++;
+                        if (t >= 0) {
+                            Point p = new Point(lookFrom.addition(d.getTriplet().scalarMultiplication(t)).getTriplet());
+                            color = strategy.modelMethod((Sphere) scene.getObjects().get(o), o, p, scene);
+                        }
+
+                        // ICI !!!!
                     } else {
                         throw new UnsupportedOperationException();
                     }
+//                    if (color.getTriplet().getY()<0.5 && color.getTriplet().getY()!=0.0) {
+//                        System.out.println("r");
+//                    }
+                    colors[i][j] = new Color(color.getTriplet());
                 }
-                Color color = new Color(0.0,0.0,0.0);
-                if (t >= 0) {
-                    //Point p = new Point(lookFrom.addition(d.getTriplet()).scalarMultiplication(t));
-                    color =  (Color)scene.getColors().get("ambient");
-                }
-                colors[i][j] = color;
+
+
+
+
+
+            }
+        }
+        for(int i=0;i<scene.getWidth();i++){
+            for(int j=0;j<scene.getHeight();j++) {
+                Triplet t = colors[i][j].getTriplet();
+                if ( t.getY()<0.9 && t.getY()!=0.0)
+                    System.out.println(colors[i][j]);
             }
         }
         createImage(colors);

@@ -2,6 +2,7 @@ package fr.univartois.sae.raytracing.object;
 
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
+import fr.univartois.sae.raytracing.triplet.Vector;
 
 /**
  * this class represents a plane
@@ -36,5 +37,10 @@ public class Plane extends AObject{
                 "coordinate=" + coordinate +
                 ", normal=" + normal +
                 '}';
+    }
+
+    @Override
+    public double distance(Point p, Vector d) {
+        throw new UnsupportedOperationException();
     }
 }
