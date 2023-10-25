@@ -6,6 +6,11 @@ import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
+/**
+ * @author matheo.dupuis
+ *
+ * This class is a part of  represents
+ */
 public class BasicModel implements IStrategy{
 
     @Override
