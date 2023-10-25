@@ -5,6 +5,7 @@ import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
+import fr.univartois.sae.raytracing.shadow.IShadow;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
@@ -21,24 +22,13 @@ import java.io.IOException;
  */
 public class RayTracing {
 
-        /*
-        charger la scène
-    — pour chaque pixel (i, j) de l’image à générer
-        — calculer le vecteur unitaire d qui représente un rayon allant de l’œil lookF rom au centre du
-        pixel (i, j)
-        — rechercher le point p = lookF rom + d × t d’intersection le plus proche (t minimal) avec un
-        objet de la scène
-        — si p existe alors calculer sa couleur
-        — sinon utiliser du noir
-        — peindre le pixel (i, j) avec la couleur adéquate
-        — sauvegarder l’image
-         */
-
     private Scene scene;
 
     private BufferedImage image;
 
     private IStrategy strategy;
+
+    private IShadow shadow;
 
     /**
      * Create an image from a scene
@@ -100,9 +90,7 @@ public class RayTracing {
                     } else {
                         throw new UnsupportedOperationException();
                     }
-//                    if (color.getTriplet().getY()<0.5 && color.getTriplet().getY()!=0.0) {
-//                        System.out.println("r");
-//                    }
+
                     colors[i][j] = new Color(color.getTriplet());
                 }
 
