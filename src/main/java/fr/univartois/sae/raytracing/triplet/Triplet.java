@@ -21,6 +21,10 @@ public class Triplet {
         this.z = z;
     }
 
+    /**
+     * Prints the current object
+     * @return String
+     */
     @Override
     public String toString() {
         return "Triplet{" +
@@ -31,20 +35,32 @@ public class Triplet {
     }
 
 
+    /**
+     * Setter for X
+     * @param x
+     */
     public void setX(double x) {
         this.x = x;
     }
 
+    /**
+     * Setter for Y
+     * @param y
+     */
     public void setY(double y) {
         this.y = y;
     }
 
+    /**
+     * Setter for Z
+     * @param z
+     */
     public void setZ(double z) {
         this.z = z;
     }
 
     /**
-     * Gets the x.
+     * Getter for X.
      * @return x
      */
     public double getX() {
@@ -52,7 +68,7 @@ public class Triplet {
     }
 
     /**
-     * Gets the y.
+     * Getter for Y.
      * @return y
      */
     public double getY() {
@@ -60,7 +76,7 @@ public class Triplet {
     }
 
     /**
-     * Gets the z.
+     * Getter for Z.
      * @return z
      */
     public double getZ() {
@@ -68,7 +84,7 @@ public class Triplet {
     }
 
     /**
-     * Create a new triplet from the addition between the actual instance of triplet and another triplet
+     * Creates a new triplet from the addition between the actual instance of triplet and another triplet
      * @param triplet the second triplet
      * @return the new triplet
      */
