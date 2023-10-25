@@ -20,7 +20,7 @@ public class SceneBuilder implements IBuilder{
     private int height;
     private ArrayList<Triplet> camera;
     private ArrayList<Light> lights;
-    private Map<String, Color> colors;
+    private Map<String, Object> colors;
     private ArrayList<AObject> objects;
     private int fov;
     private double shininess;
@@ -83,7 +83,7 @@ public class SceneBuilder implements IBuilder{
      * @param colors
      */
     @Override
-    public void buildColors(Map<String, Color> colors) {
+    public void buildColors(Map<String, Object> colors) {
         this.colors = colors;
     }
 

@@ -48,7 +48,7 @@ public interface IBuilder {
      * Set the values of the colors inside color list using a JSONObject
      * @param colors
      */
-    public void buildColors(Map<String, Color> colors);
+    public void buildColors(Map<String, Object> colors);
 
 
 }

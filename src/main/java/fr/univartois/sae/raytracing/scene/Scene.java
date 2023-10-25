@@ -20,7 +20,7 @@ public class Scene {
     private int height;
     private ArrayList<Triplet> camera;
     private ArrayList<Light> lights;
-    private Map<String,Color> colors;
+    private Map<String,Object> colors;
     private ArrayList<AObject> objects;
     private int fov;
     private String output;
@@ -38,7 +38,7 @@ public class Scene {
      * @param fov
      * @param output
      */
-    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, Map<String,Color> colors, ArrayList<AObject> objects, int fov, String output) {
+    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, Map<String,Object> colors, ArrayList<AObject> objects, int fov, String output) {
         this.width = width;
         this.height = height;
         this.camera = camera;
@@ -85,7 +85,7 @@ public class Scene {
      * Getter for colors
      * @return colors
      */
-    public Map<String,Color> getColors() {
+    public Map<String,Object> getColors() {
         return colors;
     }
 

@@ -41,10 +41,12 @@ public class Parser {
 
     /**
      * Returns all the colors in the configuration file
+     *
      * @return A Map as {"ambient", "diffuse", "specular"}
      */
-    public Map<String, Color> getColors() {
-        Map<String, Color> res = new HashMap<>();
+    public Map<String, Object> getColors() {
+        Map<String, Object> res = new HashMap<>();
+        ArrayList<Color> diffuseC = new ArrayList<>();
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
@@ -53,10 +55,11 @@ public class Parser {
                 String[] line = data.split(" ");
                 switch (line[0]) {
                     case "ambient" : res.put("ambient", new Color(new Triplet(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])))); break;
-                    case "diffuse" : res.put("diffuse", new Color(new Triplet(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])))); break;
+                    case "diffuse" : diffuseC.add(new Color(new Triplet(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])))); break;
                     case "specular" : res.put("specular", new Color(new Triplet(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])))); break;
                 }
             }
+            res.put("diffuse", diffuseC);
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
