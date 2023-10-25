@@ -9,7 +9,7 @@ public class Color {
     private Triplet triplet;
 
     /**
-     * Constructor for create a color with a triplet
+     * Constructor to create a color with a triplet
      * @param triplet is a triplet
      */
     public Color(Triplet triplet){
@@ -17,15 +17,15 @@ public class Color {
     }
 
     /**
-     * Constructor for create a color with coordinate
-     * @param x,y,z is are double
+     * Constructor to create a color with coordinate
+     * @param x,y,z are double
      */
     public Color(double x,double y,double z){
         triplet=new Triplet(x,y,z);
     }
 
     /**
-     * this method addition the triplet of this class and a other triplet
+     * this method adds the triplet of this class with another triplet
      * @param triplet
      * @return a new color
      */
@@ -35,7 +35,7 @@ public class Color {
     }
 
     /**
-     * this method use the scalar multiplication on the triplet
+     * this method uses the scalar multiplication on the triplet
      * @param d
      * @return a new color
      */
@@ -45,7 +45,7 @@ public class Color {
     }
 
     /**
-     * this method use the schur product on the triplet
+     * this method uses the schur product on the triplet
      * @param triplet
      * @return a new color
      */
