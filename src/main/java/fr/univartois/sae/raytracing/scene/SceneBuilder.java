@@ -6,6 +6,7 @@ import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -19,7 +20,7 @@ public class SceneBuilder implements IBuilder{
     private int height;
     private ArrayList<Triplet> camera;
     private ArrayList<Light> lights;
-    private ArrayList<Color> colors;
+    private Map<String, Object> colors;
     private ArrayList<AObject> objects;
     private int fov;
     private double shininess;
@@ -82,14 +83,8 @@ public class SceneBuilder implements IBuilder{
      * @param colors
      */
     @Override
-    public void buildColors(Map<String, Color> colors) {
-        this.colors = new ArrayList<>();
-        if (colors.get("ambient") != null)
-            this.colors.add((Color) colors.get("ambient"));
-        if (colors.get("diffuse") != null)
-            this.colors.add((Color) colors.get("diffuse"));
-        if (colors.get("specular") != null)
-            this.colors.add((Color)colors.get("specular"));
+    public void buildColors(Map<String, Object> colors) {
+        this.colors = colors;
     }
 
 

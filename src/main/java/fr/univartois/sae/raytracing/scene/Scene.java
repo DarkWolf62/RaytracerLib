@@ -6,6 +6,7 @@ import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.light.Light;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 /**
@@ -19,7 +20,7 @@ public class Scene {
     private int height;
     private ArrayList<Triplet> camera;
     private ArrayList<Light> lights;
-    private ArrayList<Color> colors;
+    private Map<String,Object> colors;
     private ArrayList<AObject> objects;
     private int fov;
     private String output;
@@ -37,7 +38,7 @@ public class Scene {
      * @param fov
      * @param output
      */
-    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, ArrayList<Color> colors, ArrayList<AObject> objects, int fov, String output) {
+    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, Map<String,Object> colors, ArrayList<AObject> objects, int fov, String output) {
         this.width = width;
         this.height = height;
         this.camera = camera;
@@ -57,27 +58,11 @@ public class Scene {
     }
 
     /**
-     * Setter for the width
-     * @param width
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
      * Getter for height
      * @return height
      */
     public int getHeight() {
         return height;
-    }
-
-    /**
-     * Setter for height
-     * @param height
-     */
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     /**
@@ -89,14 +74,6 @@ public class Scene {
     }
 
     /**
-     * Setter for camera
-     * @param camera
-     */
-    public void setCamera(ArrayList<Triplet> camera) {
-        this.camera = camera;
-    }
-
-    /**
      * Getter lights
      * @return lights
      */
@@ -105,27 +82,11 @@ public class Scene {
     }
 
     /**
-     * Setter for lights
-     * @param lights
-     */
-    public void setLights(ArrayList<Light> lights) {
-        this.lights = lights;
-    }
-
-    /**
      * Getter for colors
      * @return colors
      */
-    public ArrayList<Color> getColors() {
+    public Map<String,Object> getColors() {
         return colors;
-    }
-
-    /**
-     * Setter for colors
-     * @param colors
-     */
-    public void setColors(ArrayList<Color> colors) {
-        this.colors = colors;
     }
 
     /**
@@ -137,14 +98,6 @@ public class Scene {
     }
 
     /**
-     * Setter for objects
-     * @param objects
-     */
-    public void setObjects(ArrayList<AObject> objects) {
-        this.objects = objects;
-    }
-
-    /**
      * Returns the fov
      * @return the fov
      */
@@ -152,13 +105,6 @@ public class Scene {
         return fov;
     }
 
-    /**
-     * Set a fov
-     * @param fov
-     */
-    public void setFov(int fov) {
-        this.fov = fov;
-    }
 
     /**
      * Returns the output
@@ -166,14 +112,6 @@ public class Scene {
      */
     public String getOutput() {
         return output;
-    }
-
-    /**
-     * Sets the output
-     * @param output
-     */
-    public void setOutput(String output) {
-        this.output = output;
     }
 
     /**
