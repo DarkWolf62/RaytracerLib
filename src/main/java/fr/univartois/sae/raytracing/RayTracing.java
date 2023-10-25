@@ -134,7 +134,7 @@ public class RayTracing {
                     image.setRGB(i,j,new java.awt.Color((int) (colors[i][j].getTriplet().getX()*255), (int) (colors[i][j].getTriplet().getY()*255), (int) (colors[i][j].getTriplet().getZ()*255)).getRGB());
                 }
             }
-            File outputfile = new File(scene.getOutput());
+            File outputfile = new File("image/"+scene.getOutput());
             ImageIO.write(image, "png", outputfile);
         } catch (IOException e) {
             e.printStackTrace();

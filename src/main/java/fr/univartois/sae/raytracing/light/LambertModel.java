@@ -44,8 +44,6 @@ public class LambertModel implements IStrategy{
             double cos = max(n.scalarProduct(ldir.getTriplet()), 0);
             color = color.addition(light.getColor().scalarMultiplication(cos).getTriplet());
         }
-        // We get the value of cDiffuse
-        ArrayList<Color> diffuseList = (ArrayList<Color>) scene.getColors().get("diffuse");
 
         Color cDiffuse = object.getColor();
         color = ((Color)scene.getColors().get("ambient")).addition(color.schurProduct(cDiffuse.getTriplet()).getTriplet());
