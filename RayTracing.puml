@@ -16,7 +16,6 @@ class Sphere
 
 class Scene
 interface IBuilder
-class Builder
 
 Vector *-- Triplet : use
 Color *-- Triplet : use
@@ -33,7 +32,6 @@ Plane "2" *-- "0..n" Triplet : use
 Sphere *-- Triplet : use
 
 Parser *-- IBuilder : builder
-IBuilder <|-- SceneBuilder : implements
 Scene <-- SceneBuilder
 Scene "0..n" *-- "0.1" Light
 Scene "0..n" *-- "0.1" AObject
@@ -51,6 +49,9 @@ class Triplet {
 +getX() : double
 +getY() : double
 +getZ() : double
++setX() : void
++setY() : void
++setZ() : void
 +addition(Triplet triplet) : Triplet
 +subtraction(Triplet triplet) : Triplet
 +scalarMultiplication(double d) : Triplet
@@ -123,6 +124,7 @@ class Triangle extends AObject {
 - Point c
 + Triangle(Point a, Point b, Point c)
 + toString() : String
++
 }
 
 class Plane extends AObject{
@@ -152,7 +154,7 @@ class Scene{
 - int height
 - Triplet[] camera
 - Light[] lights
-- Color[] colors
+- Map<String, Object> colors
 - double shininess
 - AObject[] AObjects
 - int fov
@@ -160,21 +162,13 @@ class Scene{
 + Scene(int width, int height, Triplet[] camera, Light[] lights, Color[] colors, AObject[] objects, int fov, String output)
 + toString() : String
 + getWidth() : int
-+ setWidth() : void
 + getHeight() : int
-+ setHeight() : void
 + getCamera() : Triplet[]
-+ setCamera() : void
 + getLights() : Light[]
-+ setLights() : void
-+ getColors() : Color[]
-+ setColors() : void
++ getColors() : Map<String, Object>
 + getAObjects() : AObject[]
-+ setAObjects() : void
 + getFov() : int
-+ setFov() : void
 + getOutput() : String
-+ setOutput() : void
 }
 
 interface IBuilder {
@@ -184,13 +178,13 @@ interface IBuilder {
 + buildLight(Light[] lights) : void
 }
 
-class SceneBuilder {
+class SceneBuilder implements IBuilder{
 - int width
 - int height
 - Triplet[] camera
 - int fov
 - Light[] lights
-- Color[] colors
+- Map<String, Object> colors
 - double shininess
 - AObject[] objects
 - String output
@@ -198,6 +192,7 @@ class SceneBuilder {
 + buildCamera(Triplet[] camera, int fov) : void
 + buildObject(AObject[] objects) : void
 + buildLight(Light[] lights) : void
++ buildColors(Map<String, Object>) : void
 + getResult() : Scene
 }
 
@@ -206,8 +201,8 @@ class Parser {
 +String chemin
 +Parser(String chemin)
 +construct() : void
-+ getColors() : JSONObject
-+getScene() : JSONObject
++ getColors() : Map<String, Object>
++getScene() : Map<String, Object>
 +getLight() : Light[]
 +getAObject() : AObject[]
 + getBuilder() : IBuilder
@@ -230,13 +225,13 @@ class RayTracing{
 }
 
 class BasicModel implements IStrategy {
-modelMethod()
+modelMethod(Sphere object, int idObj, Point p, Scene scene) : Color
 }
 class LambertModel implements IStrategy{
-modelMethod()
+modelMethod(Sphere object, int idObj, Point p, Scene scene) : Color
 }
 interface IStrategy {
-modelMethod()
+modelMethod(Sphere object, int idObj, Point p, Scene scene) : Color
 }
 
 note "Patron de conception : Strategie" as N3
@@ -244,5 +239,18 @@ BasicModel .. N3
 LambertModel .. N3
 IStrategy .. N3
 RayTracing .. N3
+
+IShadow --o RayTracing
+
+interface IShadow {
+shadowRequest()
+}
+class RealShadow implements IShadow {
+shadowRequest()
+}
+class Proxy implements IShadow {
+shadowRequest()
+}
+
 
 @enduml

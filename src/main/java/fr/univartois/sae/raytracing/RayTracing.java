@@ -2,6 +2,7 @@ package fr.univartois.sae.raytracing;
 
 import fr.univartois.sae.raytracing.light.IStrategy;
 import fr.univartois.sae.raytracing.object.AObject;
+import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
@@ -69,7 +70,6 @@ public class RayTracing {
                 int index =0;
                 for (AObject object : scene.getObjects()) {
                     if (object instanceof Sphere) {
-                        // IL VA FALLOIR UTILISER LES FONCTIONS MODELES ICI !!!
                         double tmp;
                         double t2;
                         double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
@@ -85,9 +85,9 @@ public class RayTracing {
                             } else if (t < 0) {
                                 tmp = -1;
                             }
-                            if ((tmp<=t) || (t==-1)) {
+                            if ((tmp <= t) || (t == -1)) {
                                 t = tmp;
-                                o=index;
+                                o = index;
                             }
                         }
                         index++;
@@ -95,8 +95,12 @@ public class RayTracing {
                             Point p = new Point(lookFrom.addition(d.getTriplet().scalarMultiplication(t)).getTriplet());
                             color = strategy.modelMethod((Sphere) scene.getObjects().get(o), o, p, scene);
                         }
-
-                        // ICI !!!!
+                    }else if (object instanceof Plane) {
+                        Point p = ((Plane) object).calcP(d,lookFrom.getTriplet());
+                        double distance = ((Plane) object).distance(p, d);
+                        if (distance>=0) {
+                            color = strategy.modelMethod((Plane) scene.getObjects().get(o), o, p, scene);
+                        }
                     } else {
                         throw new UnsupportedOperationException();
                     }
