@@ -46,6 +46,7 @@ public class Parser {
      */
     public Map<String, Object> getColors() {
         Map<String, Object> res = new HashMap<>();
+        res.put("ambient", new Color(0,0,0));
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
