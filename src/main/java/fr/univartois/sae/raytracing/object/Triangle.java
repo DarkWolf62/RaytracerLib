@@ -25,6 +25,8 @@ public class Triangle extends AObject{
      */
     private Point c;
 
+    private Vector normal;
+
     /**
      * constructor of this class
      */
@@ -33,6 +35,7 @@ public class Triangle extends AObject{
         this.b = b;
         this.c = c;
         this.color = color;
+        this.normal = b.subtraction(a.getTriplet()).vectorProduct(c.subtraction(a.getTriplet()).getTriplet()).normalize();
     }
 
     /**
@@ -49,9 +52,8 @@ public class Triangle extends AObject{
     }
 
     public Point calcP(Vector d, Triplet lookFrom){
-        Vector n = b.subtraction(a.getTriplet()).vectorProduct(c.subtraction(a.getTriplet()).getTriplet()).normalize();
-        double up=a.subtraction(lookFrom).scalarProduct(n.getTriplet()) ;
-        double down=d.scalarProduct(n.getTriplet());
+        double up=a.subtraction(lookFrom).scalarProduct(normal.getTriplet()) ;
+        double down=d.scalarProduct(normal.getTriplet());
         if (down==0)
             return null;
         double t =up/down;
@@ -60,17 +62,24 @@ public class Triangle extends AObject{
     }
 
     public double distance(Point p, Vector d) {
-        Vector n = b.subtraction(a.getTriplet()).vectorProduct(c.subtraction(a.getTriplet()).getTriplet()).normalize();
-        if (d.scalarProduct(n.getTriplet())==0)
+        if (d.scalarProduct(normal.getTriplet())==0)
             return -1;
         Point point= calcP(d, p.getTriplet());
-        double v = b.subtraction(a.getTriplet()).vectorProduct(point.subtraction(a.getTriplet()).getTriplet()).scalarProduct(n.getTriplet());
-        double w = c.subtraction(b.getTriplet()).vectorProduct(point.subtraction(b.getTriplet()).getTriplet()).scalarProduct(n.getTriplet());
-        double x = a.subtraction(c.getTriplet()).vectorProduct(point.subtraction(c.getTriplet()).getTriplet()).scalarProduct(n.getTriplet());
+        double v = b.subtraction(a.getTriplet()).vectorProduct(point.subtraction(a.getTriplet()).getTriplet()).scalarProduct(normal.getTriplet());
+        double w = c.subtraction(b.getTriplet()).vectorProduct(point.subtraction(b.getTriplet()).getTriplet()).scalarProduct(normal.getTriplet());
+        double x = a.subtraction(c.getTriplet()).vectorProduct(point.subtraction(c.getTriplet()).getTriplet()).scalarProduct(normal.getTriplet());
         if (v>=0 && w>=0 && x>=0){
             return point.subtraction(p.getTriplet()).norm();
 
         }
         return -1;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Vector getNormal() {
+        return normal;
     }
 }

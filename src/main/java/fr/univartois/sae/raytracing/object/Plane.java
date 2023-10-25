@@ -11,6 +11,8 @@ import fr.univartois.sae.raytracing.triplet.Vector;
  *
  */
 public class Plane extends AObject{
+
+    private Color color;
     /**
      * represents the coordinate of the plane
      */
@@ -26,7 +28,7 @@ public class Plane extends AObject{
     public Plane(Point coordinate, Vector normal,Color color){
         this.coordinate = coordinate;
         this.normal=normal;
-
+        this.color = color;
     }
 
     /**
@@ -57,5 +59,16 @@ public class Plane extends AObject{
         if (d.scalarProduct(normal.getTriplet())==0)
             return -1;
         return p.subtraction(p.getTriplet()).norm();
+    }
+    public Color getColor() {
+        return color;
+    }
+
+    public Point getCoordinate() {
+        return coordinate;
+    }
+
+    public Vector getNormal() {
+        return normal;
     }
 }

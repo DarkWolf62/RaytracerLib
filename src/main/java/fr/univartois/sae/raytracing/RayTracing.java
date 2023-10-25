@@ -4,6 +4,7 @@ import fr.univartois.sae.raytracing.light.IStrategy;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
+import fr.univartois.sae.raytracing.object.Triangle;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
 import fr.univartois.sae.raytracing.triplet.Color;
@@ -59,6 +60,7 @@ public class RayTracing {
         double realWidth = scene.getWidth() * pixelHeight;
         double pixelWidth = realWidth / scene.getWidth();
         Color[][] colors = new Color[scene.getWidth()][scene.getHeight()];
+        int intersectedObjectIndex = -1;
         for(int i=0;i<scene.getWidth();i++){
             for(int j=0;j<scene.getHeight();j++) {
                 double a = (-(realWidth / 2) + ((i + 0.5) * pixelWidth));
@@ -66,9 +68,8 @@ public class RayTracing {
                 double t = -1;
                 Vector d = new Vector((((u.scalarMultiplication(a)).addition(v.scalarMultiplication(b).getTriplet())).subtraction(w.getTriplet())).scalarMultiplication(1 / (((u.scalarMultiplication(a).addition(v.scalarMultiplication(b).getTriplet()).subtraction(w.getTriplet())).getTriplet()).norm())).getTriplet());
                 Color color = new Color(0.0, 0.0, 0.0);
-                int o =-1;
-                int index =0;
-                for (AObject object : scene.getObjects()) {
+                for (int index = 0; index < scene.getObjects().size(); index++) {
+                    AObject object = scene.getObjects().get(index);
                     if (object instanceof Sphere) {
                         double tmp;
                         double t2;
@@ -87,40 +88,32 @@ public class RayTracing {
                             }
                             if ((tmp <= t) || (t == -1)) {
                                 t = tmp;
-                                o = index;
+                                intersectedObjectIndex = index;
                             }
                         }
-                        index++;
                         if (t >= 0) {
                             Point p = new Point(lookFrom.addition(d.getTriplet().scalarMultiplication(t)).getTriplet());
-                            color = strategy.modelMethod((Sphere) scene.getObjects().get(o), o, p, scene);
+                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
                         }
-                    }else if (object instanceof Plane) {
+                    } else if (object instanceof Plane) {
                         Point p = ((Plane) object).calcP(d,lookFrom.getTriplet());
-                        double distance = ((Plane) object).distance(p, d);
+                        double distance = object.distance(p, d);
                         if (distance>=0) {
-                            color = strategy.modelMethod((Plane) scene.getObjects().get(o), o, p, scene);
+                            intersectedObjectIndex=index;
+                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                        }
+                    } else if (object instanceof Triangle) {
+                        Point p = ((Triangle) object).calcP(d, lookFrom.getTriplet());
+                        double distance = object.distance(p, d);
+                        if (distance >= 0) {
+                            intersectedObjectIndex = index;
+                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
                         }
                     } else {
                         throw new UnsupportedOperationException();
                     }
-//                    if (color.getTriplet().getY()<0.5 && color.getTriplet().getY()!=0.0) {
-//                        System.out.println("r");
-//                    }
                     colors[i][j] = new Color(color.getTriplet());
                 }
-
-
-
-
-
-            }
-        }
-        for(int i=0;i<scene.getWidth();i++){
-            for(int j=0;j<scene.getHeight();j++) {
-                Triplet t = colors[i][j].getTriplet();
-                if ( t.getY()<0.9 && t.getY()!=0.0)
-                    System.out.println(colors[i][j]);
             }
         }
         createImage(colors);
