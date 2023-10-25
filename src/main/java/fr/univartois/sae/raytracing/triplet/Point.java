@@ -1,6 +1,6 @@
 package fr.univartois.sae.raytracing.triplet;
 /**
- * @author nicolas
+ * @author nicolas.nourry
  *
  * This class represents a point.
  */
@@ -9,7 +9,7 @@ public class Point {
     private Triplet triplet;
 
     /**
-     * Constructor for create a point with a triplet
+     * Constructor to create a point with a triplet
      * @param triplet is a triplet
      */
 
@@ -18,15 +18,15 @@ public class Point {
     }
 
     /**
-     * Constructor for create a point with coordinate
-     * @param x,y,z is a triplet
+     * Constructor to create a point with coordinate
+     * @param x,y,z are double
      */
 
     public Point(double x,double y,double z){
         triplet=new Triplet(x,y,z);
     }
     /**
-     * this method subtraction the triplet of this class and a other triplet
+     * this method subtracts the triplet of this class with another triplet
      * @param triplet
      * @return a new vector
      */
@@ -36,7 +36,7 @@ public class Point {
         return new Vector(this.triplet.subtraction(triplet));
     }
     /**
-     * this method use the scalar multiplication on the triplet
+     * this method uses the scalar multiplication on the triplet
      * @param d
      * @return a new point
      */
