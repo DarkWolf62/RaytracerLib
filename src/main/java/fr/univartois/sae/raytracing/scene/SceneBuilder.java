@@ -26,12 +26,6 @@ public class SceneBuilder implements IBuilder{
     private double shininess;
     private String output;
 
-    /*
-    ATTENTION CA RISQUE DE PAS MARCHER CAR IL MANQUE UN CONSTRUCTEUR DANS
-    CETTE CLASSE OU PEUT ETRE DANS IBuilder !!!
-     */
-
-
     /**
      * Set the values of width and height
      * @param width
@@ -79,7 +73,7 @@ public class SceneBuilder implements IBuilder{
     }
 
     /**
-     * Set the values of the colors inside color list using a JSONObject
+     * Set the values of the colors inside color list using a Map
      * @param colors
      */
     @Override
