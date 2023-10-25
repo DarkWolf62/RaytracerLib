@@ -49,15 +49,13 @@ public class LambertModel implements IStrategy{
 
         Color cDiffuse = diffuseList.get(idObj);
         color = ((Color)scene.getColors().get("ambient")).addition(color.schurProduct(cDiffuse.getTriplet()).getTriplet());
-        System.out.println(color);
         if (color.getTriplet().getX() > 1)
             color.getTriplet().setX(1);
         if (color.getTriplet().getY() > 1)
             color.getTriplet().setY(1);
         if (color.getTriplet().getZ() > 1)
             color.getTriplet().setZ(1);
+
         return color;
-
-
     }
 }

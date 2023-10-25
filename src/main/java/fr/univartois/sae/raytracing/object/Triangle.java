@@ -1,6 +1,7 @@
 package fr.univartois.sae.raytracing.object;
 
 import fr.univartois.sae.raytracing.triplet.Point;
+import fr.univartois.sae.raytracing.triplet.Vector;
 
 /**
  * @author nicolas nourry
@@ -41,5 +42,10 @@ public class Triangle extends AObject{
                 ", b=" + b +
                 ", c=" + c +
                 '}';
+    }
+
+    @Override
+    public double distance(Point p, Vector d) {
+        throw new UnsupportedOperationException();
     }
 }
