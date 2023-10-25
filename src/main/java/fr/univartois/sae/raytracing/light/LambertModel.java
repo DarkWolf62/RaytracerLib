@@ -19,10 +19,9 @@ import static java.lang.Math.max;
 public class LambertModel implements IStrategy{
 
     @Override
-    public Color modelMethod(Sphere object,int idObj ,Vector lookFrom, Vector d, double t, Scene scene) {
+    public Color modelMethod(Sphere object,int idObj ,Point p, Scene scene) {
 
         Triplet cc = object.getCoordinate().getTriplet();
-        Point p = new Point(lookFrom.addition(d.scalarMultiplication(t).getTriplet()).getTriplet());
         Vector n = p.subtraction(cc).scalarMultiplication(1/ p.subtraction(cc).norm());
        // The color we will return
         Color color = new Color(0,0,0);
@@ -43,12 +42,14 @@ public class LambertModel implements IStrategy{
 
             //We add the value of the current color to the sum
             double cos = max(n.scalarProduct(ldir.getTriplet()), 0);
-            color.addition(light.getColor().scalarMultiplication(cos).getTriplet());
+            color = color.addition(light.getColor().scalarMultiplication(cos).getTriplet());
         }
         // We get the value of cDiffuse
         ArrayList<Color> diffuseList = (ArrayList<Color>) scene.getColors().get("diffuse");
+
         Color cDiffuse = diffuseList.get(idObj);
         color = ((Color)scene.getColors().get("ambient")).addition(color.schurProduct(cDiffuse.getTriplet()).getTriplet());
+        System.out.println(color);
         if (color.getTriplet().getX() > 1)
             color.getTriplet().setX(1);
         if (color.getTriplet().getY() > 1)

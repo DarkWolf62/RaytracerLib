@@ -1,11 +1,16 @@
 package fr.univartois.sae.raytracing;
 
+import fr.univartois.sae.raytracing.light.BasicModel;
+import fr.univartois.sae.raytracing.light.IStrategy;
+import fr.univartois.sae.raytracing.light.LambertModel;
 import fr.univartois.sae.raytracing.parser.Parser;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
+import fr.univartois.sae.raytracing.triplet.Color;
 
 
 import java.net.URL;
+import java.util.ArrayList;
 
 
 /**
@@ -21,6 +26,12 @@ public class Main {
         SceneBuilder sceneBuilder = (SceneBuilder) parser.getBuilder();
         Scene scene = sceneBuilder.getResult();
         System.out.println(scene.toString());
-        RayTracing r = new RayTracing(scene);
+        ArrayList<Color> c = (ArrayList<Color>) scene.getColors().get("diffuse");
+        IStrategy strategy;
+        if(c.isEmpty())
+            strategy = new BasicModel();
+        else
+            strategy = new LambertModel();
+        RayTracing r = new RayTracing(scene, strategy);
     }
 }

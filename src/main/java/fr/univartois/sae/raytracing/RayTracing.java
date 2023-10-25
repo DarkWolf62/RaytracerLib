@@ -44,7 +44,7 @@ public class RayTracing {
      * Create an image from a scene
      * @param scene the scene
      */
-    public RayTracing(Scene scene){
+    public RayTracing(Scene scene, IStrategy strategy){
         this.scene=scene;
         Vector lookFrom=new Vector(scene.getCamera().get(0));
         Vector looKAt=new Vector(scene.getCamera().get(1));
@@ -64,12 +64,13 @@ public class RayTracing {
                 double b = ((realHeight / 2) - ((j + 0.5) * pixelHeight));
                 double t = -1;
                 Vector d = new Vector((((u.scalarMultiplication(a)).addition(v.scalarMultiplication(b).getTriplet())).subtraction(w.getTriplet())).scalarMultiplication(1 / (((u.scalarMultiplication(a).addition(v.scalarMultiplication(b).getTriplet()).subtraction(w.getTriplet())).getTriplet()).norm())).getTriplet());
+                Color color = new Color(0.0, 0.0, 0.0);
                 for (AObject object : scene.getObjects()) {
                     if (object instanceof Sphere) {
                         // IL VA FALLOIR UTILISER LES FONCTIONS MODELES ICI !!!
                         double t2;
                         double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
-                        double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).getTriplet()) - (Math.pow(((Sphere) object).getRadius(),2));
+                        double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).getTriplet()) - (Math.pow(((Sphere) object).getRadius(), 2));
                         double delta = Math.pow(tb, 2) - (4 * tc);
                         if (delta == 0) {
                             t = -tb / 2;
@@ -78,20 +79,19 @@ public class RayTracing {
                             t2 = (-tb - Math.sqrt(delta)) / 2;
                             if (t2 > 0) {
                                 t = t2;
-                            }
-                            else if (t < 0) {
+                            } else if (t < 0) {
                                 t = -1;
                             }
+                        }
+                        if (t >= 0) {
+                            Point p = new Point(lookFrom.addition(d.getTriplet()).scalarMultiplication(t).getTriplet());
+                            color = strategy.modelMethod((Sphere)object, scene.getObjects().indexOf(object), p, scene);
                         }
                         // ICI !!!!
                     } else {
                         throw new UnsupportedOperationException();
                     }
-                }
-                Color color = new Color(0.0,0.0,0.0);
-                if (t >= 0) {
-                    //Point p = new Point(lookFrom.addition(d.getTriplet()).scalarMultiplication(t));
-                    color = (Color) scene.getColors().get("ambient");
+
                 }
                 colors[i][j] = color;
             }
