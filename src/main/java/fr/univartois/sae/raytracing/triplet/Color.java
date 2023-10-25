@@ -18,7 +18,7 @@ public class Color {
 
     /**
      * Constructor for create a color with coordinate
-     * @param x,y,z is a triplet
+     * @param x,y,z is are double
      */
     public Color(double x,double y,double z){
         triplet=new Triplet(x,y,z);
