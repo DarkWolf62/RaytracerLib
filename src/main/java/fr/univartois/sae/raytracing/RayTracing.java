@@ -115,8 +115,6 @@ public class RayTracing {
         for(int i=0;i<scene.getWidth();i++){
             for(int j=0;j<scene.getHeight();j++) {
                 Triplet t = colors[i][j].getTriplet();
-                if ( t.getY()<0.9 && t.getY()!=0.0)
-                    System.out.println(colors[i][j]);
             }
         }
         createImage(colors);
