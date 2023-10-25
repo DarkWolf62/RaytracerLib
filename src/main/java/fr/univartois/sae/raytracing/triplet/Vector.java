@@ -82,7 +82,7 @@ public class Vector {
     }
 
     /**
-     * Returns the normalisation of a triplet
+     * Return the normalisation of a triplet
      * @return the normalisation of the triplet
      */
     public Vector normalize() { return new Vector(this.triplet.normalize()); }
@@ -96,7 +96,7 @@ public class Vector {
     }
 
     /**
-     * Prints the current object
+     * Print the current object
      * @return String
      */
     @Override
