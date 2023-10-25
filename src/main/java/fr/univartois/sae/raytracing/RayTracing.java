@@ -54,10 +54,6 @@ public class RayTracing {
         double pixelHeight = realHeight / scene.getHeight();
         double realWidth = scene.getWidth() * pixelHeight;
         double pixelWidth = realWidth / scene.getWidth();
-        System.out.println(realHeight);
-        System.out.println(pixelHeight);
-        System.out.println(realWidth);
-        System.out.println(pixelWidth);
         Color[][] colors = new Color[scene.getWidth()][scene.getHeight()];
         for(int i=0;i<scene.getWidth();i++){
             for(int j=0;j<scene.getHeight();j++) {
@@ -90,7 +86,7 @@ public class RayTracing {
                 Color color = new Color(0.0,0.0,0.0);
                 if (t >= 0) {
                     //Point p = new Point(lookFrom.addition(d.getTriplet()).scalarMultiplication(t));
-                    color = scene.getColors().get(0);
+                    color = scene.getColors().get("ambient");
                 }
                 colors[i][j] = color;
             }

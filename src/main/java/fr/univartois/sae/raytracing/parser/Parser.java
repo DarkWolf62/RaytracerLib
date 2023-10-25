@@ -45,9 +45,6 @@ public class Parser {
      */
     public Map<String, Color> getColors() {
         Map<String, Color> res = new HashMap<>();
-        res.put("ambient", null);
-        res.put("diffuse", null);
-        res.put("specular", null);
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
