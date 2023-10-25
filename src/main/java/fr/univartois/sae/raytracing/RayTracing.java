@@ -91,7 +91,7 @@ public class RayTracing {
                 Color color = new Color(0.0,0.0,0.0);
                 if (t >= 0) {
                     //Point p = new Point(lookFrom.addition(d.getTriplet()).scalarMultiplication(t));
-                    color = scene.getColors().get("ambient");
+                    color = (Color) scene.getColors().get("ambient");
                 }
                 colors[i][j] = color;
             }
