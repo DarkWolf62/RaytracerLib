@@ -44,7 +44,6 @@ Scene "0..n" *-- "0.1" Light
 Scene "0..n" *-- "0.1" AObject
 Scene "3"*-- "0.1" Triplet : use
 RayTracing *-- Scene : use
-RayTracing *-- IStrategy : strategy
 
 class Triplet {
 -double x
@@ -245,13 +244,8 @@ class Main{
 
 class RayTracing{
 - Scene scene
-- BufferedImage image
-- IStrategy strategy
-+ RayTracing(Scene scene)
++ RayTracing(Scene scene, IStrategy strategy)
 + createImage(Color[][] colors) : void
-+ contextMethod()
-+ executeStrategy()
-+ setStrategy(IStrategy strategy) : void
 }
 
 class BasicModel implements IStrategy {
