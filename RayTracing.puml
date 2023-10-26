@@ -28,8 +28,15 @@ PonctualLight *-- Point : use
 
 
 Triangle "3" *-- "0..n" Point : use
-Plane "2" *-- "0..n" Triplet : use
-Sphere *-- Triplet : use
+Plane  *-- Vector : use
+Plane  *-- Point : use
+Sphere *-- Point : use
+
+Sphere *-- Color : use
+Triangle *-- Color : use
+Plane *-- Color : use
+Triangle *-- Vector : use
+AObject *-- Color
 
 Parser *-- IBuilder : builder
 Scene <-- SceneBuilder
@@ -118,29 +125,52 @@ class DirectionalLight extends Light{
 + toString() : String
 }
 
+abstract class AObject {
+- Color color
++ distance(Point p, Vector d) : double
++ getColor() : color
++ setColor() : void
+}
+
+
+
 class Triangle extends AObject {
 - Point a
 - Point b
 - Point c
-+ Triangle(Point a, Point b, Point c)
+- Vector normal
+- Color color
++ Triangle(Point a, Point b, Point c, Color color)
 + toString() : String
-+
++ getNormal() : Vector
++ calcP(Vector d, Triplet lookFrom) : Point
++ distance(Point p, Vector d) : double
++ getColor() : Color
 }
 
 class Plane extends AObject{
 - Point coordinate
-- Triplet normal
-+ Plane()
+- Vector normal
+- Color color
++ Plane(Point coordinate, Vector normal,Color color)
 + toString() : String
++ getCoordinate : Point
++ getNormal() : Vector
++ calcP(Vector d, Triplet lookFrom) : Point
++ distance(Point p, Vector d) : double
++ getColor() : Color
 }
 
 class Sphere extends AObject {
 - Point coordinate
 - double radius
-+ Sphere(Point coordinate, double radius)
+- Color color
++ Sphere(Point coordinate, double radius, Color color)
 + toString() : String
 + getCoordinate() : Point
 + getRadius() : double
++ distance(Point p, Vector d) : double
++ getColor() : Color
 }
 
 note "Patron de conception : Builder" as N2
