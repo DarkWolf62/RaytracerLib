@@ -7,6 +7,9 @@ import fr.univartois.sae.raytracing.triplet.Vector;
 
 
 /**
+ * @author nicolas.nourry
+ * @author leo.denis
+ *
  * this class represents a sphere
  */
 public class Sphere extends AObject {
@@ -50,11 +53,22 @@ public class Sphere extends AObject {
                 '}';
     }
 
+    /**
+     *
+     * @param p
+     * @param d
+     * @return
+     */
     @Override
     public double distance(Point p, Vector d) {
         return 0;
     }
 
+    /**
+     * Getter for the color
+     *
+     * @return
+     */
     public Color getColor() {
         return color;
     }

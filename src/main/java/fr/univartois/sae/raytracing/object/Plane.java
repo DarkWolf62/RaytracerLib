@@ -11,6 +11,7 @@ import fr.univartois.sae.raytracing.triplet.Vector;
  *
  */
 public class Plane extends AObject{
+
     private Color color;
     /**
      * represents the coordinate of the plane
@@ -19,12 +20,16 @@ public class Plane extends AObject{
     /**
      * represents the normal of the plane
      */
-    private Triplet normal;
+    private Vector normal;
 
     /**
      * constructor of this class.
+     *
+     * @param coordinate
+     * @param normal
+     * @param color
      */
-    public Plane(Point coordinate, Triplet normal, Color color){
+    public Plane(Point coordinate, Vector normal,Color color){
         this.coordinate = coordinate;
         this.normal=normal;
         this.color = color;
@@ -42,8 +47,39 @@ public class Plane extends AObject{
                 '}';
     }
 
+    /**
+     *
+     * @param p
+     * @param d
+     * @return
+     */
+    public Point calcP(Vector d,Triplet lookFrom){
+        Point q =coordinate;
+        double up=q.subtraction(lookFrom).scalarProduct(normal.getTriplet()) ;
+        double down=d.scalarProduct(normal.getTriplet());
+        if (down==0)
+            return null;
+        double t =up/down;
+        Point p = new Point(lookFrom.addition(d.scalarMultiplication(t).getTriplet()));
+        return p;
+    }
+
+
     @Override
     public double distance(Point p, Vector d) {
-        throw new UnsupportedOperationException();
+        if (d.scalarProduct(normal.getTriplet())==0)
+            return -1;
+        return p.subtraction(p.getTriplet()).norm();
+    }
+    public Color getColor() {
+        return color;
+    }
+
+    public Point getCoordinate() {
+        return coordinate;
+    }
+
+    public Vector getNormal() {
+        return normal;
     }
 }
