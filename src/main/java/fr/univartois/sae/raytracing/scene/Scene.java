@@ -115,7 +115,7 @@ public class Scene {
         return fov;
     }
 
-    public double getShininess(){ return fov; }
+    public double getShininess(){ return shininess; }
 
     /**
      * Returns the output
