@@ -1,6 +1,7 @@
 package fr.univartois.sae.raytracing;
 
 import fr.univartois.sae.raytracing.light.IStrategy;
+import fr.univartois.sae.raytracing.light.Light;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
@@ -17,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Class RayTracing to generate an image from a scene
+ * Class {@link RayTracing} to generate an image from a {@link Scene}
  * @author leo.denis
  * @author matheo.dupuis
  * @author nicolas.nourry
@@ -25,16 +26,15 @@ import java.io.IOException;
  */
 public class RayTracing {
 
-    private Scene scene;
-
-    private BufferedImage image;
-
-    private IStrategy strategy;
+    /**
+     * The {@link Scene} of image
+     */
+    private final Scene scene;
 
     /**
-     * Create an image from a scene
-     * @param scene the scene
-     * @param strategy The strategy used to create the light
+     * Create an image from a {@link Scene}
+     * @param scene the {@link Scene} of image
+     * @param strategy The {@link IStrategy} used to create the {@link Light}
      */
     public RayTracing(Scene scene, IStrategy strategy){
         this.scene=scene;
@@ -60,7 +60,7 @@ public class RayTracing {
                 Color color = new Color(0.0, 0.0, 0.0);
                 for (int index = 0; index < scene.getObjects().size(); index++) {
                     AObject object = scene.getObjects().get(index);
-                    if (object instanceof Sphere) {
+                    if (object instanceof Sphere sphere) {
                         double tmp;
                         double t2;
                         double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
@@ -85,16 +85,16 @@ public class RayTracing {
                             Point p = new Point(lookFrom.addition(d.getTriplet().scalarMultiplication(t)).getTriplet());
                             color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
                         }
-                    } else if (object instanceof Plane) {
-                        Point p = ((Plane) object).calcP(d,lookFrom.getTriplet());
-                        double distance = object.distance(p, d);
+                    } else if (object instanceof Plane plane) {
+                        Point p = plane.calcP(d,lookFrom.getTriplet());
+                        double distance = plane.distance(p, d);
                         if (distance>=0) {
                             intersectedObjectIndex=index;
                             color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
                         }
-                    } else if (object instanceof Triangle) {
-                        Point p = ((Triangle) object).calcP(d, lookFrom.getTriplet());
-                        double distance = object.distance(p, d);
+                    } else if (object instanceof Triangle triangle) {
+                        Point p = triangle.calcP(d, lookFrom.getTriplet());
+                        double distance = triangle.distance(p, d);
                         if (distance >= 0) {
                             intersectedObjectIndex = index;
                             color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
@@ -110,10 +110,11 @@ public class RayTracing {
     }
 
     /**
-     * Create an image with a 2D array of colors
-     * @param colors a 2D array of colors
+     * Create an image with a 2D array of {@link Color}s
+     * @param colors a 2D array of {@link Color}s
      */
     public void createImage(Color[][] colors) {
+        BufferedImage image;
         try {
             image = new BufferedImage(scene.getWidth(),scene.getHeight(), 1);
             for (int i=0; i< scene.getWidth(); i++) {

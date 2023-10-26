@@ -7,9 +7,6 @@ import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.parser.Parser;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
-import fr.univartois.sae.raytracing.object.Sphere;
-
-
 
 /**
  * @author matheo.dupuis
@@ -26,9 +23,6 @@ public class Main {
         parser.construct();
         SceneBuilder sceneBuilder = (SceneBuilder) parser.getBuilder();
         Scene scene = sceneBuilder.getResult();
-
-        // We print the scene to see the informations
-        System.out.println(scene.toString());
 
         //Initialization of the strategy used, we create a new strategy and check if there are some diffused colors to use the Lambert method
         // Else we use the basic Method

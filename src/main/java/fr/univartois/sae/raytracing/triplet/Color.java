@@ -1,43 +1,49 @@
 package fr.univartois.sae.raytracing.triplet;
 
+import fr.univartois.sae.raytracing.object.Plane;
+
 /**
  * @author nicolas.nourry
  *
- * This class represents a color.
+ * This class represents a {@link Color}.
  */
 public class Color {
-    private Triplet triplet;
+    /**
+     * The {@link Triplet} who represents RGB values
+     */
+    private final Triplet triplet;
 
     /**
-     * Constructor to create a color with a triplet
-     * @param triplet is a triplet
+     * Constructor to create a {@link Color} with a {@link Triplet}
+     * @param triplet : the RGB {@link Triplet}
      */
     public Color(Triplet triplet){
         this.triplet=triplet;
     }
 
     /**
-     * Constructor to create a color with coordinate
-     * @param x,y,z are double
+     * Constructor to create a {@link Color} with coordinate
+     * @param x : the red value
+     * @param y : the green value
+     * @param z : the blue value
      */
     public Color(double x,double y,double z){
         triplet=new Triplet(x,y,z);
     }
 
     /**
-     * this method adds the triplet of this class with another triplet
-     * @param triplet
-     * @return a new color
+     * Create a new {@link Color} from the addition between the actual instance of {@link Triplet} and another {@link Triplet}
+     * @param triplet the second {@link Triplet}
+     * @return the new {@link Color}
      */
     public Color addition(Triplet triplet){
-
         return new Color(this.triplet.addition(triplet));
     }
 
     /**
-     * this method uses the scalar multiplication on the triplet
-     * @param d
-     * @return a new color
+     * create a new {@link Color} from the scalar multiplication between the actual {@link Triplet} and a double
+     * @param d the double to multiply
+     * @return the new {@link Color}
      */
     public Color scalarMultiplication(double d){
 
@@ -45,9 +51,9 @@ public class Color {
     }
 
     /**
-     * this method uses the schur product on the triplet
-     * @param triplet
-     * @return a new color
+     * create a new {@link Color} from the scalar product between the actual {@link Triplet} and another
+     * @param triplet the other {@link Triplet}
+     * @return the new {@link Color}
      */
     public Color schurProduct(Triplet triplet){
 
@@ -55,16 +61,16 @@ public class Color {
     }
 
     /**
-     *
-     * @return this triplet of color
+     * Encapsulation method to retrieve the {@link Triplet} of that {@link Color}
+     * @return this {@link Triplet} of that {@link Color}
      */
     public Triplet getTriplet(){
         return triplet;
     }
 
     /**
-     * Print the current object
-     * @return String
+     * Prints the current object
+     * @return the {@link String} of a {@link Color}
      */
     @Override
     public String toString() {

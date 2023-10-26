@@ -8,27 +8,40 @@ import fr.univartois.sae.raytracing.triplet.Vector;
 /**
  * @author nicolas nourry
  *
- * this class represent a triangle
+ * This class represent a {@link Triangle}
  */
 public class Triangle extends AObject{
-    private Color color;
     /**
-     * represent a point of the triangle
+     * represents the {@link Color} of the {@link Triangle}
      */
-    private Point a;
-    /**
-     * represent a point of the triangle
-     */
-    private Point b;
-    /**
-     * represent a point of the triangle
-     */
-    private Point c;
-
-    private Vector normal;
+    private final Color color;
 
     /**
-     * constructor of this class
+     * represent a {@link Point} of the triangle
+     */
+    private final Point a;
+
+    /**
+     * represent a {@link Point} of the triangle
+     */
+    private final Point b;
+
+    /**
+     * represent a {@link Point} of the triangle
+     */
+    private final Point c;
+
+    /**
+     * Represents the normal {@link Vector} of the {@link Triangle}
+     */
+    private final Vector normal;
+
+    /**
+     * Constructor of this class
+     * @param a the 1st {@link Point} of the {@link Triangle}
+     * @param b the 2nd {@link Point} of the {@link Triangle}
+     * @param c the 3rd {@link Point} of the {@link Triangle}
+     * @param color the {@link Color} of the {@link Triangle}
      */
     public Triangle(Point a, Point b, Point c, Color color){
         this.a = a;
@@ -40,7 +53,7 @@ public class Triangle extends AObject{
 
     /**
      * Prints the current object
-     * @return String
+     * @return the {@link String} of a {@link Triangle}
      */
     @Override
     public String toString() {
@@ -52,22 +65,26 @@ public class Triangle extends AObject{
     }
 
     /**
-     *
-     * @param p
-     * @param d
-     * @return
+     * Calculate the intersection {@link Point}.
+     * @param d the direction {@link Vector}
+     * @param lookFrom the {@link Point} of the Camera
+     * @return the intersection {@link Point}
      */
-    @Override
     public Point calcP(Vector d, Triplet lookFrom){
         double up=a.subtraction(lookFrom).scalarProduct(normal.getTriplet()) ;
         double down=d.scalarProduct(normal.getTriplet());
         if (down==0)
             return null;
         double t =up/down;
-        Point p = new Point(lookFrom.addition(d.scalarMultiplication(t).getTriplet()));
-        return p;
+        return new Point(lookFrom.addition(d.scalarMultiplication(t).getTriplet()));
     }
 
+    /**
+     * Return the distance between the {@link Point} intersection and the direction {@link Vector}
+     * @param p the intersection {@link Point}
+     * @param d the direction {@link Vector}
+     * @return the distance between the interaction {@link Point} and the direction {@link Vector}
+     */
     public double distance(Point p, Vector d) {
         if (d.scalarProduct(normal.getTriplet())==0)
             return -1;
@@ -82,10 +99,18 @@ public class Triangle extends AObject{
         return -1;
     }
 
+    /**
+     * Encapsulation method to retrieve the {@link Color}
+     * @return the {@link Triangle} {@link Color}
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Encapsulation method to retrieve the normal {@link Vector} of the {@link Triangle}
+     * @return the normal {@link Vector}
+     */
     public Vector getNormal() {
         return normal;
     }

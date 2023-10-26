@@ -4,19 +4,19 @@ import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 
 /**
- * This class represent a ponctual light.
+ * This class represent a {@link PonctualLight}.
  * @author nicolas.blart
  */
 public class PonctualLight extends Light{
     /**
-     * The point where the light is emitted
+     * The {@link Point} where the light is emitted
      */
-    private Point point;
+    private final Point point;
 
     /**
-     * The constructor of the Ponctual Light.
-     * @param point
-     * @param color
+     * The constructor of this class.
+     * @param point the {@link Point} where the light is emitted
+     * @param color the {@link Color} of the light
      */
     public PonctualLight(Point point, Color color){
         super(color);
@@ -24,8 +24,8 @@ public class PonctualLight extends Light{
     }
 
     /**
-     * Encapsulation method to retrieve the Point
-     * @return Point
+     * Encapsulation method to retrieve the {@link Point}
+     * @return the {@link Point} where the light is emitted
      */
     public Point getPoint() {
         return point;
@@ -33,7 +33,7 @@ public class PonctualLight extends Light{
 
     /**
      * Prints the current object
-     * @return String
+     * @return the {@link String} of a {@link PonctualLight}
      */
     @Override
     public String toString() {

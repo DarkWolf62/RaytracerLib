@@ -6,28 +6,32 @@ import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
 /**
- * this class represents a plane
+ * this class represents a {@link Plane}
  * @author nicolas nourry
- *
  */
 public class Plane extends AObject{
 
-    private Color color;
     /**
-     * represents the coordinate of the plane
+     * represents the {@link Color} of the {@link Plane}
      */
-    private Point coordinate;
+    private final Color color;
+
     /**
-     * represents the normal of the plane
+     * represents the coordinate {@link Point} of the {@link Plane}
      */
-    private Vector normal;
+    private final Point coordinate;
+
+    /**
+     * Represents the normal {@link Vector} of the {@link Plane}
+     */
+    private final Vector normal;
 
     /**
      * constructor of this class.
      *
-     * @param coordinate
-     * @param normal
-     * @param color
+     * @param coordinate the coordinate of a {@link Point} of the Plane
+     * @param normal the normal {@link Vector} of the plane
+     * @param color the {@link Color} of the plane
      */
     public Plane(Point coordinate, Vector normal,Color color){
         this.coordinate = coordinate;
@@ -37,7 +41,7 @@ public class Plane extends AObject{
 
     /**
      * Prints the current object
-     * @return String
+     * @return the {@link String} of a {@link Plane}
      */
     @Override
     public String toString() {
@@ -48,37 +52,55 @@ public class Plane extends AObject{
     }
 
     /**
-     *
-     * @param p
-     * @param d
-     * @return
+     * Calculate the intersection {@link Point}.
+     * @param d the direction {@link Vector}
+     * @param lookFrom the {@link Point} of the Camera
+     * @return the intersection {@link Point}
      */
     public Point calcP(Vector d,Triplet lookFrom){
-        Point q =coordinate;
-        double up=q.subtraction(lookFrom).scalarProduct(normal.getTriplet()) ;
+        double up= coordinate.subtraction(lookFrom).scalarProduct(normal.getTriplet()) ;
         double down=d.scalarProduct(normal.getTriplet());
         if (down==0)
             return null;
         double t =up/down;
-        Point p = new Point(lookFrom.addition(d.scalarMultiplication(t).getTriplet()));
-        return p;
+        return new Point(lookFrom.addition(d.scalarMultiplication(t).getTriplet()));
+
     }
 
 
+    /**
+     * Return the distance between the {@link Point} intersection and the direction {@link Vector}
+     * @param p the intersection {@link Point}
+     * @param d the direction {@link Vector}
+     * @return the distance between the interaction {@link Point} and the direction {@link Vector}
+     */
     @Override
     public double distance(Point p, Vector d) {
         if (d.scalarProduct(normal.getTriplet())==0)
             return -1;
         return p.subtraction(p.getTriplet()).norm();
     }
+
+    /**
+     * Encapsulation method to retrieve the {@link Color}
+     * @return the {@link Plane} {@link Color}
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Encapsulation method to retrieve the coordinate {@link Point}
+     * @return the coordinate {@link Point} of the {@link Plane}
+     */
     public Point getCoordinate() {
         return coordinate;
     }
 
+    /**
+     * Encapsulation method to retrieve the normal {@link Vector} of the {@link Plane}
+     * @return the normal {@link Vector}
+     */
     public Vector getNormal() {
         return normal;
     }

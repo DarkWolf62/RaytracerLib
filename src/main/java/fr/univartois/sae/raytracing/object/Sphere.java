@@ -2,7 +2,6 @@ package fr.univartois.sae.raytracing.object;
 
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
-import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
 
@@ -10,21 +9,29 @@ import fr.univartois.sae.raytracing.triplet.Vector;
  * @author nicolas.nourry
  * @author leo.denis
  *
- * this class represents a sphere
+ * this class represents a {@link Sphere}
  */
 public class Sphere extends AObject {
-    private Color color;
     /**
-     * represents the coordinate of the sphere
+     * Represents the {@link Color} of the {@link Sphere}
      */
-    private Point coordinate;
+    private final Color color;
+
     /**
-     * represents the radius of the sphere
+     * represents the coordinate {@link Point} of the {@link Sphere}
+     */
+    private final Point coordinate;
+
+    /**
+     * represents the radius of the {@link Sphere}
      */
     double radius;
 
     /**
-     * constructor of this class
+     * Constructor of this class
+     * @param coordinate the coordinate {@link Point} of the {@link Sphere}
+     * @param radius the radius of the {@link Sphere}
+     * @param color the {@link Color} of the {@link Sphere}
      */
     public Sphere(Point coordinate, double radius,Color color){
         this.coordinate = coordinate;
@@ -33,17 +40,25 @@ public class Sphere extends AObject {
 
     }
 
+    /**
+     * Encapsulation method to retrieve the coordinate {@link Point} of the {@link Sphere}
+     * @return the coordinate {@link Point}
+     */
     public Point getCoordinate() {
         return coordinate;
     }
 
+    /**
+     * Encapsulation method to retrieve the radius of the {@link Sphere}
+     * @return the radius of the {@link Sphere}
+     */
     public double getRadius() {
         return radius;
     }
 
     /**
      * Prints the current object
-     * @return String
+     * @return the {@link String} of a {@link Sphere}
      */
     @Override
     public String toString() {
@@ -54,10 +69,10 @@ public class Sphere extends AObject {
     }
 
     /**
-     *
-     * @param p
-     * @param d
-     * @return
+     * Return the distance between the {@link Point} intersection and the direction {@link Vector}
+     * @param p the intersection {@link Point}
+     * @param d the direction {@link Vector}
+     * @return the distance between the interaction {@link Point} and the direction {@link Vector}
      */
     @Override
     public double distance(Point p, Vector d) {
@@ -65,9 +80,8 @@ public class Sphere extends AObject {
     }
 
     /**
-     * Getter for the color
-     *
-     * @return
+     * Encapsulation method to retrieve the {@link Color}
+     * @return the {@link Sphere} {@link Color}
      */
     public Color getColor() {
         return color;

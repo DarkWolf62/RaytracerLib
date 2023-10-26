@@ -4,19 +4,19 @@ import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
 /**
- * This class represent a directional light.
+ * This class represent a {@link DirectionalLight}.
  * @author nicolas.blart
  */
 public class DirectionalLight extends Light{
     /**
-     * The direction of the light
+     * The direction {@link Vector} of the {@link Light}
      */
-    private Vector vector;
+    private final Vector vector;
 
     /**
-     * The constructor of the Directional Light
-     * @param vector
-     * @param color
+     * The constructor of this class
+     * @param vector the direction {@link Vector}
+     * @param color the color of the {@link Color}
      */
     public DirectionalLight(Vector vector, Color color){
         super(color);
@@ -24,8 +24,8 @@ public class DirectionalLight extends Light{
     }
 
     /**
-     * Encapsulation method to retrieve the Vector
-     * @return Vector
+     * Encapsulation method to retrieve the direction {@link Vector}
+     * @return the direction {@link Vector}
      */
     public Vector getVector() {
         return vector;
@@ -33,7 +33,7 @@ public class DirectionalLight extends Light{
 
     /**
      * Prints the current object
-     * @return String
+     * @return the {@link String} of a {@link DirectionalLight}
      */
     @Override
     public String toString() {

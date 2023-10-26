@@ -6,100 +6,99 @@ import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.light.Light;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-
 
 /**
  * @author matheo.dupuis
  *
- * this class represents the scene
+ * this class represents the {@link Scene}
  */
 public class Scene {
 
-    private int width;
-    private int height;
-    private ArrayList<Triplet> camera;
-    private ArrayList<Light> lights;
-    private Map<String,Object> colors;
-    private ArrayList<AObject> objects;
-    private int fov;
-    private String output;
-
+    private final int width;
+    private final int height;
+    private final ArrayList<Triplet> camera;
+    private final ArrayList<Light> lights;
+    private final Map<String,Object> colors;
+    private final ArrayList<AObject> objects;
+    private final int fov;
+    private final String output;
 
     /**
      * Constructor using image's dimension, camera's information, lights, colors, objects
      *
-     * @param width
-     * @param height
-     * @param camera
-     * @param lights
-     * @param colors
-     * @param objects
-     * @param fov
-     * @param output
+     * @param width : the width of the {@link Scene}
+     * @param height : the height of the {@link Scene}
+     * @param camera : the camera placement of the {@link Scene}
+     * @param lights : the lights
+     * @param colors : the colors
+     * @param objects : the objects
+     * @param fov : the field of view
+     * @param output : the output file
      */
-    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, Map<String,Object> colors, ArrayList<AObject> objects, int fov, String output) {
+    public Scene(int width, int height, List<Triplet> camera, List<Light> lights, Map<String,Object> colors, List<AObject> objects, int fov, String output) {
         this.width = width;
         this.height = height;
-        this.camera = camera;
-        this.lights = lights;
+        this.camera = (ArrayList<Triplet>) camera;
+        this.lights = (ArrayList<Light>) lights;
         this.colors = colors;
-        this.objects = objects;
+        this.objects = (ArrayList<AObject>) objects;
         this.fov = fov;
         this.output = output;
     }
 
     /**
-     * Getter for the width
-     * @return width
+     * Encapsulation method to retrieve the width
+     * @return the width of the {@link Scene}
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     * Getter for height
-     * @return height
+     * Encapsulation method to retrieve the height
+     * @return the height of the {@link Scene}
      */
     public int getHeight() {
         return height;
     }
 
     /**
-     * Getter for camera
-     * @return camera
+     * Encapsulation method to retrieve the camera
+     * @return the camera of the {@link Scene}
      */
-    public ArrayList<Triplet> getCamera() {
+    public List<Triplet> getCamera() {
         return camera;
     }
 
     /**
-     * Getter lights
-     * @return lights
+     * Encapsulation method to retrieve the lights {@link AObject}
+     * @return the ligths of the {@link Scene}
      */
-    public ArrayList<Light> getLights() {
+    public List<Light> getLights() {
         return lights;
     }
 
     /**
-     * Getter for colors
-     * @return colors
+     * Encapsulation method to retrieve the colors {@link Color}
+     * @return the colors of the {@link Scene}
      */
     public Map<String,Object> getColors() {
         return colors;
     }
 
     /**
-     * Getter for objects
-     * @return objects
+     * Encapsulation method to retrieve the objects {@link AObject}
+     * @return the objects of the {@link Scene}
      */
-    public ArrayList<AObject> getObjects() {
+    public List<AObject> getObjects() {
         return objects;
     }
 
     /**
-     * Returns the fov
-     * @return the fov
+     * Encapsulation method to retrieve the field of view of the {@link Scene}
+     * @return the field of view of the {@link Scene}
      */
     public int getFov() {
         return fov;
@@ -107,8 +106,8 @@ public class Scene {
 
 
     /**
-     * Returns the output
-     * @return the output
+     * Encapsulation method to retrieve the output file
+     * @return the output file of the {@link Scene}
      */
     public String getOutput() {
         return output;
@@ -116,7 +115,7 @@ public class Scene {
 
     /**
      * Prints the current object
-     * @return String
+     * @return the {@link String} of a {@link Scene}
      */
     @Override
     public String toString() {
