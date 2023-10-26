@@ -2,7 +2,10 @@ package fr.univartois.sae.raytracing.object;
 
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
+import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
+
+import java.util.Objects;
 
 
 /**
@@ -69,17 +72,6 @@ public class Sphere extends AObject {
     }
 
     /**
-     * Return the distance between the {@link Point} intersection and the direction {@link Vector}
-     * @param p the intersection {@link Point}
-     * @param d the direction {@link Vector}
-     * @return the distance between the interaction {@link Point} and the direction {@link Vector}
-     */
-    @Override
-    public double distance(Point p, Vector d) {
-        return 0;
-    }
-
-    /**
      * Encapsulation method to retrieve the {@link Color}
      * @return the {@link Sphere} {@link Color}
      */
@@ -87,23 +79,52 @@ public class Sphere extends AObject {
         return color;
     }
 
-//    @Override
-//    public double distance(Point p, Vector d) {
-//        double res = -1;
-//        double t2;
-//        double tb = (p.subtraction(coordinate.getTriplet())).scalarMultiplication(2).scalarProduct(d.getTriplet());
-//        double tc = (p.subtraction(coordinate.getTriplet()).scalarProduct(p.subtraction(coordinate.getTriplet()).getTriplet()))
-//        double delta = Math.pow(tb, 2) - (4 * tc);
-//        if (delta == 0) {
-//            res = -tb / 2;
-//        } else if (delta > 0) {
-//            res = (-tb + Math.sqrt(delta)) / 2;
-//            t2 = (-tb - Math.sqrt(delta)) / 2;
-//            if (t2 > 0) {
-//                res = t2;
-//            } else if (t < 0) {
-//                res = -1;
-//            }
-//        }
-//    }
+    public Point calcP(Vector d, Triplet lookFrom) {
+        double t;
+        double t2;
+        double tb = ((lookFrom.subtraction(this.getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
+        double tc = (lookFrom.subtraction(this.getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(this.getCoordinate().getTriplet())) - (Math.pow((this.getRadius()), 2));
+        double delta = Math.pow(tb, 2) - (4 * tc);
+        if (delta == 0) {
+            t = -tb / 2;
+        } else if (delta > 0) {
+            t = (-tb + Math.sqrt(delta)) / 2;
+            t2 = (-tb - Math.sqrt(delta)) / 2;
+            if (t2 > 0) {
+                t = t2;
+            } else if (t < 0) {
+                t = -1;
+            }
+        } else {
+            return null;
+        }
+        return new Point(lookFrom.addition(d.getTriplet().scalarMultiplication(t)));
+    }
+
+    /**
+     * Return the distance between the {@link Point} intersection and the direction {@link Vector}
+     * @param p the intersection {@link Point}
+     * @param d the direction {@link Vector}
+     * @return the distance between the interaction {@link Point} and the direction {@link Vector}
+     */
+    @Override
+    public double distance(Point p, Vector d) {
+        Point point = calcP(d, p.getTriplet());
+        if (point == null)
+            return -1;
+        return (point.subtraction(p.getTriplet())).norm();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sphere sphere = (Sphere) o;
+        return Double.compare(radius, sphere.radius) == 0 && Objects.equals(color, sphere.color) && Objects.equals(coordinate, sphere.coordinate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, coordinate, radius);
+    }
 }

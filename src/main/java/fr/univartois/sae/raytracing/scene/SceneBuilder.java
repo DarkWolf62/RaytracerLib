@@ -2,7 +2,6 @@ package fr.univartois.sae.raytracing.scene;
 
 import fr.univartois.sae.raytracing.light.Light;
 import fr.univartois.sae.raytracing.object.AObject;
-import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 
 import java.util.ArrayList;
@@ -26,6 +25,8 @@ public class SceneBuilder implements IBuilder{
     private double shininess;
     private String output;
 
+    private boolean shadow;
+
     /**
      * Set the values for the Scene
      * @param width the width of the {@link Scene}
@@ -34,12 +35,13 @@ public class SceneBuilder implements IBuilder{
      * @param output the output file of the {@link Scene}
      */
     @Override
-    public void buildScene(int width, int height, double shininess, String output) {
+    public void buildScene(int width, int height, double shininess, String output, boolean shadow) {
         this.width = width;
         this.height = height;
         if(shininess != 0)
             this.shininess = shininess;
         this.output = output;
+        this.shadow = shadow;
     }
 
     /**
@@ -87,6 +89,6 @@ public class SceneBuilder implements IBuilder{
      * @return the new {@link Scene} just created
      */
     public Scene getResult(){
-        return new Scene(width,height,camera,lights,colors,objects,fov, output);
+        return new Scene(width,height,camera,lights,colors,objects,fov, output, shininess, shadow);
     }
 }

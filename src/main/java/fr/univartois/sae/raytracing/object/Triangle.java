@@ -94,7 +94,6 @@ public class Triangle extends AObject{
         double x = a.subtraction(c.getTriplet()).vectorProduct(point.subtraction(c.getTriplet()).getTriplet()).scalarProduct(normal.getTriplet());
         if (v>=0 && w>=0 && x>=0){
             return point.subtraction(p.getTriplet()).norm();
-
         }
         return -1;
     }

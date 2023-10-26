@@ -24,6 +24,8 @@ public class Scene {
     private final ArrayList<AObject> objects;
     private final int fov;
     private final String output;
+    private final double shininess;
+    private final boolean shadow;
 
     /**
      * Constructor using image's dimension, camera's information, lights, colors, objects
@@ -35,9 +37,10 @@ public class Scene {
      * @param colors : the colors
      * @param objects : the objects
      * @param fov : the field of view
+     * @param shininess : the amount of shininess of the {@link AObject}
      * @param output : the output file
      */
-    public Scene(int width, int height, List<Triplet> camera, List<Light> lights, Map<String,Object> colors, List<AObject> objects, int fov, String output) {
+    public Scene(int width, int height, List<Triplet> camera, List<Light> lights, Map<String,Object> colors, List<AObject> objects, int fov, String output, double shininess, boolean shadow) {
         this.width = width;
         this.height = height;
         this.camera = (ArrayList<Triplet>) camera;
@@ -46,6 +49,12 @@ public class Scene {
         this.objects = (ArrayList<AObject>) objects;
         this.fov = fov;
         this.output = output;
+        this.shininess = shininess;
+        this.shadow= shadow;
+    }
+
+    public boolean isShadow() {
+        return shadow;
     }
 
     /**
@@ -104,6 +113,7 @@ public class Scene {
         return fov;
     }
 
+    public double getShininess(){ return shininess; }
 
     /**
      * Encapsulation method to retrieve the output file
@@ -127,6 +137,7 @@ public class Scene {
                 ", colors=" + colors +
                 ", objects=" + objects +
                 ", fov=" + fov +
+                ", shininess" + shininess +
                 ", output=" + output +
                 '}';
     }

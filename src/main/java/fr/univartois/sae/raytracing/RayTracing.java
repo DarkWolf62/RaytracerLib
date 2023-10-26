@@ -7,15 +7,19 @@ import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.object.Triangle;
 import fr.univartois.sae.raytracing.scene.Scene;
+
+import fr.univartois.sae.raytracing.shadow.IShadow;
+
+import fr.univartois.sae.raytracing.shadow.ProxyShadow;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
-import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Class {@link RayTracing} to generate an image from a {@link Scene}
@@ -38,6 +42,7 @@ public class RayTracing {
      */
     public RayTracing(Scene scene, IStrategy strategy){
         this.scene=scene;
+        IShadow shadow = new ProxyShadow();
         Vector lookFrom=new Vector(scene.getCamera().get(0));
         Vector looKAt=new Vector(scene.getCamera().get(1));
         Vector up = new Vector(scene.getCamera().get(2));
@@ -61,43 +66,44 @@ public class RayTracing {
                 for (int index = 0; index < scene.getObjects().size(); index++) {
                     AObject object = scene.getObjects().get(index);
                     if (object instanceof Sphere sphere) {
-                        double tmp;
-                        double t2;
-                        double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
-                        double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).getTriplet()) - (Math.pow(((Sphere) object).getRadius(), 2));
-                        double delta = Math.pow(tb, 2) - (4 * tc);
-                        if (delta == 0) {
-                            t = -tb / 2;
-                        } else if (delta > 0) {
-                            tmp = (-tb + Math.sqrt(delta)) / 2;
-                            t2 = (-tb - Math.sqrt(delta)) / 2;
-                            if (t2 > 0) {
-                                tmp = t2;
-                            } else if (t < 0) {
-                                tmp = -1;
-                            }
-                            if ((tmp <= t) || (t == -1)) {
-                                t = tmp;
+                        Point p = sphere.calcP(d, lookFrom.getTriplet());
+                        if (p != null) {
+                            double distance = object.distance(p, d);
+                            if (distance >= 0) {
                                 intersectedObjectIndex = index;
+                                List<Light> lights = shadow.shadowRequest(scene, object, p);
+                                if(lights == null) {
+                                    color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d);
+                                } else {
+                                    color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d, lights);
+                                }
+                                if (i==506&&j==396)
+                                    System.out.println(lights);
                             }
-                        }
-                        if (t >= 0) {
-                            Point p = new Point(lookFrom.addition(d.getTriplet().scalarMultiplication(t)).getTriplet());
-                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
                         }
                     } else if (object instanceof Plane plane) {
                         Point p = plane.calcP(d,lookFrom.getTriplet());
                         double distance = plane.distance(p, d);
                         if (distance>=0) {
                             intersectedObjectIndex=index;
-                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                            List<Light> lights = shadow.shadowRequest(scene, object, p);
+                            if(lights == null) {
+                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d);
+                            } else {
+                                color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d, lights);
+                            }
                         }
                     } else if (object instanceof Triangle triangle) {
                         Point p = triangle.calcP(d, lookFrom.getTriplet());
                         double distance = triangle.distance(p, d);
                         if (distance >= 0) {
                             intersectedObjectIndex = index;
-                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                            List<Light> lights = shadow.shadowRequest(scene, object, p);
+                            if(lights == null) {
+                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d);
+                            } else {
+                                color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d, lights);
+                            }
                         }
                     } else {
                         throw new UnsupportedOperationException();

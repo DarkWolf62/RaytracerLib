@@ -52,6 +52,7 @@ public class Parser {
      */
     public Map<String, Object> getColors() {
         Map<String, Object> res = new HashMap<>();
+        res.put("ambient", new Color(0,0,0));
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
@@ -96,10 +97,10 @@ public class Parser {
                     }
                     case "tri" -> {
                         assert vertex != null;
-                        res.add(new Triangle(vertex[parseInt(line[1])], vertex[parseInt(line[2])], vertex[parseInt(line[3])], c));
+                        res.add(0,new Triangle(vertex[parseInt(line[1])], vertex[parseInt(line[2])], vertex[parseInt(line[3])], c));
                     }
                     case "sphere" ->
-                            res.add(new Sphere(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), parseDouble(line[4]), c));
+                            res.add(0,new Sphere(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), parseDouble(line[4]), c));
                     case "plane" ->
                             res.add(0, new Plane(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Vector(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])), c));
                     default -> {
@@ -155,6 +156,7 @@ public class Parser {
         res.put("shininess", 0.0);
         res.put("fov", (Double) null);
         res.put("output", "default.png");
+        res.put("shadow", false);
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
@@ -176,9 +178,10 @@ public class Parser {
                     }
                     case "shininess" -> res.put("shininess", parseDouble(line[1]));
                     case "output" -> res.put("output", line[1]);
+                    case "shadow" -> res.put("shadow", Objects.equals(line[1], "true"));
                     default -> {
-                        break;
-                    }
+                       break;
+                   }
                 }
             }
             myReader.close();
@@ -207,7 +210,6 @@ public class Parser {
         builder.buildLight(getLights());
         builder.buildColors(getColors());
         builder.buildObject((ArrayList<AObject>) getObject());
-        builder.buildScene((Integer) getScene().get("width"), (Integer)getScene().get("height"), (Double) getScene().get("shininess"), (String) getScene().get("output"));
-
+        builder.buildScene((Integer) getScene().get("width"), (Integer)getScene().get("height"), (Double) getScene().get("shininess"), (String) getScene().get("output"), (boolean) getScene().get("shadow"));
     }
 }

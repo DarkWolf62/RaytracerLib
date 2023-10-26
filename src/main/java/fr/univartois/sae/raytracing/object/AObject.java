@@ -2,7 +2,10 @@ package fr.univartois.sae.raytracing.object;
 
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
+import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
+
+import java.util.Objects;
 
 /**
  * @author  nicolas.nourry
@@ -39,4 +42,6 @@ public abstract class AObject {
     public Color getColor() {
         return color;
     }
+
+    public abstract Point calcP(Vector d, Triplet lookFrom);
 }

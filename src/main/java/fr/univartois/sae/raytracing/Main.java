@@ -3,6 +3,7 @@ package fr.univartois.sae.raytracing;
 import fr.univartois.sae.raytracing.light.BasicModel;
 import fr.univartois.sae.raytracing.light.IStrategy;
 import fr.univartois.sae.raytracing.light.LambertModel;
+import fr.univartois.sae.raytracing.light.PhongModel;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.parser.Parser;
 import fr.univartois.sae.raytracing.scene.Scene;
@@ -30,8 +31,11 @@ public class Main {
         AObject s = scene.getObjects().get(0);
         if (s.getColor() == null)
             strategy = new BasicModel();
-        else
+        else if(scene.getColors().get("specular") != null){
+            strategy = new PhongModel();
+        } else
             strategy = new LambertModel();
+
 
         //Creation of a RayTracing object who generate the image thanks to his constructor
         new RayTracing(scene, strategy);

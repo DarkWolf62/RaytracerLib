@@ -76,9 +76,10 @@ public class Plane extends AObject{
      */
     @Override
     public double distance(Point p, Vector d) {
-        if (d.scalarProduct(normal.getTriplet())==0)
+        Point point = calcP(d, p.getTriplet());
+        if (p==null)
             return -1;
-        return p.subtraction(p.getTriplet()).norm();
+        return p.subtraction(point.getTriplet()).norm();
     }
 
     /**

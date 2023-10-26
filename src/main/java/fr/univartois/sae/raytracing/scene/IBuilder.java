@@ -2,7 +2,6 @@ package fr.univartois.sae.raytracing.scene;
 
 import fr.univartois.sae.raytracing.light.Light;
 import fr.univartois.sae.raytracing.object.AObject;
-import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 
 import java.util.ArrayList;
@@ -22,8 +21,9 @@ public interface IBuilder {
      * @param height the height of the {@link Scene}
      * @param shininess the shininess of the {@link Color}
      * @param output the output file of the {@link Scene}
+     * @param shadow the shadow's activation
      */
-    public void buildScene(int width, int height, double shininess, String output);
+    public void buildScene(int width, int height, double shininess, String output, boolean shadow);
 
     /**
      * Set the settings for the camera
