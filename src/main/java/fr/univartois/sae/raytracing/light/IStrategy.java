@@ -1,5 +1,6 @@
 package fr.univartois.sae.raytracing.light;
 
+import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.triplet.Color;
@@ -13,6 +14,7 @@ import fr.univartois.sae.raytracing.triplet.Vector;
  */
 public interface IStrategy {
 
+
     /**
      * The method the class who implement the interface will have to do
      *
@@ -22,5 +24,5 @@ public interface IStrategy {
      * @param scene
      * @return The color of a pixel
      */
-    public Color modelMethod(Sphere object, int idObj , Point p, Scene scene);
+    public Color modelMethod(AObject object, int idObj , Point p, Scene scene);
 }

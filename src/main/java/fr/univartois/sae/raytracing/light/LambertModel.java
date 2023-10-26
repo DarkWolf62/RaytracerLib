@@ -1,6 +1,9 @@
 package fr.univartois.sae.raytracing.light;
 
+import fr.univartois.sae.raytracing.object.AObject;
+import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
+import fr.univartois.sae.raytracing.object.Triangle;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
@@ -28,13 +31,18 @@ public class LambertModel implements IStrategy{
      * @return The color of a pixel using the basic method
      */
     @Override
-    public Color modelMethod(Sphere object,int idObj ,Point p, Scene scene) {
-
-        Triplet cc = object.getCoordinate().getTriplet();
-        Vector n = p.subtraction(cc).scalarMultiplication(1/ p.subtraction(cc).norm());
-       // The color we will return
+    public Color modelMethod(AObject object, int idObj , Point p, Scene scene) {
         Color color = new Color(0,0,0);
-
+        Triplet cc;
+        Vector n = new Vector(0,0,0);
+        if (object instanceof Sphere) {
+            cc = ((Sphere) object).getCoordinate().getTriplet();
+            n = p.subtraction(cc).scalarMultiplication(1/ p.subtraction(cc).norm());
+        } else if (object instanceof Plane) {
+            n = ((Plane) object).getNormal();
+        } else if (object instanceof Triangle) {
+            n= ((Triangle) object).getNormal();
+        }
         //The sum using the Lambert method
         for (Light light : scene.getLights()){
 
@@ -53,7 +61,6 @@ public class LambertModel implements IStrategy{
             double cos = max(n.scalarProduct(ldir.getTriplet()), 0);
             color = color.addition(light.getColor().scalarMultiplication(cos).getTriplet());
         }
-
         Color cDiffuse = object.getColor();
         color = ((Color)scene.getColors().get("ambient")).addition(color.schurProduct(cDiffuse.getTriplet()).getTriplet());
         if (color.getTriplet().getX() > 1)
@@ -62,7 +69,6 @@ public class LambertModel implements IStrategy{
             color.getTriplet().setY(1);
         if (color.getTriplet().getZ() > 1)
             color.getTriplet().setZ(1);
-
         return color;
     }
 }

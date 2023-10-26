@@ -254,7 +254,7 @@ modules.xml
 # BlueJ files
 *.ctxt
 
-image/
+
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
