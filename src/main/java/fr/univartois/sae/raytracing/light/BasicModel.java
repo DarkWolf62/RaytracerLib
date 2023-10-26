@@ -7,6 +7,8 @@ import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
+import java.util.List;
+
 /**
  * @author matheo.dupuis
  *
@@ -29,5 +31,10 @@ public class BasicModel implements IStrategy{
         Color color = (Color) scene.getColors().get("ambient");
         return color;
 
+    }
+
+    @Override
+    public Color modelMethodShadow(AObject object, int idObj, Point p, Scene scene, List<Light> list) {
+        return modelMethod(object,idObj,p,scene);
     }
 }

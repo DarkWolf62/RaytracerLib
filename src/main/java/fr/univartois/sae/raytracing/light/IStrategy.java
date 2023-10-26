@@ -7,6 +7,8 @@ import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
+import java.util.List;
+
 /**
  * @author matheo.dupuis
  *
@@ -25,4 +27,6 @@ public interface IStrategy {
      * @return The color of a pixel
      */
     public Color modelMethod(AObject object, int idObj , Point p, Scene scene);
+
+    public Color modelMethodShadow(AObject object, int idObj , Point p, Scene scene, List<Light> list);
 }

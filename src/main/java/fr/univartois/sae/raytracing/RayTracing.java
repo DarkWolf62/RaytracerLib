@@ -65,29 +65,13 @@ public class RayTracing {
                 for (int index = 0; index < scene.getObjects().size(); index++) {
                     AObject object = scene.getObjects().get(index);
                     if (object instanceof Sphere) {
-                        double tmp;
-                        double t2;
-                        double tb = ((lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
-                        double tc = (lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(((Sphere) object).getCoordinate().getTriplet()).getTriplet()) - (Math.pow(((Sphere) object).getRadius(), 2));
-                        double delta = Math.pow(tb, 2) - (4 * tc);
-                        if (delta == 0) {
-                            t = -tb / 2;
-                        } else if (delta > 0) {
-                            tmp = (-tb + Math.sqrt(delta)) / 2;
-                            t2 = (-tb - Math.sqrt(delta)) / 2;
-                            if (t2 > 0) {
-                                tmp = t2;
-                            } else if (t < 0) {
-                                tmp = -1;
-                            }
-                            if ((tmp <= t) || (t == -1)) {
-                                t = tmp;
+                        Point p = ((Sphere) object).calcP(d, lookFrom.getTriplet());
+                        if (p != null) {
+                            double distance = object.distance(p, d);
+                            if (distance >= 0) {
                                 intersectedObjectIndex = index;
+                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
                             }
-                        }
-                        if (t >= 0) {
-                            Point p = new Point(lookFrom.addition(d.getTriplet().scalarMultiplication(t)).getTriplet());
-                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
                         }
                     } else if (object instanceof Plane) {
                         Point p = ((Plane) object).calcP(d,lookFrom.getTriplet());

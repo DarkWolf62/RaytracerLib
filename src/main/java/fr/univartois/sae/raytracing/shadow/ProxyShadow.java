@@ -7,7 +7,7 @@ public class ProxyShadow {
     public void shadowRequest(Scene scene){
         if (scene.isShadow()){
             RealShadow real = new RealShadow();
-            real.shadowRequest(scene);
+            //real.shadowRequest(scene);
         }
 
 
