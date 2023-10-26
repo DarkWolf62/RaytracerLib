@@ -57,7 +57,6 @@ public class Triangle extends AObject{
      * @param d
      * @return
      */
-    @Override
     public Point calcP(Vector d, Triplet lookFrom){
         double up=a.subtraction(lookFrom).scalarProduct(normal.getTriplet()) ;
         double down=d.scalarProduct(normal.getTriplet());
