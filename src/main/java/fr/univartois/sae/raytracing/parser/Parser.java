@@ -86,7 +86,7 @@ public class Parser {
                     case "maxverts" : vertex = new Point[parseInt(line[1])]; break;
                     case "vertex" : vertex[nbV] = new Point(new Triplet(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3]))); nbV++; break;
                     case "tri" : res.add(new Triangle(vertex[parseInt(line[1])], vertex[parseInt(line[2])], vertex[parseInt(line[3])], c)); break;
-                    case "sphere" : res.add(new Sphere(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), parseDouble(line[4]), c)); break;
+                    case "sphere" : res.add(0,new Sphere(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), parseDouble(line[4]), c)); break;
                     case "plane" : res.add(0,new Plane(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])),new Vector(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])),c)); break;
                 }
             }
@@ -155,7 +155,7 @@ public class Parser {
                         break;
                     case "shininess" : res.put("shininess", parseDouble(line[1])); break;
                     case "output" : res.put("output", line[1]); break;
-                    case "shadow" : res.put("shadow", line[1] == "true"); break;
+                    case "shadow" : res.put("shadow", Objects.equals(line[1], "true")); break;
                 }
             }
             myReader.close();

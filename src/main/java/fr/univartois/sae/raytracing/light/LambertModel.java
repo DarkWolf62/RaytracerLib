@@ -96,7 +96,7 @@ public class LambertModel implements IStrategy{
 
             // We are testing the type of the current light and adjust the value of ldir vector
             if (light instanceof DirectionalLight) {
-                ldir = ((DirectionalLight) light).getVector();
+                ldir = ((DirectionalLight) light).getVector().normalize();
             } else if (light instanceof PonctualLight) {
                 Point l = ((PonctualLight) light).getPoint();
                 ldir = l.subtraction(p.getTriplet()).scalarMultiplication(1 / l.subtraction(p.getTriplet()).norm());

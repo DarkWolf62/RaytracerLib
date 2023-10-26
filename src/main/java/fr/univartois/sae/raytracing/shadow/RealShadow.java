@@ -12,7 +12,7 @@ import fr.univartois.sae.raytracing.triplet.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RealShadow {
+public class RealShadow implements IShadow{
 
     public List<Light> shadowRequest(Scene scene, AObject object, Point p){
         List<Light> list = new ArrayList<>();
@@ -22,11 +22,13 @@ public class RealShadow {
                 d = directionalLight.getVector();
             else
                 d = p.subtraction(((PonctualLight)light).getPoint().getTriplet());
+            Vector newD = d.normalize();
             boolean isHere = false;
+
             for (AObject obj : scene.getObjects()){
                 if (! obj.equals(object)) {
-                    p = obj.calcP(d, p.getTriplet());
-                    if (p != null) {
+                    Point tmp = obj.calcP(newD, p.getTriplet());
+                    if (tmp != null) {
                         isHere = true;
                         break;
                     }

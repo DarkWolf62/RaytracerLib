@@ -1,6 +1,7 @@
 package fr.univartois.sae.raytracing;
 
 import fr.univartois.sae.raytracing.light.IStrategy;
+import fr.univartois.sae.raytracing.light.Light;
 import fr.univartois.sae.raytracing.object.AObject;
 import fr.univartois.sae.raytracing.object.Plane;
 import fr.univartois.sae.raytracing.object.Sphere;
@@ -9,6 +10,7 @@ import fr.univartois.sae.raytracing.scene.Scene;
 
 import fr.univartois.sae.raytracing.shadow.IShadow;
 
+import fr.univartois.sae.raytracing.shadow.ProxyShadow;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Vector;
@@ -17,6 +19,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class RayTracing to generate an image from a scene
@@ -33,8 +37,6 @@ public class RayTracing {
 
     private IStrategy strategy;
 
-    private IShadow shadow;
-
     /**
      * Create an image from a scene
      * @param scene the scene
@@ -42,6 +44,8 @@ public class RayTracing {
      */
     public RayTracing(Scene scene, IStrategy strategy){
         this.scene=scene;
+        IShadow shadow = new ProxyShadow();
+
         Vector lookFrom=new Vector(scene.getCamera().get(0));
         Vector looKAt=new Vector(scene.getCamera().get(1));
         Vector up = new Vector(scene.getCamera().get(2));
@@ -70,7 +74,13 @@ public class RayTracing {
                             double distance = object.distance(p, d);
                             if (distance >= 0) {
                                 intersectedObjectIndex = index;
-                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                                List<Light> lights = shadow.shadowRequest(scene, object, p);
+                                System.out.println(lights);
+                                if(lights == null) {
+                                    color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                                } else {
+                                    color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, lights);
+                                }
                             }
                         }
                     } else if (object instanceof Plane) {
@@ -78,14 +88,24 @@ public class RayTracing {
                         double distance = object.distance(p, d);
                         if (distance>=0) {
                             intersectedObjectIndex=index;
-                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                            List<Light> lights = shadow.shadowRequest(scene, object, p);
+                            if(lights == null) {
+                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                            } else {
+                                color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, lights);
+                            }
                         }
                     } else if (object instanceof Triangle) {
                         Point p = ((Triangle) object).calcP(d, lookFrom.getTriplet());
                         double distance = object.distance(p, d);
                         if (distance >= 0) {
                             intersectedObjectIndex = index;
-                            color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                            List<Light> lights = shadow.shadowRequest(scene, object, p);
+                            if(lights == null) {
+                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                            } else {
+                                color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, lights);
+                            }
                         }
                     } else {
                         throw new UnsupportedOperationException();
