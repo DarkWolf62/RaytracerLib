@@ -105,4 +105,9 @@ public class Vector {
                 "triplet=" + triplet +
                 '}';
     }
+
+    public boolean oppositeDirection(Vector v) {
+        double k =  (getTriplet().getX()/v.getTriplet().getX());
+        return (k>0);
+    }
 }

@@ -5,6 +5,8 @@ import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
+import java.util.Objects;
+
 /**
  * @author  nicolas.nourry
  *

@@ -79,6 +79,8 @@ public class RayTracing {
                                 } else {
                                     color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d, lights);
                                 }
+                                if (i==506&&j==396)
+                                    System.out.println(lights);
                             }
                         }
                     } else if (object instanceof Plane) {

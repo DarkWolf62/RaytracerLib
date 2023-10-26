@@ -5,6 +5,8 @@ import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
+import java.util.Objects;
+
 
 /**
  * @author nicolas.nourry
@@ -90,5 +92,18 @@ public class Sphere extends AObject {
         if (point == null)
             return -1;
         return (point.subtraction(p.getTriplet())).norm();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sphere sphere = (Sphere) o;
+        return Double.compare(radius, sphere.radius) == 0 && Objects.equals(color, sphere.color) && Objects.equals(coordinate, sphere.coordinate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, coordinate, radius);
     }
 }

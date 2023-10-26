@@ -1,19 +1,23 @@
 size 640 480
 
-output tp61-dir.png
-
-camera 0 0 6 0 0 0 0 1 0 45
-
+output tp55-shadow.png
 shadow true
 
-directional 1 1 1 1 1 1
+camera 0 4 8 0 0 0 0 1 0 45
 
-specular .5 .5 .5
-shininess 10
-maxdepth 10
+point 0 4 0 1 1 1
 
-diffuse .2 .2 .2
-plane 0 -1 0 0 1 0
+maxverts 3
 
-diffuse .5 .5 0
+vertex 1 1 -1
+vertex 2 1 -1
+vertex 1.5 0.5 1
+
+diffuse .8 .2 .2
 sphere 0 0 0 1
+
+diffuse .2 .8 .2
+tri 0 2 1
+
+diffuse .8 .8 .8
+plane 0 -2 0 0 1 0
