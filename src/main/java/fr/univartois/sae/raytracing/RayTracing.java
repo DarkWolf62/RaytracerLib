@@ -19,7 +19,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,11 +74,10 @@ public class RayTracing {
                             if (distance >= 0) {
                                 intersectedObjectIndex = index;
                                 List<Light> lights = shadow.shadowRequest(scene, object, p);
-                                System.out.println(lights);
                                 if(lights == null) {
-                                    color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                                    color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d);
                                 } else {
-                                    color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, lights);
+                                    color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d, lights);
                                 }
                             }
                         }
@@ -90,9 +88,9 @@ public class RayTracing {
                             intersectedObjectIndex=index;
                             List<Light> lights = shadow.shadowRequest(scene, object, p);
                             if(lights == null) {
-                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d);
                             } else {
-                                color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, lights);
+                                color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d, lights);
                             }
                         }
                     } else if (object instanceof Triangle) {
@@ -102,9 +100,9 @@ public class RayTracing {
                             intersectedObjectIndex = index;
                             List<Light> lights = shadow.shadowRequest(scene, object, p);
                             if(lights == null) {
-                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene);
+                                color = strategy.modelMethod(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d);
                             } else {
-                                color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, lights);
+                                color = strategy.modelMethodShadow(scene.getObjects().get(intersectedObjectIndex), intersectedObjectIndex, p, scene, d, lights);
                             }
                         }
                     } else {

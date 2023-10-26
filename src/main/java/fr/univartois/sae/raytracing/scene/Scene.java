@@ -25,6 +25,7 @@ public class Scene {
     private int fov;
     private String output;
 
+    private double shininess;
     private boolean shadow;
 
 
@@ -38,9 +39,10 @@ public class Scene {
      * @param colors
      * @param objects
      * @param fov
+     * @param shininess
      * @param output
      */
-    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, Map<String,Object> colors, ArrayList<AObject> objects, int fov, String output, boolean shadow) {
+    public Scene(int width, int height, ArrayList<Triplet> camera, ArrayList<Light> lights, Map<String,Object> colors, ArrayList<AObject> objects, int fov, String output, double shininess, boolean shadow) {
         this.width = width;
         this.height = height;
         this.camera = camera;
@@ -49,6 +51,7 @@ public class Scene {
         this.objects = objects;
         this.fov = fov;
         this.output = output;
+        this.shininess = shininess;
         this.shadow= shadow;
     }
 
@@ -112,6 +115,7 @@ public class Scene {
         return fov;
     }
 
+    public double getShininess(){ return fov; }
 
     /**
      * Returns the output
@@ -135,6 +139,7 @@ public class Scene {
                 ", colors=" + colors +
                 ", objects=" + objects +
                 ", fov=" + fov +
+                ", shininess" + shininess +
                 ", output=" + output +
                 '}';
     }

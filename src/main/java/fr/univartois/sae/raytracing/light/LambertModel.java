@@ -10,7 +10,6 @@ import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.max;
@@ -29,10 +28,11 @@ public class LambertModel implements IStrategy{
      * @param idObj
      * @param p
      * @param scene
+     * @param d
      * @return The color of a pixel using the basic method
      */
     @Override
-    public Color modelMethod(AObject object, int idObj , Point p, Scene scene) {
+    public Color modelMethod(AObject object, int idObj , Point p, Scene scene, Vector d) {
         Color color = new Color(0,0,0);
         Triplet cc;
         Vector n = new Vector(0,0,0);
@@ -77,7 +77,7 @@ public class LambertModel implements IStrategy{
 
 
     @Override
-    public Color modelMethodShadow(AObject object, int idObj , Point p, Scene scene, List<Light> list) {
+    public Color modelMethodShadow(AObject object, int idObj , Point p, Scene scene, Vector d, List<Light> list) {
         Color color = new Color(0, 0, 0);
         Triplet cc;
         Vector n = new Vector(0, 0, 0);

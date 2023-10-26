@@ -1,7 +1,6 @@
 package fr.univartois.sae.raytracing.light;
 
 import fr.univartois.sae.raytracing.object.AObject;
-import fr.univartois.sae.raytracing.object.Sphere;
 import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Point;
@@ -24,9 +23,10 @@ public interface IStrategy {
      * @param idObj
      * @param p
      * @param scene
+     * @param d
      * @return The color of a pixel
      */
-    public Color modelMethod(AObject object, int idObj , Point p, Scene scene);
+    public Color modelMethod(AObject object, int idObj , Point p, Scene scene, Vector d);
 
-    public Color modelMethodShadow(AObject object, int idObj , Point p, Scene scene, List<Light> list);
+    public Color modelMethodShadow(AObject object, int idObj , Point p, Scene scene, Vector d, List<Light> list);
 }

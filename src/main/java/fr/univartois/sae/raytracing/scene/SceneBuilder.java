@@ -88,6 +88,6 @@ public class SceneBuilder implements IBuilder{
      * @return the new Scene just created
      */
     public Scene getResult(){
-        return new Scene(width,height,camera,lights,colors,objects,fov, output, shadow);
+        return new Scene(width,height,camera,lights,colors,objects,fov, output, shininess, shadow);
     }
 }
