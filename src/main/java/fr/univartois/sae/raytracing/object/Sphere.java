@@ -7,6 +7,9 @@ import fr.univartois.sae.raytracing.triplet.Vector;
 
 
 /**
+ * @author nicolas.nourry
+ * @author leo.denis
+ *
  * this class represents a sphere
  */
 public class Sphere extends AObject {
@@ -50,34 +53,42 @@ public class Sphere extends AObject {
                 '}';
     }
 
-    @Override
-    public double distance(Point p, Vector d) {
-        return 0;
-    }
-
+    /**
+     * Getter for the color
+     *
+     * @return
+     */
     public Color getColor() {
         return color;
     }
 
-    public Point
+    public Point calcP(Vector d,Triplet lookFrom) {
+        double t;
+        double t2;
+        double tb = ((lookFrom.subtraction(this.getCoordinate().getTriplet())).scalarMultiplication(2)).scalarProduct(d.getTriplet());
+        double tc = (lookFrom.subtraction(this.getCoordinate().getTriplet())).scalarProduct(lookFrom.subtraction(this.getCoordinate().getTriplet())) - (Math.pow((this.getRadius()), 2));
+        double delta = Math.pow(tb, 2) - (4 * tc);
+        if (delta == 0) {
+            t = -tb / 2;
+        } else if (delta > 0) {
+            t = (-tb + Math.sqrt(delta)) / 2;
+            t2 = (-tb - Math.sqrt(delta)) / 2;
+            if (t2 > 0) {
+                t = t2;
+            } else if (t < 0) {
+                t = -1;
+            }
+        } else {
+            return null;
+        }
+        return new Point(lookFrom.addition(d.getTriplet().scalarMultiplication(t)));
+    }
 
-//    @Override
-//    public double distance(Point p, Vector d) {
-//        double res = -1;
-//        double t2;
-//        double tb = (p.subtraction(coordinate.getTriplet())).scalarMultiplication(2).scalarProduct(d.getTriplet());
-//        double tc = (p.subtraction(coordinate.getTriplet()).scalarProduct(p.subtraction(coordinate.getTriplet()).getTriplet()))
-//        double delta = Math.pow(tb, 2) - (4 * tc);
-//        if (delta == 0) {
-//            res = -tb / 2;
-//        } else if (delta > 0) {
-//            res = (-tb + Math.sqrt(delta)) / 2;
-//            t2 = (-tb - Math.sqrt(delta)) / 2;
-//            if (t2 > 0) {
-//                res = t2;
-//            } else if (t < 0) {
-//                res = -1;
-//            }
-//        }
-//    }
+    @Override
+    public double distance(Point p, Vector d) {
+        Point point = calcP(d, p.getTriplet());
+        if (point == null)
+            return -1;
+        return (point.subtraction(p.getTriplet())).norm();
+    }
 }
