@@ -59,6 +59,8 @@ public class Sphere extends AObject {
         return color;
     }
 
+    public Point
+
 //    @Override
 //    public double distance(Point p, Vector d) {
 //        double res = -1;
