@@ -1,19 +1,15 @@
 size 640 480
+output td2.png
 
-output tp61-dir.png
-
-camera 0 0 6 0 0 0 0 1 0 45
+camera 0 6 4 0 0 0 0 1 0 45
 
 shadow true
 
-directional 1 1 1 1 1 1
+point 0 6 4 1 1 1
 
-specular .5 .5 .5
+ambient .1 .1 .1
+diffuse .3 0 0
+specular .6 .6 .6
 shininess 10
-maxdepth 10
 
-diffuse .2 .2 .2
-plane 0 -1 0 0 1 0
-
-diffuse .5 .5 0
 sphere 0 0 0 1
