@@ -2,6 +2,7 @@ package fr.univartois.sae.raytracing.scene;
 
 import fr.univartois.sae.raytracing.light.Light;
 import fr.univartois.sae.raytracing.object.AObject;
+import fr.univartois.sae.raytracing.triplet.Color;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 
 import java.util.ArrayList;

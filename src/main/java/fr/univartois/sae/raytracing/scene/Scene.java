@@ -53,6 +53,10 @@ public class Scene {
         this.shadow= shadow;
     }
 
+    /**
+     * Encapsulation method to retrieve the shadow
+     * @return the value of shadow for the {@link Scene}
+     */
     public boolean isShadow() {
         return shadow;
     }
