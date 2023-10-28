@@ -75,10 +75,18 @@ public class Sphere extends AObject {
      * Encapsulation method to retrieve the {@link Color}
      * @return the {@link Sphere} {@link Color}
      */
+    @Override
     public Color getColor() {
         return color;
     }
 
+
+    /**
+     * Calculates if there is an intersection {@link Point} between the current {@link Sphere} and another point using a {@link Vector}
+     * @param d the direction {@link Vector} to calculate the intersection
+     * @param lookFrom The {@link Triplet} of the {@link Point} we want to know if there is an intersection
+     * @return The intersection {@link Point} if it exists, else it returns a null {@link Point}
+     */
     public Point calcP(Vector d, Triplet lookFrom) {
         double t;
         double t2;
@@ -115,6 +123,11 @@ public class Sphere extends AObject {
         return (point.subtraction(p.getTriplet())).norm();
     }
 
+    /**
+     * Checks if the current object is the same as the {@link Object} in parameter
+     * @param o the {@link Object} to check if it is equals
+     * @return a boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -123,6 +136,10 @@ public class Sphere extends AObject {
         return Double.compare(radius, sphere.radius) == 0 && Objects.equals(color, sphere.color) && Objects.equals(coordinate, sphere.coordinate);
     }
 
+    /**
+     * Returns the hashCode
+     * @return the hashCode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(color, coordinate, radius);

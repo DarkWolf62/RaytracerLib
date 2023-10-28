@@ -6,7 +6,7 @@ import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
 /**
- * @author nicolas nourry
+ * @author nicolas.nourry
  *
  * This class represent a {@link Triangle}
  */
@@ -102,6 +102,8 @@ public class Triangle extends AObject{
      * Encapsulation method to retrieve the {@link Color}
      * @return the {@link Triangle} {@link Color}
      */
+
+    @Override
     public Color getColor() {
         return color;
     }

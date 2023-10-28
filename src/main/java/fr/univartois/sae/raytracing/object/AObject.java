@@ -5,8 +5,6 @@ import fr.univartois.sae.raytracing.triplet.Point;
 import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
-import java.util.Objects;
-
 /**
  * @author  nicolas.nourry
  *
@@ -42,6 +40,13 @@ public abstract class AObject {
     public Color getColor() {
         return color;
     }
+
+    /**
+     * Calculates if there is an intersection {@link Point} between the current object and another point using a {@link Vector}
+     * @param d the direction {@link Vector} to calculate the intersection
+     * @param lookFrom The {@link Triplet} of the {@link Point} we want to know if there is an intersection
+     * @return The intersection {@link Point} if it exists, else it returns a null {@link Point}
+     */
 
     public abstract Point calcP(Vector d, Triplet lookFrom);
 }
