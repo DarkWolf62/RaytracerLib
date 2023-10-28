@@ -108,6 +108,11 @@ public class Vector {
                 '}';
     }
 
+    /**
+     * Check if the current vector has an opposite direction from another vector v
+     * @param v the other {@link Vector}
+     * @return a boolean set at True if the 2 vectors are opposite
+     */
     public boolean oppositeDirection(Vector v) {
         double k =  (getTriplet().getX()/v.getTriplet().getX());
         return (k>0);

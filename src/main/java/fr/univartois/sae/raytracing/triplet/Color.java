@@ -1,6 +1,5 @@
 package fr.univartois.sae.raytracing.triplet;
 
-import fr.univartois.sae.raytracing.object.Plane;
 
 /**
  * @author nicolas.nourry
