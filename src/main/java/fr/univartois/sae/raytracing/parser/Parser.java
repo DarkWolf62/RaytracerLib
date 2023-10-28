@@ -209,7 +209,7 @@ public class Parser {
         );
         builder.buildLight(getLights());
         builder.buildColors(getColors());
-        builder.buildObject((ArrayList<AObject>) getObject());
+        builder.buildObject(getObject());
         builder.buildScene((Integer) getScene().get("width"), (Integer)getScene().get("height"), (Double) getScene().get("shininess"), (String) getScene().get("output"), (boolean) getScene().get("shadow"));
     }
 }
