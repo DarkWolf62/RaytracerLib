@@ -14,20 +14,37 @@ import java.util.List;
 
 import static java.lang.Math.max;
 
+/**
+ * @author nicolas.blart
+ *
+ * This class represents the method that uses the {@link PhongModel} and implements the interface {@link IStrategy}
+ *
+ */
+
 public class PhongModel implements IStrategy{
+
+    /**
+     *
+     * @param object the {@link AObject}
+     * @param idObj the id of the {@link AObject}
+     * @param p the intersection {@link Point}
+     * @param scene the scene of the image
+     * @param d a {@link Vector}
+     * @return The {@link Color} of a pixel using the {@link PhongModel}
+     */
     @Override
     public Color modelMethod(AObject object, int idObj , Point p, Scene scene, Vector d) {
         Color color = new Color(0,0,0);
         Color color2 = new Color(0,0,0);
         Triplet cc;
         Vector n = new Vector(0,0,0);
-        if (object instanceof Sphere) {
-            cc = ((Sphere) object).getCoordinate().getTriplet();
+        if (object instanceof Sphere sphere) {
+            cc = sphere.getCoordinate().getTriplet();
             n = p.subtraction(cc).scalarMultiplication(1/ p.subtraction(cc).norm());
-        } else if (object instanceof Plane) {
-            n = ((Plane) object).getNormal();
-        } else if (object instanceof Triangle) {
-            n= ((Triangle) object).getNormal();
+        } else if (object instanceof Plane plane) {
+            n = plane.getNormal();
+        } else if (object instanceof Triangle triangle) {
+            n= triangle.getNormal();
         }
         //The sum using the Lambert method
         for (Light light : scene.getLights()){
@@ -35,11 +52,11 @@ public class PhongModel implements IStrategy{
             Vector ldir = new Vector(0,0,0);
 
             // We are testing the type of the current light and adjust the value of ldir vector
-            if (light instanceof DirectionalLight) {
-                ldir = ((DirectionalLight) light).getVector();
+            if (light instanceof DirectionalLight directionalLight) {
+                ldir = directionalLight.getVector();
             }
-            else if (light instanceof  PonctualLight) {
-                Point l = ((PonctualLight) light).getPoint();
+            else if (light instanceof  PonctualLight ponctualLight) {
+                Point l = ponctualLight.getPoint();
                 ldir = l.subtraction(p.getTriplet()).scalarMultiplication(1/l.subtraction(p.getTriplet()).norm());
             }
             Vector eyedir = d.scalarMultiplication(-1);
@@ -60,6 +77,16 @@ public class PhongModel implements IStrategy{
         return color;
     }
 
+    /**
+     *
+     * @param object the {@link AObject}
+     * @param idObj the id of the {@link AObject}
+     * @param p the intersection {@link Point}
+     * @param scene the scene of the image
+     * @param d a {@link Vector}
+     * @param list a {@link List} of {@link Light}
+     * @return The {@link Color} of a pixel using the {@link PhongModel}
+     */
     @Override
     public Color modelMethodShadow(AObject object, int idObj, Point p, Scene scene, Vector d, List<Light> list) {
         return modelMethod(object,idObj,p,scene, d);

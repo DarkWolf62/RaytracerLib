@@ -28,7 +28,7 @@ public class LambertModel implements IStrategy{
      * @param idObj the id of the {@link AObject}
      * @param p the intersection {@link Point}
      * @param scene the scene of the image
-     * @param d the {@link Vector} the vector of ???
+     * @param d a {@link Vector}
      * @return The {@link Color} of a pixel using the lambert method
      */
     @Override
@@ -74,8 +74,16 @@ public class LambertModel implements IStrategy{
     }
 
 
-
-
+    /**
+     *
+     * @param object the {@link AObject}
+     * @param idObj the id of the {@link AObject}
+     * @param p the intersection {@link Point}
+     * @param scene the scene of the image
+     * @param d a {@link Vector}
+     * @param list the {@link List<Light>} of {@link Light} that illuminate the pixel
+     * @return The {@link Color} of a pixel using the lambert method with a shadow
+     */
     @Override
     public Color modelMethodShadow(AObject object, int idObj , Point p, Scene scene, Vector d, List<Light> list) {
         Color color = new Color(0, 0, 0);

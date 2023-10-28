@@ -23,7 +23,7 @@ public class BasicModel implements IStrategy{
      * @param idObj the id of the {@link AObject}
      * @param p the intersection {@link Point}
      * @param scene the scene of the image
-     * @param d  the {@link Vector} of the light
+     * @param d a {@link Vector}
      * @return The {@link Color} of a pixel using the basic method
      */
     @Override
@@ -32,6 +32,16 @@ public class BasicModel implements IStrategy{
 
     }
 
+    /**
+     *
+     * @param object the {@link AObject}
+     * @param idObj the id of the {@link AObject}
+     * @param p the intersection {@link Point}
+     * @param scene the scene of the image
+     * @param d a {@link Vector}
+     * @param list the {@link List<Light>} of the {@link Light} that illuminate the pixel
+     * @return The {@link Color} of a pixel using the basic method with a shadow
+     */
     @Override
     public Color modelMethodShadow(AObject object, int idObj, Point p, Scene scene, Vector d, List<Light> list) {
         return modelMethod(object, idObj, p, scene, d);

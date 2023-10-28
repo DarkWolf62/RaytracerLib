@@ -16,7 +16,7 @@ public class DirectionalLight extends Light{
     /**
      * The constructor of this class
      * @param vector the direction {@link Vector}
-     * @param color the color of the {@link Color}
+     * @param color the color of the {@link Light}
      */
     public DirectionalLight(Vector vector, Color color){
         super(color);

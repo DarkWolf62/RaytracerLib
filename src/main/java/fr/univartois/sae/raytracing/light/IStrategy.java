@@ -22,7 +22,7 @@ public interface IStrategy {
      * @param idObj the id of the {@link AObject}
      * @param p the intersection {@link Point}
      * @param scene the scene of the image
-     * @param d the {@link Vector} of ???
+     * @param d a {@link Vector}
      * @return The {@link Color} of a pixel
      */
     public Color modelMethod(AObject object, int idObj , Point p, Scene scene, Vector d);
@@ -34,7 +34,8 @@ public interface IStrategy {
      * @param idObj the id of the {@link AObject}
      * @param p the intersection {@link Point}
      * @param scene the scene of the image
-     * @param d the {@link Vector} of ???
+     * @param d a {@link Vector}
+     * @param list the {@link List<Light>} of {@link Light} that illuminate the pixel
      * @return The {@link Color} of a pixel
      */
     public Color modelMethodShadow(AObject object, int idObj , Point p, Scene scene, Vector d, List<Light> list);
