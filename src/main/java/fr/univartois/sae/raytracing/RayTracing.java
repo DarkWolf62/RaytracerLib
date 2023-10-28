@@ -60,7 +60,6 @@ public class RayTracing {
             for(int j=0;j<scene.getHeight();j++) {
                 double a = (-(realWidth / 2) + ((i + 0.5) * pixelWidth));
                 double b = ((realHeight / 2) - ((j + 0.5) * pixelHeight));
-                double t = -1;
                 Vector d = new Vector((((u.scalarMultiplication(a)).addition(v.scalarMultiplication(b).getTriplet())).subtraction(w.getTriplet())).scalarMultiplication(1 / (((u.scalarMultiplication(a).addition(v.scalarMultiplication(b).getTriplet()).subtraction(w.getTriplet())).getTriplet()).norm())).getTriplet());
                 Color color = new Color(0.0, 0.0, 0.0);
                 for (int index = 0; index < scene.getObjects().size(); index++) {
