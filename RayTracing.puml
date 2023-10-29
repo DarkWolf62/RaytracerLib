@@ -81,6 +81,7 @@ class Vector{
 +normalize() : Vector
 + getTriplet() : Triplet
 + toString() : String
++ oppositeDirection(Vector v) : boolean
 }
 
 class Point{
@@ -106,8 +107,9 @@ class Color{
 
 
 class Light{
-Color color
+- Color color
 + Light(Color color)
++ getColor() : Color
 }
 
 class PonctualLight extends Light{
@@ -129,6 +131,7 @@ abstract class AObject {
 + distance(Point p, Vector d) : double
 + getColor() : color
 + setColor() : void
++ calcP(Vector d, Triplet lookFrom) : Point
 }
 
 
@@ -153,7 +156,6 @@ class Plane extends AObject{
 - Color color
 + Plane(Point coordinate, Vector normal,Color color)
 + toString() : String
-+ getCoordinate : Point
 + getNormal() : Vector
 + calcP(Vector d, Triplet lookFrom) : Point
 + distance(Point p, Vector d) : double
@@ -169,7 +171,10 @@ class Sphere extends AObject {
 + getCoordinate() : Point
 + getRadius() : double
 + distance(Point p, Vector d) : double
++ calcP(Vector d, Triplet lookFrom) : Point
 + getColor() : Color
++ equals(Object o) : boolean
++ hashCode() : int
 }
 
 note "Patron de conception : Builder" as N2
@@ -188,7 +193,8 @@ class Scene{
 - AObject[] AObjects
 - int fov
 - String output
-+ Scene(int width, int height, Triplet[] camera, Light[] lights, Color[] colors, AObject[] objects, int fov, String output)
+- boolean shadow
++ Scene(int width, int height, Triplet[] camera, Light[] lights, Color[] colors, AObject[] objects, int fov, String output, boolean shadow)
 + toString() : String
 + getWidth() : int
 + getHeight() : int
@@ -198,13 +204,15 @@ class Scene{
 + getAObjects() : AObject[]
 + getFov() : int
 + getOutput() : String
++ isShadow() : boolean
 }
 
 interface IBuilder {
-+ buildScene(int width, int height, double shininess, String output): void
++ buildScene(int width, int height, double shininess, String output, boolean shadow): void
 + buildCamera(Triplet[] camera, int fov) : void
 + buildObject(AObject[] objects) : void
 + buildLight(Light[] lights) : void
++ buildColors(Map<String, Object> colors) : void
 }
 
 class SceneBuilder implements IBuilder{
@@ -217,7 +225,8 @@ class SceneBuilder implements IBuilder{
 - double shininess
 - AObject[] objects
 - String output
-+ buildScene(int width, int height, double shininess, String output): void
+- boolean shadow
++ buildScene(int width, int height, double shininess, String output, boolean shadow): void
 + buildCamera(Triplet[] camera, int fov) : void
 + buildObject(AObject[] objects) : void
 + buildLight(Light[] lights) : void
@@ -226,16 +235,15 @@ class SceneBuilder implements IBuilder{
 }
 
 class Parser {
-+IBuilder builder
-+String chemin
-+Parser(String chemin)
+- IBuilder builder
+- String path
++Parser(String path)
 +construct() : void
 + getColors() : Map<String, Object>
 +getScene() : Map<String, Object>
 +getLight() : Light[]
 +getAObject() : AObject[]
 + getBuilder() : IBuilder
-+ toString() : String
 }
 
 class Main{
@@ -248,14 +256,22 @@ class RayTracing{
 + createImage(Color[][] colors) : void
 }
 
+class PhongModel implements IStrategy {
+modelMethod(AObject object, int idObj , Point p, Scene scene, Vector d) : Color
+modelMethodShadow(AObject object, int idObj , Point p, Scene scene, Vector d, List<Light> list) : Color
+}
+
 class BasicModel implements IStrategy {
-modelMethod(Sphere object, int idObj, Point p, Scene scene) : Color
+modelMethod(AObject object, int idObj , Point p, Scene scene, Vector d) : Color
+modelMethodShadow(AObject object, int idObj , Point p, Scene scene, Vector d, List<Light> list) : Color
 }
 class LambertModel implements IStrategy{
-modelMethod(Sphere object, int idObj, Point p, Scene scene) : Color
+modelMethod(AObject object, int idObj , Point p, Scene scene, Vector d) : Color
+modelMethodShadow(AObject object, int idObj , Point p, Scene scene, Vector d, List<Light> list) : Color
 }
 interface IStrategy {
-modelMethod(Sphere object, int idObj, Point p, Scene scene) : Color
+modelMethod(AObject object, int idObj , Point p, Scene scene, Vector d) : Color
+modelMethodShadow(AObject object, int idObj , Point p, Scene scene, Vector d, List<Light> list) : Color
 }
 
 note "Patron de conception : Strategie" as N3
@@ -267,14 +283,20 @@ RayTracing .. N3
 IShadow --o RayTracing
 
 interface IShadow {
-shadowRequest()
+shadowRequest(Scene scene, AObject object, Point p) : Light[]
 }
 class RealShadow implements IShadow {
-shadowRequest()
+shadowRequest(Scene scene, AObject object, Point p) : Light[]
 }
-class Proxy implements IShadow {
-shadowRequest()
+class ProxyShadow implements IShadow {
+shadowRequest(Scene scene, AObject object, Point p) : Light[]
 }
+
+note "Patron de conception : Proxy" as N4
+IShadow .. N4
+RealShadow .. N4
+ProxyShadow .. N4
+
 
 
 @enduml
