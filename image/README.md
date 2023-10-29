@@ -1,9 +1,11 @@
-# Image file
+# Fichier Image
 
-**This file will contain the result of our tests**
+**Ce fichier contient les images créées par notre projet.**
 
-### How it works?
+### Comment l'utiliser?
 
-**To test the application, you need to edit the text file "test.txt" present in `main\resources\fr\univartois\sae\raytracing`**
+Pour utiliser notre application vous devez éditer le fichier de configuration [``test.txt``](../src/main/resources/fr.univartois.sae.raytracing/test.txt) présent dans le répertoire [``src\main\resources\fr\univartois\sae\raytracing``](../src/main/resources/fr.univartois.sae.raytracing/)
 
-**After your configuration file edited, you need to launch the Main class, and your image will appear in this directory**
+Après le fichier de configuration modifié, vous devez lancer la classe Main, et votre image apparaitra dans ce répertoire.
+
+![image.png](./lancement.jpeg)
