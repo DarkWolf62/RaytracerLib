@@ -254,9 +254,6 @@ modules.xml
 # BlueJ files
 *.ctxt
 
-
-image/
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -304,5 +301,7 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
+
+image/*.png
 
 # End of https://www.toptal.com/developers/gitignore/api/gradle
