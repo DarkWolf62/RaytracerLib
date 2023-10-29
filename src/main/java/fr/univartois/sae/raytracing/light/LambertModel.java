@@ -15,9 +15,10 @@ import java.util.List;
 import static java.lang.Math.max;
 
 /**
- * @author matheo.dupuis
  *
  * This class is used for the Lambert model and implements the interface {@link IStrategy}
+ *
+ * @author matheo.dupuis
  */
 public class LambertModel implements IStrategy{
 
@@ -75,7 +76,7 @@ public class LambertModel implements IStrategy{
 
 
     /**
-     *
+     * This method returns the {@link Color} of a pixel using the Lambert method when shadow is on.
      * @param object the {@link AObject}
      * @param idObj the id of the {@link AObject}
      * @param p the intersection {@link Point}

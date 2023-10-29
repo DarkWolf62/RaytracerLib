@@ -1,9 +1,10 @@
 package fr.univartois.sae.raytracing.triplet;
 
 /**
- * @author matheo.dupuis
  *
  * This class represents a {@link Vector}
+ *
+ * @author matheo.dupuis
  */
 public class Vector {
     /**

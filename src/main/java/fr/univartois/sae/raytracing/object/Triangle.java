@@ -6,9 +6,10 @@ import fr.univartois.sae.raytracing.triplet.Triplet;
 import fr.univartois.sae.raytracing.triplet.Vector;
 
 /**
- * @author nicolas.nourry
  *
  * This class represent a {@link Triangle}
+ *
+ * @author nicolas.nourry
  */
 public class Triangle extends AObject{
     /**

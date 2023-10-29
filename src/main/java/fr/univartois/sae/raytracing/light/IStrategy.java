@@ -9,9 +9,9 @@ import fr.univartois.sae.raytracing.triplet.Vector;
 import java.util.List;
 
 /**
- * @author matheo.dupuis
- *
  * This interface is used to implement a design pattern strategy to choose between the {@link BasicModel} and the {@link LambertModel}
+ *
+ * @author matheo.dupuis
  */
 public interface IStrategy {
 

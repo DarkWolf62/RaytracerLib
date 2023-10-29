@@ -2,9 +2,10 @@ package fr.univartois.sae.raytracing.triplet;
 
 
 /**
- * @author nicolas.nourry
  *
  * This class represents a {@link Color}.
+ *
+ * @author nicolas.nourry
  */
 public class Color {
     /**

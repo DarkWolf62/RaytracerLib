@@ -9,10 +9,11 @@ import fr.univartois.sae.raytracing.triplet.Vector;
 import java.util.List;
 
 /**
- * @author matheo.dupuis
  *
  * This class is a part of the design pattern strategy and represents the basic method to apply
  * The class implements interface {@link IStrategy}
+ *
+ * @author matheo.dupuis
  */
 public class BasicModel implements IStrategy{
 
@@ -33,6 +34,7 @@ public class BasicModel implements IStrategy{
     }
 
     /**
+     * This method returns the {@link Color} of a pixel using the basic method when shadow is on.
      *
      * @param object the {@link AObject}
      * @param idObj the id of the {@link AObject}

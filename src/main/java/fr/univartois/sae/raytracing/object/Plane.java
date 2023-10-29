@@ -64,7 +64,6 @@ public class Plane extends AObject{
             return null;
         double t =up/down;
         return new Point(lookFrom.addition(d.scalarMultiplication(t).getTriplet()));
-
     }
 
 

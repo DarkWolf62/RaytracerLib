@@ -10,22 +10,61 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author matheo.dupuis
  *
  * This class represents a builder for the {@link Scene} and implements the interface {@link IBuilder}
+ *
+ * @author matheo.dupuis
  */
 public class SceneBuilder implements IBuilder{
 
+    /**
+     * The width of the image
+     */
     private int width;
+
+    /**
+     * The height of the image
+     */
     private int height;
+
+    /**
+     * The camera placement
+     */
     private ArrayList<Triplet> camera;
+
+    /**
+     * The list of lights of the image
+     */
     private ArrayList<Light> lights;
+
+    /**
+     * The colors of the image
+     */
     private Map<String, Object> colors;
+
+    /**
+     * The list of objects of the image
+     */
     private ArrayList<AObject> objects;
+
+    /**
+     * The field of view
+     */
     private int fov;
+
+    /**
+     * The amount of shininess of the {@link AObject}
+     */
     private double shininess;
+
+    /**
+     * The output file name
+     */
     private String output;
 
+    /**
+     * The shadow activation
+     */
     private boolean shadow;
 
     /**
@@ -33,8 +72,8 @@ public class SceneBuilder implements IBuilder{
      * @param width the width of the {@link Scene}
      * @param height the height of the {@link Scene}
      * @param shininess the shininess of the {@link Color}
-     * @param shadow the value of shadow for the {@link Scene}
      * @param output the output file of the {@link Scene}
+     * @param shadow the value of shadow for the {@link Scene}
      */
     @Override
     public void buildScene(int width, int height, double shininess, String output, boolean shadow) {

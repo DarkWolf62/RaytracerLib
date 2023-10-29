@@ -9,10 +9,11 @@ import java.util.Objects;
 
 
 /**
- * @author nicolas.nourry
- * @author leo.denis
  *
  * this class represents a {@link Sphere}
+ *
+ * @author nicolas.nourry
+ * @author leo.denis
  */
 public class Sphere extends AObject {
     /**

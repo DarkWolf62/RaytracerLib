@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class is used to set a {@link List} of {@link Light} used create the shadow and impelments the interface {@link IShadow}
+ *
  * @author matheo.dupuis
  * @author leo.denis
- *This class is used to set a {@link List} of {@link Light} used create the shadow and impelments the interface {@link IShadow}
  */
 public class RealShadow implements IShadow{
 

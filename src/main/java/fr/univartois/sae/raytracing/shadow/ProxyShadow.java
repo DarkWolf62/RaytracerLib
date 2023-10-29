@@ -8,9 +8,10 @@ import fr.univartois.sae.raytracing.triplet.Point;
 import java.util.List;
 
 /**
- * @author matheo.dupuis
  *
  * This class is used as a proxy to call the method of {@link RealShadow} and implements the interface {@link IShadow}
+ *
+ * @author matheo.dupuis
  */
 public class ProxyShadow implements IShadow{
 

@@ -10,14 +10,19 @@ import fr.univartois.sae.raytracing.scene.Scene;
 import fr.univartois.sae.raytracing.scene.SceneBuilder;
 
 /**
+ * This is the main class used to run the program
+ *
  * @author matheo.dupuis
  * @author nicolas.nourry
  * @author nicolas.blart
  * @author leo.denis
- *
- * This is the main class used to run the programm
  */
 public class Main {
+
+    /**
+     * Launch the program
+     * @param args : arguments of the main method
+     */
     public static void main(String[] args){
         // Creation of the parser and construction of the scene
         Parser parser = new Parser("src/main/resources/fr.univartois.sae.raytracing/test.txt");
@@ -35,7 +40,6 @@ public class Main {
             strategy = new PhongModel();
         } else
             strategy = new LambertModel();
-
 
         //Creation of a RayTracing object who generate the image thanks to his constructor
         new RayTracing(scene, strategy);

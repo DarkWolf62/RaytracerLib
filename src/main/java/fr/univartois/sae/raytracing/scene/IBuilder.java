@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author matheo.dupuis
  *
  * This Interface is used to build a {@link Scene}
+ *
+ * @author matheo.dupuis
  */
 public interface IBuilder {
 

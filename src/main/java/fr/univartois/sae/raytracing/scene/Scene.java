@@ -10,25 +10,65 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author matheo.dupuis
  *
  * this class represents the {@link Scene}
+ *
+ * @author matheo.dupuis
  */
 public class Scene {
 
+    /**
+     * The width of the image
+     */
     private final int width;
+
+    /**
+     * The height of the image
+     */
     private final int height;
+
+    /**
+     * The camera placement
+     */
     private final ArrayList<Triplet> camera;
+
+    /**
+     * The list of lights of the image
+     */
     private final ArrayList<Light> lights;
+
+    /**
+     * The colors of the image
+     */
     private final Map<String,Object> colors;
+
+    /**
+     * The list of objects of the image
+     */
     private final ArrayList<AObject> objects;
+
+    /**
+     * The field of view
+     */
     private final int fov;
+
+    /**
+     * The output file name
+     */
     private final String output;
+
+    /**
+     * The amount of shininess of the {@link AObject}
+     */
     private final double shininess;
+
+    /**
+     * The shadow activation
+     */
     private final boolean shadow;
 
     /**
-     * Constructor using image's dimension, camera's information, lights, colors, objects
+     * Constructor using image's dimension, camera's information, lights, colors, objects and object's information
      *
      * @param width : the width of the {@link Scene}
      * @param height : the height of the {@link Scene}
@@ -39,6 +79,7 @@ public class Scene {
      * @param fov : the field of view
      * @param shininess : the amount of shininess of the {@link AObject}
      * @param output : the output file
+     * @param shadow : the shadow activation
      */
     public Scene(int width, int height, List<Triplet> camera, List<Light> lights, Map<String,Object> colors, List<AObject> objects, int fov, String output, double shininess, boolean shadow) {
         this.width = width;
@@ -117,6 +158,10 @@ public class Scene {
         return fov;
     }
 
+    /**
+     * Encapsulation method to retrieve the amount of shininess of the {@link AObject}
+     * @return the amount of shininess of the {@link AObject}
+     */
     public double getShininess(){ return shininess; }
 
     /**
@@ -143,6 +188,7 @@ public class Scene {
                 ", fov=" + fov +
                 ", shininess" + shininess +
                 ", output=" + output +
+                ", shadow=" + shadow +
                 '}';
     }
 }

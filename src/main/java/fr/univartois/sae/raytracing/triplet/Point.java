@@ -1,8 +1,9 @@
 package fr.univartois.sae.raytracing.triplet;
 /**
- * @author nicolas.nourry
  *
  * This class represents a {@link Point}.
+ *
+ * @author nicolas.nourry
  */
 
 public class Point {

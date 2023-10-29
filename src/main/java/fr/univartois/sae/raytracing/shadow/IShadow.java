@@ -8,9 +8,10 @@ import fr.univartois.sae.raytracing.triplet.Point;
 import java.util.List;
 
 /**
- * @author matheo.dupuis
  *
  *This interface is used to implements the shadows
+ *
+ * @author matheo.dupuis
  */
 public interface IShadow {
 
