@@ -77,6 +77,7 @@ public class Parser {
      * @return an {@link List} with all the objects
      */
     public List<AObject> getObject() {
+        Plane plane = null;
         ArrayList<AObject> res = new ArrayList<>();
         Point[] vertex = null;
         int nbV = 0;
@@ -102,7 +103,7 @@ public class Parser {
                     case "sphere" ->
                             res.add(0,new Sphere(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), parseDouble(line[4]), c));
                     case "plane" ->
-                            res.add(0, new Plane(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Vector(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])), c));
+                            plane=new Plane(new Point(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])), new Vector(parseDouble(line[4]), parseDouble(line[5]), parseDouble(line[6])), c);
                     default -> {
                         break;
                     }
@@ -112,6 +113,8 @@ public class Parser {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        if(plane != null)
+            res.add(0,plane);
         return res;
     }
 
